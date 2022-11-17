@@ -11,6 +11,9 @@
 
 body {
   height: 100vh;
+  overflow-x: hidden;
+  position: absolute;
+  top: 0;
 }
 
 @layer components {
