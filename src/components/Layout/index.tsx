@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <Header />
       <div className=" bg-circle top-[-50vw] right-[-35vw]" />
-      <main className="mt-[10vh] w-100 h-[80vh] p-[0_45px]">{children}</main>
+      <main className="mt-[10vh] w-100 h-[80vh] px-[45px] relative">{children}</main>
       <Footer />
     </>
   );
