@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+
+body {
+  height: 100vh;
+}
+
+@layer components {
+  .bg-circle-background {
+    background: radial-gradient(circle, #98b9eb 55%, #ffffff4d 55%, #adc6ef 100%);
+    opacity: 0.35;
+    border-radius: 50%;
+    position: fixed;
+    z-index: -1;
+  }
+
+  .bg-circle {
+    width: 100vw;
+    height: 100vw;
+    @apply bg-circle-background;
+  }
+}
