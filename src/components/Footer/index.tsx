@@ -8,7 +8,7 @@ const authorsArray = ['BlackPawsStudio', 'maiklshetinin', 'vvsar'];
 const Footer = () => {
   return (
     <footer
-      className={`flex h-fit w-[100vw] flex-col  items-center justify-between
+      className={`flex h-fit w-screen flex-col  items-center justify-between
       bg-header p-[10px] text-[24px] text-headerText lg:h-[10vh] lg:flex-row lg:p-[0_45px]`}
     >
       <Link href="https://rs.school/react/" className="flex items-end">

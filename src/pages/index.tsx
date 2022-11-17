@@ -1,9 +1,15 @@
 import { NextPage } from 'next';
 
+import ContentField from '../components/ContentField';
+import PageTitle from '../components/PageTitle';
+import SearchBar from '../components/SearchBar';
+
 const Home: NextPage = () => {
   return (
     <>
-      <h1 className="">You are now on the main page</h1>
+      <PageTitle>Page title</PageTitle>
+      <SearchBar text={'Search boards:'} onSubmit={(str) => {}} />
+      <ContentField className=""><></></ContentField>
     </>
   );
 };
