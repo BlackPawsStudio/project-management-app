@@ -4,7 +4,7 @@ interface LoaderProps {
 
 const Loader = ({ size }: LoaderProps) => {
   return (
-    <div className={`${size} relative border rounded-full shadow-xxl`}>
+    <div className={`${size} relative rounded-full border shadow-xxlInner`}>
       <span className="loader-circle animate-pulse-1 bg-[#98b9eb]" />
       <span className="loader-circle animate-pulse-2 bg-[#5883c2]" />
       <span className="loader-circle animate-pulse-3 bg-[#adc6ef]" />

@@ -16,7 +16,7 @@ const SearchBar = ({ text, onSubmit }: SearchBarProps) => {
       <div className="relative flex h-[45px] w-[220px] items-center">
         <input
           type="text"
-          className="h-full w-full rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxl focus:outline-none"
+          className="h-full w-full rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none"
           onChange={(e) => setSearchValue(e.target.value)}
         />
         <Image

@@ -6,16 +6,18 @@ import SearchBar from '../SearchBar';
 
 interface PageBase {
   title: string;
-  onSubmit?: (search: string) => void;
   children: ReactNode | ReactNode[];
+  className?: string;
+  text?: string;
+  onSubmit?: (search: string) => void;
 }
 
-const PageBase = ({ title, onSubmit, children }: PageBase) => {
+const PageBase = ({ title, onSubmit, children, className, text }: PageBase) => {
   return (
     <>
       <PageTitle>{title}</PageTitle>
-      {onSubmit && <SearchBar text={'Search boards:'} onSubmit={onSubmit} />}
-      <ContentField className="">{children}</ContentField>
+      {text && onSubmit && <SearchBar text={text} onSubmit={onSubmit} />}
+      <ContentField className={className}>{children}</ContentField>
     </>
   );
 };

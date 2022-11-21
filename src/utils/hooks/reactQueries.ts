@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
-import { BoardType } from '../types';
+import { BoardType, ColumnType, IssueType } from '../types';
 
 export const useGetBoardByIdQuery = (id?: string): UseQueryResult<BoardType, unknown> => {
   return useQuery(
@@ -9,13 +9,46 @@ export const useGetBoardByIdQuery = (id?: string): UseQueryResult<BoardType, unk
       await (
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${id}`, {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNzZjOTlkNWI5YzczODExYzFmOTUyOCIsImxvZ2luIjoiSU1hc2siLCJpYXQiOjE2Njg3MjkzMDUsImV4cCI6MTY2ODc3MjUwNX0.XkfuOLpZe5MsHnKbGBlksZs1un2-3VY0OUKSWdrpMJw'
+            Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
           }
         })
       ).json(),
     {
       enabled: !!id
+    }
+  );
+};
+
+export const useGetBoardColumnsQuery = (id?: string): UseQueryResult<ColumnType[], unknown> => {
+  return useQuery(
+    ['getColumnsByBoardId', id],
+    async () =>
+      await (
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${id}/columns`, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
+          }
+        })
+      ).json(),
+    {
+      enabled: !!id
+    }
+  );
+};
+
+export const useGetColumnIssuesQuery = (boardId?: string, columnId?: string): UseQueryResult<IssueType[], unknown> => {
+  return useQuery(
+    ['getIssuesByColumnId', boardId],
+    async () =>
+      await (
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${boardId}/columns/${columnId}/tasks`, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
+          }
+        })
+      ).json(),
+    {
+      enabled: !!boardId && !!columnId
     }
   );
 };
