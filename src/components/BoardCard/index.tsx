@@ -12,11 +12,11 @@ interface BoardCardProps {
 
 const BoardCard = ({ boardData, tasks, columns, children }: BoardCardProps) => {
   return (
-    <div>
-      <h4>{boardData.title}</h4>
-      <span>Members: {boardData.users.length + 1}</span>
-      <span>Issues: {tasks}</span>
-      <span>Columns: {columns}</span>
+    <div className="w-fit bg-boardCard rounded-[30px] p-4">
+      <h4 className="text-center text-[32px] font-bold text-primaryText">{boardData.title}</h4>
+      <p className="text-center text-[32px] text-primaryText leading-none">Members: {boardData.users.length + 1}</p>
+      <p className="text-center text-[32px] text-primaryText leading-none">Issues: {tasks}</p>
+      <p className="text-center text-[32px] text-primaryText leading-none">Columns: {columns}</p>
       <>{children}</>
     </div>
   );

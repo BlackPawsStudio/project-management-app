@@ -70,9 +70,9 @@ const UserPage = () => {
     //   )}
     // </>
     <>
-      <PageBase title={tempUser.name.toUpperCase()}>
-        <h3>My boards</h3>
-        <div>
+      <PageBase title={tempUser.name.toUpperCase()} onSubmit={(str) => {}}>
+        <h3 className="w-100 text-center text-[48px] font-bold text-primaryText mt-[30px]">My boards</h3>
+        <div className="w-100 flex justify-center">
           {tempBoards.map((board) => (
             <BoardCard key={board._id} boardData={board} tasks={tempTasks.length} columns={tempColumns.length}>
               {tempColumns.map((column) => (
