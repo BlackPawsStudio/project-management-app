@@ -3,7 +3,7 @@ export interface BoardType {
   title: string;
   owner: string;
   users: string[];
-  columns: ColumnType[];
+  columns?: ColumnType[];
 }
 
 export interface IssueType {
