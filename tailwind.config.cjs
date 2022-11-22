@@ -10,6 +10,7 @@ module.exports = {
         header: '#B6C9E6',
         headerText: '#2667C9',
         section: '#E2E4F2',
+        boardCard: '#A7ACC6',
         inputBackground: '#E8EFFA'
       },
       boxShadow: {
