@@ -8,7 +8,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ text, onSubmit }: SearchBarProps) => {
-  const [searchValue, setSearchVaule] = useState('');
+  const [searchValue, setSearchValue] = useState('');
 
   return (
     <div className="absolute right-[45px] top-[17px] flex items-center gap-3 text-[24px] text-headerText">
@@ -16,8 +16,8 @@ const SearchBar = ({ text, onSubmit }: SearchBarProps) => {
       <div className="relative flex h-[45px] w-[220px] items-center">
         <input
           type="text"
-          className="h-full w-full rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxl focus:outline-none"
-          onChange={(e) => setSearchVaule(e.target.value)}
+          className="h-full w-full rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none"
+          onChange={(e) => setSearchValue(e.target.value)}
         />
         <Image
           src={glassIcon}
