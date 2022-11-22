@@ -11,12 +11,32 @@ const tempUser = {
   name: 'John Smith',
 };
 
-const tempBoards = [{
-  _id: '001',
-  title: 'Daily Routine',
-  owner: 'John Smith',
-  users: ['Jane Smith', 'Harry Smith']
-}];
+const tempBoards = [
+  {
+    _id: '001',
+    title: 'Daily Routine',
+    owner: 'John Smith',
+    users: ['Jane Smith', 'Harry Smith']
+  },
+  {
+    _id: '001',
+    title: 'Daily Routine',
+    owner: 'John Smith',
+    users: ['Jane Smith', 'Harry Smith']
+  },
+  {
+    _id: '001',
+    title: 'Daily Routine',
+    owner: 'John Smith',
+    users: ['Jane Smith', 'Harry Smith']
+  },
+  {
+    _id: '001',
+    title: 'Daily Routine',
+    owner: 'John Smith',
+    users: ['Jane Smith', 'Harry Smith']
+  },
+];
 
 const tempColumns = [
   {
@@ -30,6 +50,14 @@ const tempColumns = [
   {
     _id: '0003',
     title: 'Done'
+  },
+  {
+    _id: '0004',
+    title: 'Foo'
+  },
+  {
+    _id: '0005',
+    title: 'Bar'
   },
 ];
 
@@ -71,15 +99,17 @@ const UserPage = () => {
     // </>
     <>
       <PageBase title={tempUser.name.toUpperCase()} onSubmit={(str) => {}}>
-        <h3 className="w-100 text-center text-[48px] font-bold text-primaryText mt-[30px]">My boards</h3>
-        <div className="w-100 flex justify-center">
-          {tempBoards.map((board) => (
-            <BoardCard key={board._id} boardData={board} tasks={tempTasks.length} columns={tempColumns.length}>
-              {tempColumns.map((column) => (
-                <ColumnTitleField key={column._id}>{column.title}</ColumnTitleField>
-              ))}
-            </BoardCard>
-          ))}
+        <h3 className="text-center text-[42px] font-bold text-primaryText my-[24px]">My boards</h3>
+        <div className="w-full h-4/5">
+          <div className="h-full min-w-min mx-8 flex gap-[20px] overflow-auto justify-around page-scrollbar">
+            {tempBoards.map((board) => (
+              <BoardCard key={board._id} boardData={board} tasks={tempTasks.length} columns={tempColumns.length}>
+                {tempColumns.map((column) => (
+                  <ColumnTitleField key={column._id}>{column.title}</ColumnTitleField>
+                ))}
+              </BoardCard>
+            ))}
+          </div>
         </div>
       </PageBase>
     </>
