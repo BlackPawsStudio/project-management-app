@@ -4,7 +4,7 @@ import ContentField from '../ContentField';
 import PageTitle from '../PageTitle';
 import SearchBar from '../SearchBar';
 
-interface PageBase {
+interface PageBaseProps {
   title: string;
   children: ReactNode | ReactNode[];
   className?: string;
@@ -12,7 +12,7 @@ interface PageBase {
   onSubmit?: (search: string) => void;
 }
 
-const PageBase = ({ title, onSubmit, children, className, text }: PageBase) => {
+const PageBase = ({ title, onSubmit, children, className, text }: PageBaseProps) => {
   return (
     <>
       <PageTitle>{title}</PageTitle>

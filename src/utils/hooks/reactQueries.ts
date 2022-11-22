@@ -1,6 +1,5 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-
-import { BoardType, ColumnType, IssueType } from '../types';
+import { UserType, BoardType, ColumnType, IssueType } from '../types';
 
 export const useGetBoardByIdQuery = (id?: string): UseQueryResult<BoardType, unknown> => {
   return useQuery(
@@ -8,6 +7,23 @@ export const useGetBoardByIdQuery = (id?: string): UseQueryResult<BoardType, unk
     async () =>
       await (
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${id}`, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
+          }
+        })
+      ).json(),
+    {
+      enabled: !!id
+    }
+  );
+};
+
+export const useGetUserByIdQuery = (id?: string): UseQueryResult<UserType, unknown> => {
+  return useQuery(
+    ['getUserById', id],
+    async () =>
+      await (
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
           headers: {
             Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
           }
