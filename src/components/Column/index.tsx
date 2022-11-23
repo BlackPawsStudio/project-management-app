@@ -55,7 +55,7 @@ const Column = ({ propData }: { propData: ColumnType }) => {
         )}
       </div>
       <div className="flex min-h-[92%] w-full flex-col gap-3 overflow-auto px-3 pt-1">
-        {!isLoading && !isError && data.map((el, id) => <Issue data={el} key={id} />)}
+        {!isLoading && !isError && data.map((el, id) => <Issue column={propData} data={el} key={id} />)}
       </div>
     </div>
   );
