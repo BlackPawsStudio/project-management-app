@@ -22,14 +22,10 @@ const Issue = ({ data, column }: IssueProps) => {
 
   const modalWindow = (
     <div className="relative min-h-[500px] w-[600px] cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl">
-      <h6 className="absolute w-full text-center text-3xl font-bold">{data.title}</h6>
+      <h6 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{data.title}</h6>
       <div className="mb-5 flex h-fit w-full items-center justify-between">
         <h6 className="text-3xl">{column.title}</h6>
-        {isAdmin && (
-          <button>
-            <Image src={deleteIco} alt="Delete button" width={20} />
-          </button>
-        )}
+        {isAdmin && <Image src={deleteIco} alt="Delete button" width={20} className="button" />}
       </div>
 
       <article className="mt-8 w-full text-left text-2xl">{text}</article>
@@ -100,9 +96,7 @@ const Issue = ({ data, column }: IssueProps) => {
     </div>
   );
 
-  return <Modal open={modalOpener}>
-    {modalWindow}
-  </Modal>;
+  return <Modal open={modalOpener}>{modalWindow}</Modal>;
 };
 
 export default Issue;
