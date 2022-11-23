@@ -106,10 +106,10 @@ const UserPage = () => {
         <h3 className="my-[24px] text-center text-[42px] font-bold text-primaryText">My boards</h3>
         <div className="w-[calc(100% - 100px)] mx-[50px] h-4/5 overflow-auto">
           <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
-            {tempBoards.map((board) => (
-              <BoardCard key={board._id} boardData={board} tasks={tempTasks.length} columns={tempColumns.length}>
-                {tempColumns.map((column) => (
-                  <ColumnTitleField key={column._id}>{column.title}</ColumnTitleField>
+            {tempBoards.map((board, id) => (
+              <BoardCard key={id} boardData={board} tasks={tempTasks.length} columns={tempColumns.length}>
+                {tempColumns.map((column, id) => (
+                  <ColumnTitleField key={id}>{column.title}</ColumnTitleField>
                 ))}
               </BoardCard>
             ))}
