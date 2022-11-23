@@ -3,6 +3,7 @@ export interface BoardType {
   title: string;
   owner: string;
   users: string[];
+  columns?: ColumnType[];
 }
 
 export interface IssueType {
@@ -13,7 +14,6 @@ export interface IssueType {
   columnId: string;
   description: string;
   userId: number;
-  users: string[];
 }
 
 export interface ColumnType {

@@ -9,6 +9,19 @@
   transition: all 0.3s;
 }
 
+*::-webkit-scrollbar {
+  height: 14px;
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 100vh;
+}
+*::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 100vh;
+  background: #B6C9E6;
+}
+
 body {
   height: 100vh;
   overflow-x: hidden;
@@ -30,38 +43,18 @@ body {
     height: 100vw;
     @apply bg-circle-background;
   }
-}
 
-@layer utilities {
-  .page-scrollbar::-webkit-scrollbar {
-    height: 14px;
+  .loader-circle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    opacity: 0.5;
   }
 
-  .page-scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: #cccdd9;
-    border: 2px solid #cccdd9;
-  }
-
-  .page-scrollbar::-webkit-scrollbar-thumb {
-    background: #A7ACC6;
-    border-radius: 100vh;
-    border: 3px solid #cccdd9;
-  }
-
-  .card-scrollbar::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  .card-scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: #E2E4F2;
-    border: 2px solid #E2E4F2;
-  }
-
-  .card-scrollbar::-webkit-scrollbar-thumb {
-    background: #B6C9E6;
-    border-radius: 100vh;
-    border: 2px solid #E2E4F2;
+  .button {
+    @apply hover:scale-105 active:scale-95;
   }
 }

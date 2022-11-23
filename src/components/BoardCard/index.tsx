@@ -11,15 +11,16 @@ interface BoardCardProps {
 
 const BoardCard = ({ boardData, tasks, columns, children }: BoardCardProps) => {
   return (
-    <div className="w-fit h-[95%] shrink-0 bg-boardCard rounded-[30px] p-4">
-      <h4 className="mb-[5px] text-center text-[28px] font-bold text-primaryText">{boardData.title}</h4>
-      <p className="text-center text-[24px] my-[3px] text-primaryText leading-none">Members: {boardData.users.length + 1}</p>
-      <p className="text-center text-[24px] my-[3px] text-primaryText leading-none">Issues: {tasks}</p>
-      <p className="text-center text-[24px] my-[3px] text-primaryText leading-none">Columns: {columns}</p>
-      <div className="max-h-[55%] my-[10px] overflow-auto card-scrollbar">
-        <>{children}</>
+    <div className="h-[95%] w-fit shrink-0 rounded-[30px] bg-boardCard py-4">
+      <h4 className="mx-4 mb-[5px] text-center text-[28px] font-bold text-primaryText">{boardData.title}</h4>
+      <p className="mx-4 my-[3px] text-center text-[24px] leading-none text-primaryText">
+        Members: {boardData.users.length + 1}
+      </p>
+      <p className="mx-4 my-[3px] text-center text-[24px] leading-none text-primaryText">Issues: {tasks}</p>
+      <p className="mx-4 my-[3px] text-center text-[24px] leading-none text-primaryText">Columns: {columns}</p>
+      <div className="card-scrollbar my-[10px] max-h-[55%] m-full px-4 overflow-auto">
+        <div className='h-fit flex-col flex gap-[10px]'>{children}</div>
       </div>
-      
     </div>
   );
 };

@@ -8,7 +8,7 @@ import ColumnTitleField from '../../components/ColumnTitleField';
 // import { useGetUserByIdQuery } from '../../../utils/hooks/reactQueries';
 
 const tempUser = {
-  name: 'John Smith',
+  name: 'John Smith'
 };
 
 const tempBoards = [
@@ -35,7 +35,7 @@ const tempBoards = [
     title: 'Daily Routine',
     owner: 'John Smith',
     users: ['Jane Smith', 'Harry Smith']
-  },
+  }
 ];
 
 const tempColumns = [
@@ -58,7 +58,7 @@ const tempColumns = [
   {
     _id: '0005',
     title: 'Bar'
-  },
+  }
 ];
 
 const tempTasks = [
@@ -69,7 +69,7 @@ const tempTasks = [
   {
     _id: '00002',
     title: 'Dinner'
-  },
+  }
 ];
 
 const UserPage = () => {
@@ -98,14 +98,18 @@ const UserPage = () => {
     //   )}
     // </>
     <>
-      <PageBase title={tempUser.name.toUpperCase()} onSubmit={(str) => {}}>
-        <h3 className="text-center text-[42px] font-bold text-primaryText my-[24px]">My boards</h3>
-        <div className="w-full h-4/5">
-          <div className="h-full min-w-min mx-8 flex gap-[20px] overflow-auto justify-around page-scrollbar">
-            {tempBoards.map((board) => (
-              <BoardCard key={board._id} boardData={board} tasks={tempTasks.length} columns={tempColumns.length}>
-                {tempColumns.map((column) => (
-                  <ColumnTitleField key={column._id}>{column.title}</ColumnTitleField>
+      <PageBase
+        title={tempUser.name.toUpperCase()}
+        className={'mx-auto w-[95vw] overflow-hidden'}
+        onSubmit={(str) => {}}
+      >
+        <h3 className="my-[24px] text-center text-[42px] font-bold text-primaryText">My boards</h3>
+        <div className="w-[calc(100% - 100px)] mx-[50px] h-4/5 overflow-auto">
+          <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
+            {tempBoards.map((board, id) => (
+              <BoardCard key={id} boardData={board} tasks={tempTasks.length} columns={tempColumns.length}>
+                {tempColumns.map((column, id) => (
+                  <ColumnTitleField key={id}>{column.title}</ColumnTitleField>
                 ))}
               </BoardCard>
             ))}
