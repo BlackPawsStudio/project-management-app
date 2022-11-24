@@ -41,8 +41,8 @@ const Column = ({ propData }: { propData: ColumnType }) => {
               className="h-full w-[150px] rounded-lg bg-inputBackground px-2.5 shadow-xxlInner focus:outline-none"
             />
             <div className="flex gap-2">
-              <Image onClick={changeTitle} src={tick} alt="" className="button cursor-pointer" />
-              <Image onClick={() => setIsChanging(false)} src={cross} alt="" className="button cursor-pointer" />
+              <Image onClick={changeTitle} src={tick} alt="" className="button" />
+              <Image onClick={() => setIsChanging(false)} src={cross} alt="" className="button" />
             </div>
           </div>
         ) : (

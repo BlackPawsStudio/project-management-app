@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import BoardPageComponent from '../../../components/BoardPage';
 
-import Column from '../../../components/Column';
 import Loader from '../../../components/Loader';
 import PageBase from '../../../components/PageBase';
 import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/hooks/reactQueries';
@@ -10,7 +9,7 @@ import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/ho
 const BoardPage = () => {
   const router = useRouter();
 
-  const { data, isLoading, isError, status } = useGetBoardByIdQuery(
+  const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
   );
 
