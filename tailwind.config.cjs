@@ -13,6 +13,7 @@ module.exports = {
         inputBackground: '#E8EFFA',
         boardCard: '#A7ACC6',
         issueBg: '#FDFDFD',
+        circle:'#98B9EB'
       },
       boxShadow: {
         xxlInner: 'inset 2px 2px 4px #0000003f',

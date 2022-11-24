@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 import Button from '../Button';
 import DropdownMenu from '../DropdownMenu';
+import LogIn from '../LogIn/LogIn';
+import Modal from '../Modal';
 
 const Header = () => {
   const router = useRouter();
@@ -14,8 +16,10 @@ const Header = () => {
         <h1 className="w-100 cursor-pointer text-[40px] font-bold italic text-headerText">NEXT BOARD</h1>
       </Link>
       <div className="absolute right-[45px] flex items-center gap-[40px]">
+
+
         <Button>SIGN UP</Button>
-        <Button>LOG IN</Button>
+        <Modal open={<Button>LOG IN</Button>}><LogIn/></Modal>
       </div>
     </header>
   );
