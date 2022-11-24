@@ -30,18 +30,12 @@ body {
 }
 
 @layer components {
-  .bg-circle-background {
+  .bg-circle {
     background: radial-gradient(circle, #98b9eb 55%, #ffffff4d 55%, #adc6ef 100%);
     opacity: 0.35;
     border-radius: 50%;
     position: fixed;
     z-index: -1;
-  }
-
-  .bg-circle {
-    width: 100vw;
-    height: 100vw;
-    @apply bg-circle-background;
   }
 
   .loader-circle {
