@@ -4,7 +4,7 @@ const DropdownMenu = () => {
   const [isDown, setIsDown] = useState(false);
 
   return (
-    <div className={`absolute ${isDown ? 'top-0' : 'top-[-80vh]'} left-0 duration-[1s]`}>
+    <aside className={`absolute ${isDown ? 'top-0' : 'top-[-80vh]'} left-0 duration-[1s]`}>
       <div
         className={`z-[2] h-[80vh] w-[25vw] rounded-[0_0_50px_0] bg-headerText duration-[1s] ${
           isDown && 'shadow-[0_0_200px_50px_#000]'
@@ -21,7 +21,7 @@ const DropdownMenu = () => {
         className="button z-1 ml-6 h-[10px] w-[10px] border-[30px] border-t-[70px] border-headerText border-b-transparent"
         onClick={() => setIsDown(!isDown)}
       ></div>
-    </div>
+    </aside>
   );
 };
 
