@@ -56,5 +56,6 @@ body {
 
   .button {
     @apply hover:scale-105 active:scale-95;
+    cursor: pointer;
   }
 }
