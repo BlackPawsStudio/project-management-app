@@ -1,3 +1,4 @@
+import Router, { useRouter } from 'next/router';
 import { BoardType } from '../../utils/types';
 import {
   useGetBoardByIdQuery,
@@ -22,7 +23,9 @@ const BoardCard = ({ boardData }: { boardData: BoardType }) => {
     isError: isIssuesError
   } = useGetBoardIssuesQuery(boardData._id);
 
-  
+  const goToBoardPage = () => {
+    Router.push(`/board/${boardData._id}`);
+  }
 
   return (
     <>
@@ -34,7 +37,7 @@ const BoardCard = ({ boardData }: { boardData: BoardType }) => {
         && !isIssuesLoading
         && !isIssuesError
         &&
-        <div className="h-[95%] w-fit shrink-0 rounded-[30px] bg-boardCard py-4 m-2 shadow-xxlInner cursor-pointer button">
+        <div onClick={goToBoardPage} className="h-[95%] w-fit shrink-0 rounded-[30px] bg-boardCard py-4 m-2 shadow-xxlInner cursor-pointer button">
           <h4 className="mx-4 mb-[5px] text-center text-[28px] font-bold text-primaryText">{data.title}</h4>
           <p className="mx-4 my-[3px] text-center text-[24px] leading-none text-primaryText">
             Members: {data.users.length + 1}
