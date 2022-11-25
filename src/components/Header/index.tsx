@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 
 import Button from '../Button';
 import DropdownMenu from '../DropdownMenu';
-import LogIn from '../LogIn/LogIn';
+import LogIn from '../LogIn';
 import Modal from '../Modal';
+import ModalAttention from '../ModalAttention';
 
 const Header = () => {
   const router = useRouter();
@@ -19,7 +20,9 @@ const Header = () => {
 
 
         <Button>SIGN UP</Button>
-        <Modal open={<Button>LOG IN</Button>}><LogIn/></Modal>
+        <Modal open={<Button>LOG IN</Button>}><LogIn /></Modal>
+
+        <Modal open={<Button>ModalAttention</Button>}><ModalAttention/></Modal>
       </div>
     </header>
   );
