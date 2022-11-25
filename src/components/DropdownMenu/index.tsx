@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AddIssueModal from "../AddIssueModal";
 
 const DropdownMenu = () => {
   const [isDown, setIsDown] = useState(false);
@@ -13,7 +14,7 @@ const DropdownMenu = () => {
         <ul className="flex h-full w-full flex-col items-center justify-center gap-10 text-3xl text-white">
           <li className="button">Rename board</li>
           <li className="button">Add table</li>
-          <li className="button">Add issue</li>
+          <AddIssueModal />
           <li className="button">Delete board</li>
         </ul>
       </div>

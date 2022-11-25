@@ -34,8 +34,7 @@ body {
     background: radial-gradient(circle, #98b9eb 55%, #ffffff4d 55%, #adc6ef 100%);
     opacity: 0.35;
     border-radius: 50%;
-    position: fixed;
-    z-index: -1;
+    position: absolute;
   }
 
   .loader-circle {

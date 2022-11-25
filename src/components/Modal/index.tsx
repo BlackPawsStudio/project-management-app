@@ -1,13 +1,26 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, ReactNode, useState } from 'react';
+import { Fragment, ReactNode, useEffect, useState } from 'react';
 
 interface ModalProps {
   children: ReactNode | ReactNode[];
   open: ReactNode | ReactNode[];
+  isDefaultOpen?: boolean;
 }
 
-const Modal = ({ children, open }: ModalProps) => {
+const Modal = ({ children, open, isDefaultOpen }: ModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [wasTriggered, setWasTriggered] = useState(false);
+
+  useEffect(() => {
+    if (isDefaultOpen && !wasTriggered) {
+      setIsOpen(false);
+      setWasTriggered(true);
+    }
+  }, [isDefaultOpen]);
+
+  useEffect(() => {
+    if (isOpen) setWasTriggered(false);
+  }, [isOpen]);
 
   return (
     <>
