@@ -5,7 +5,7 @@ interface InputProps {
   type?: string
 }
 
-const Input = ({ placeholder, onChange, size, type }: InputProps) => {  
+const Input = ({ placeholder, onChange, size, type }: InputProps) => {
   return (
     <input
       placeholder={placeholder}
