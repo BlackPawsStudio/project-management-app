@@ -1,14 +1,39 @@
-import Button from "../Button"
+import { ReactNode, useState } from 'react';
+import Button from '../Button';
+import Modal from '../Modal';
 
-const ModalAttention = () => {
-  return (
-    <div className="flex flex-col justify-between w-[550px] h-[190px] bg-section rounded-[15px] pt-[25px] px-[20px] pb-[25px]">
-      <h2 className="text-[28px] font-bold text-titleText text-center">Attention! You will be redirected to homepage.</h2>
-      <div className="flex justify-center">
-        <Button className="w-[80px] h-[38px] font-bold" submit={true}>OK</Button>
-      </div>
-    </div>
-  )
+interface ModalAttentionProps {
+  text: string;
+  onSubmit: () => void;
+  children: ReactNode | ReactNode[];
 }
 
-export default ModalAttention
+const ModalAttention = ({ text, onSubmit, children }: ModalAttentionProps) => {  
+  const [isDefaultOpen, setIsDefaultOpen] = useState(false);
+  const modalOpener = children;
+
+  const onClick = () => {
+    onSubmit();
+    setIsDefaultOpen(true);
+    setTimeout(() => setIsDefaultOpen(false));
+  }
+
+  const modalWindow = (
+    <div className="flex h-[190px] w-[550px] flex-col justify-between rounded-[15px] bg-section px-[20px] pt-[25px] pb-[25px]">
+      <h2 className="text-center text-[28px] font-bold text-titleText">{text}</h2>
+      <div className="flex justify-center">
+        <Button className="h-[38px] w-[80px] font-bold" submit onClick={onClick}>
+          OK
+        </Button>
+      </div>
+    </div>
+  );
+
+  return (
+    <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>
+      {modalWindow}
+    </Modal>
+  );
+};
+
+export default ModalAttention;

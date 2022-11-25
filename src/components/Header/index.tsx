@@ -2,11 +2,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Button from '../Button';
 import DropdownMenu from '../DropdownMenu';
-import LogIn from '../LogIn';
+import LogInModal from '../LogInModal';
 import Modal from '../Modal';
 import ModalAttention from '../ModalAttention';
 import ModalSure from '../ModalSure';
-
 
 const Header = () => {
   const router = useRouter();
@@ -18,13 +17,14 @@ const Header = () => {
         <h1 className="w-100 cursor-pointer text-[40px] font-bold italic text-headerText">NEXT BOARD</h1>
       </Link>
       <div className="absolute right-[45px] flex items-center gap-[40px]">
-
-
-        <Button>SIGN UP</Button>
-        <Modal open={<Button>LOG IN</Button>}><LogIn /></Modal>
-
-        <Modal open={<Button>ModalSure</Button>}><ModalSure/></Modal>
-        <Modal open={<Button>ModalAttention</Button>}><ModalAttention/></Modal>
+        <LogInModal />
+        <LogInModal isLogin />
+        <ModalSure text={'Are you sure you want to delete board'} onSubmit={() => {}}>
+          <Button>ModalSure</Button>
+        </ModalSure>
+        <ModalAttention text={'Attention! You will be redirected to homepage.'} onSubmit={() => {}}>
+          <Button>ModalAttention</Button>
+        </ModalAttention>
       </div>
     </header>
   );

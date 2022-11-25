@@ -1,15 +1,44 @@
-import Button from "../Button"
+import { ReactNode, useState } from 'react';
+import Button from '../Button';
+import Modal from '../Modal';
 
-const ModalSure = () => {
-  return (
-    <div className="flex flex-col justify-between w-[550px] h-[190px] bg-section rounded-[15px] pt-[25px] px-[20px] pb-[40px]">
-      <h2 className="text-[28px] font-bold text-titleText">Are you sure you want to delete board</h2>
-      <div className="flex justify-between px-[90px]">
-        <Button className="w-[107px] h-[44px] font-bold" submit={true}>Yes</Button>
-        <Button className="w-[107px] h-[44px] font-bold" cancel={true}>No</Button>
-      </div>
-    </div>
-  )
+interface ModalSureProps {
+  text: string;
+  onSubmit: () => void;
+  children: ReactNode | ReactNode[];
 }
 
-export default ModalSure
+const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
+  const [isDefaultOpen, setIsDefaultOpen] = useState(false);
+
+  const modalOpener = children;
+
+  const modalWindow = (
+    <div className="flex h-[190px] w-[550px] flex-col justify-between rounded-[15px] bg-section px-[20px] pt-[25px] pb-[40px]">
+      <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
+      <div className="flex justify-between px-[90px]">
+        <Button
+          className="h-[44px] w-[107px] font-bold"
+          cancel={true}
+          onClick={() => {
+            setIsDefaultOpen(true);
+            setTimeout(() => setIsDefaultOpen(false));
+          }}
+        >
+          No
+        </Button>
+        <Button className="h-[44px] w-[107px] font-bold" submit={true} onClick={onSubmit}>
+          Yes
+        </Button>
+      </div>
+    </div>
+  );
+
+  return (
+    <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>
+      {modalWindow}
+    </Modal>
+  );
+};
+
+export default ModalSure;
