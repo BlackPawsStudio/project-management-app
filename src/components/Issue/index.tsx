@@ -63,7 +63,7 @@ const Issue = ({ data, column }: IssueProps) => {
   );
 
   const modalOpener = (
-    <div className="button min-h-[130px] w-full cursor-pointer rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl">
+    <div className="button min-h-[130px] w-full rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl">
       <div className="mb-5 flex h-fit w-full items-center justify-between">
         <h6 className=" text-2xl">{data.title}</h6>
       </div>

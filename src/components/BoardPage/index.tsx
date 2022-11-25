@@ -17,7 +17,9 @@ const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
       ) : data.length > 0 ? (
         <div className="w-[calc(100% - 100px)] mx-[50px] h-full overflow-auto">
           <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
-            {data.map((el, id) => <Column propData={el} key={id} />)}
+            {data.map((el, id) => (
+              <Column propData={el} key={id} />
+            ))}
           </div>
         </div>
       ) : (
