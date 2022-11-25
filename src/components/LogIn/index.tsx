@@ -17,8 +17,8 @@ const LogIn = () => {
             <Input size="w-[296px] h-[47px]" type='password'/>
           </div>
           <div className="flex justify-between">
-            <Button className="w-[130px] h-[47px]">Confirm</Button>
-            <Button className="w-[130px] h-[47px]">Cancel</Button>
+            <Button className="w-[130px] h-[47px]" submit={true} type="submit">Confirm</Button>
+            <Button className="w-[130px] h-[47px]" cancel={true}>Cancel</Button>
           </div>
         </div>
       </div>
