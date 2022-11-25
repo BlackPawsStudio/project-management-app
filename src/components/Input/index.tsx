@@ -6,7 +6,6 @@ interface InputProps {
 }
 
 const Input = ({ placeholder, onChange, size, type }: InputProps) => {
-
   return (
     <input
       placeholder={placeholder}
