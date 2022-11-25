@@ -23,7 +23,24 @@ export const useGetUserByIdQuery = (id?: string): UseQueryResult<UserType, unkno
     ['getUserById', id],
     async () =>
       await (
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
+          }
+        })
+      ).json(),
+    {
+      enabled: !!id
+    }
+  );
+};
+
+export const useGetBoardsSetByUserIdQuery = (id?: string): UseQueryResult<BoardType[], unknown> => {
+  return useQuery(
+    ['getBoardsSetByUserId', id],
+    async () =>
+      await (
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boardsSet/${id}`, {
           headers: {
             Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
           }
@@ -41,6 +58,23 @@ export const useGetBoardColumnsQuery = (id?: string): UseQueryResult<ColumnType[
     async () =>
       await (
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${id}/columns`, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
+          }
+        })
+      ).json(),
+    {
+      enabled: !!id
+    }
+  );
+};
+
+export const useGetBoardIssuesQuery = (id?: string): UseQueryResult<IssueType[], unknown> => {
+  return useQuery(
+    ['getIssuesByBoardId', id],
+    async () =>
+      await (
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasksSet/${id}`, {
           headers: {
             Authorization: process.env.NEXT_PUBLIC_BEARER_TOKEN as string
           }
