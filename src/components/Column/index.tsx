@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useGetColumnIssuesQuery } from '../../utils/hooks/reactQueries';
+import { useGetColumnIssuesQuery } from '../../utils/hooks/reactGetQueries';
 import { ColumnType } from '../../utils/types';
 import Issue from '../Issue';
 import tick from '/public/assets/component-images/tick.svg';
@@ -34,7 +34,7 @@ const Column = ({ propData }: { propData: ColumnType }) => {
     <div className="flex h-full min-w-[300px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner">
       <div ref={titleParent}>
         {isChanging ? (
-          <div className="flex h-8 w-full items-center justify-between px-3 text-[24px] font-bold">
+          <div className="flex h-8 w-full items-center justify-between px-3 text-2xl font-bold">
             <input
               ref={titleInputRef}
               defaultValue={title}
@@ -47,7 +47,7 @@ const Column = ({ propData }: { propData: ColumnType }) => {
           </div>
         ) : (
           <h5
-            className="mx-3 h-8 w-full cursor-pointer text-[24px] font-bold text-primaryText"
+            className="mx-3 h-8 w-full cursor-pointer text-2xl font-bold text-primaryText"
             onClick={() => setIsChanging(true)}
           >
             {title}

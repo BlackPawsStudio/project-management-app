@@ -19,12 +19,12 @@ const Header = () => {
       <div className="absolute right-[45px] flex items-center gap-[40px]">
         <LogInModal />
         <LogInModal isLogin />
-        <ModalSure text={'Are you sure you want to delete board'} onSubmit={() => {}}>
+        {/* <ModalSure text={'Are you sure you want to delete board'} onSubmit={() => {}}>
           <Button>ModalSure</Button>
         </ModalSure>
         <ModalAttention text={'Attention! You will be redirected to homepage.'} onSubmit={() => {}}>
           <Button>ModalAttention</Button>
-        </ModalAttention>
+        </ModalAttention> */}
       </div>
     </header>
   );

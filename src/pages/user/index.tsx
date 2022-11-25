@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Loader from '../../components/Loader';
 import PageBase from '../../components/PageBase';
 import UserPageComponent from '../../components/UserPage';
-import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/hooks/reactQueries';
+import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/hooks/reactGetQueries';
 
 // Hardcode!!!
 // ==========================================

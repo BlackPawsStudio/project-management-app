@@ -28,3 +28,8 @@ export interface UserType {
   name: string;
   login: string;
 }
+
+export interface LogInType {
+  login: string;
+  password: string;
+}

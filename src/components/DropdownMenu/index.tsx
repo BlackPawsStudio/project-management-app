@@ -7,8 +7,8 @@ const DropdownMenu = () => {
   return (
     <aside className={`absolute ${isDown ? 'top-0' : 'top-[-80vh]'} left-0 duration-[1s]`}>
       <div
-        className={`z-[2] h-[80vh] w-[25vw] rounded-[0_0_50px_0] bg-headerText duration-[1s] ${
-          isDown && 'shadow-[0_0_200px_50px_#000]'
+        className={`z-[2] h-[80vh] w-[25vw] rounded-[0_0_50px_0] bg-headerText duration-[0.5s] ${
+          isDown && 'shadow-[0_0_15px_25px_#00000043]'
         }`}
       >
         <ul className="flex h-full w-full flex-col items-center justify-center gap-10 text-3xl text-white">
