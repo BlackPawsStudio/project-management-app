@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { LogInType } from '../types';
+import { LogInType as AuthType } from '../types';
 
 const postRequest = async <T>(url: string, body: T) =>
   await (
@@ -9,11 +9,23 @@ const postRequest = async <T>(url: string, body: T) =>
 
 export const useLogInMutation = () => {
   return useMutation({
-    mutationFn: async (logInData: LogInType) => {
-      return await postRequest<LogInType>('/auth/signin', {
+    mutationFn: async (logInData: AuthType) => {
+      return await postRequest<AuthType>('/auth/signin', {
         login: logInData.login,
         password: logInData.password
       });
     }
   });
 };
+
+export const useSignUpMutation = () => {
+  return useMutation({
+    mutationFn: async (logInData: AuthType) => {
+      return await postRequest<AuthType>('/auth/signup', {
+        name: logInData.name,
+        login: logInData.login,
+        password: logInData.password
+      });
+    }
+  });
+}

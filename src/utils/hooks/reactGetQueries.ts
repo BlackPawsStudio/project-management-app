@@ -6,7 +6,7 @@ const getRequest = async (url: string) =>
   await (
     await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('userToken')}`
+        Authorization: `Bearer ${localStorage.getItem('nextBoardUserToken')}`
       }
     })
   ).data;

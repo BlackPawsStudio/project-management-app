@@ -30,6 +30,7 @@ export interface UserType {
 }
 
 export interface LogInType {
+  name?: string;
   login: string;
   password: string;
 }

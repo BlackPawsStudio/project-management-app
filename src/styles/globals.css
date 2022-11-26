@@ -19,14 +19,21 @@
 *::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 100vh;
-  background: #B6C9E6;
+  background: #b6c9e6;
 }
 
 body {
   height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
   position: absolute;
   top: 0;
+}
+
+@media (max-width: 1000px) {
+  body {
+    overflow: visible;
+    overflow-x: hidden;
+  }
 }
 
 @layer components {
