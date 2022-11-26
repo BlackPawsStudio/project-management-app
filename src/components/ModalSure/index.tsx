@@ -11,6 +11,11 @@ interface ModalSureProps {
 const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
 
+  const onSubmitFunc = () => {
+    setIsDefaultOpen(true);
+    onSubmit();
+  }
+
   const modalOpener = children;
 
   const modalWindow = (
@@ -27,7 +32,7 @@ const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
         >
           No
         </Button>
-        <Button className="h-[44px] w-[107px] font-bold" submit={true} onClick={onSubmit}>
+        <Button className="h-[44px] w-[107px] font-bold" submit={true} onClick={onSubmitFunc}>
           Yes
         </Button>
       </div>

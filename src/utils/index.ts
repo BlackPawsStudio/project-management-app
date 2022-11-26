@@ -13,3 +13,8 @@ export const parseJwt = (token: string) => {
 
   return JSON.parse(jsonPayload);
 };
+
+export const cleanLocalStorage = () => {
+  localStorage.removeItem('nextBoardUserId');
+  localStorage.removeItem('nextBoardUserToken');
+}
