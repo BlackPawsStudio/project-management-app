@@ -28,3 +28,9 @@ export interface UserType {
   name: string;
   login: string;
 }
+
+export interface LogInType {
+  name?: string;
+  login: string;
+  password: string;
+}

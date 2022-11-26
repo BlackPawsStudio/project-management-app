@@ -4,7 +4,7 @@ import BoardPageComponent from '../../../components/BoardPage';
 
 import Loader from '../../../components/Loader';
 import PageBase from '../../../components/PageBase';
-import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/hooks/reactQueries';
+import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/hooks/reactGetQueries';
 
 const BoardPage = () => {
   const router = useRouter();

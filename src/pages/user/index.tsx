@@ -1,28 +1,32 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Loader from '../../components/Loader';
 import PageBase from '../../components/PageBase';
 import UserPageComponent from '../../components/UserPage';
-import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/hooks/reactQueries';
-
-// Hardcode!!!
-// ==========================================
-const userID = '6376c99d5b9c73811c1f9528';
-// ==========================================
+import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/hooks/reactGetQueries';
 
 const UserPage = () => {
   const router = useRouter();
 
-  const { data, isLoading, isError } = useGetUserByIdQuery(userID);
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const data = localStorage.getItem('nextBoardUserId');
+    if (data) {
+      setUserId(data);
+    } else {
+      router.push('/404');
+    }
+  }, []);
+
+  const { data, isLoading, isError } = useGetUserByIdQuery(userId as string);
 
   const {
     data: boardsSetData,
     isLoading: isBoardsSetLoading,
     isError: isBoardsSetError
-  } = useGetBoardsSetByUserIdQuery(userID);
-
-
+  } = useGetBoardsSetByUserIdQuery(userId as string);
 
   useEffect(() => {
     if (isError || isBoardsSetError) {
@@ -43,10 +47,7 @@ const UserPage = () => {
           className={'mx-auto w-[95vw] overflow-hidden'}
           onSubmit={() => {}}
         >
-          {boardsSetData && <UserPageComponent
-            boardsSetData={boardsSetData}
-            isBoardsSetLoading={isBoardsSetLoading}
-          />}
+          {boardsSetData && <UserPageComponent boardsSetData={boardsSetData} isBoardsSetLoading={isBoardsSetLoading} />}
         </PageBase>
       )}
     </>
