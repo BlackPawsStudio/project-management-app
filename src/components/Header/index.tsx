@@ -40,10 +40,10 @@ const Header = () => {
       <Link href={'/'}>
         <h1 className="w-100 cursor-pointer text-[40px] font-bold italic text-headerText">NEXT BOARD</h1>
       </Link>
-      <LangSwitch />
       <div className="absolute right-[45px] flex items-center gap-[40px]">
         {isLoggedIn ? (
           <>
+            <LangSwitch />
             {router.pathname.includes('user') ? (
               <ModalSure text="Are you sure want to delete account?" onSubmit={deleteAccount}>
                 <Button>Delete account</Button>

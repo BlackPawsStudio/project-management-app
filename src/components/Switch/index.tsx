@@ -9,17 +9,17 @@ const LangSwitch = () => {
     return classes.join(' ');
   }
 
-  const outerStyle = 'w-[90px] h-[36px] px-[2px] rounded-lg flex justify-center items-center cursor-pointer';
+  const outerStyle = `
+    group w-[90px] h-[36px] px-[2px] rounded-lg flex justify-center items-center
+    cursor-pointer
+  `;
   const innerStyle = `
     w-[32px] h-[28px] rounded-lg text-[20px] leading-6 font-bold
+    bg-white text-headerText group-hover:bg-headerText group-hover:text-background
     pointer-events-none transform transition duration-200
   `;
   const borderStyle = 'border-solid border-[3px] border-headerText';
-  const uiStyle = `
-    ui-not-checked:bg-white ui-not-checked:text-headerText
-    ui-checked:bg-headerText ui-checked:text-background
-    ui-checked:translate-x-3/4 ui-not-checked:-translate-x-3/4
-  `;
+  const uiStyle = 'ui-checked:translate-x-3/4 ui-not-checked:-translate-x-3/4';
 
   return (
     <Switch
