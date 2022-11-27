@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { cleanLocalStorage } from '../../utils';
 import { useDeleteUserMutation } from '../../utils/hooks/reactDeleteQueries';
-import Switch from '../Switch';
+import LangSwitch from '../Switch';
 import Button from '../Button';
 import DropdownMenu from '../DropdownMenu';
 import LogInModal from '../LogInModal';
@@ -40,7 +40,7 @@ const Header = () => {
       <Link href={'/'}>
         <h1 className="w-100 cursor-pointer text-[40px] font-bold italic text-headerText">NEXT BOARD</h1>
       </Link>
-      <Switch />
+      <LangSwitch />
       <div className="absolute right-[45px] flex items-center gap-[40px]">
         {isLoggedIn ? (
           <>
