@@ -9,6 +9,20 @@
   transition: all 0.3s;
 }
 
+@media (max-width: 1000px) {
+  .body::-webkit-scrollbar {
+    background-color: transparent;
+  }
+  .body::-webkit-scrollbar-track {
+    border-radius: 100vh;
+  }
+  .body::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 100vh;
+    background: #b6c9e6;
+  }
+}
+
 *::-webkit-scrollbar {
   height: 14px;
   width: 12px;
@@ -22,7 +36,8 @@
   background: #b6c9e6;
 }
 
-body {
+.body {
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: absolute;
@@ -30,7 +45,7 @@ body {
 }
 
 @media (max-width: 1000px) {
-  body {
+  .body {
     overflow: visible;
     overflow-x: hidden;
   }
