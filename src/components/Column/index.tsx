@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-
 import { useGetColumnIssuesQuery } from '../../utils/hooks/reactGetQueries';
 import { ColumnType } from '../../utils/types';
 import Issue from '../Issue';
@@ -7,12 +6,21 @@ import tick from '/public/assets/component-images/tick.svg';
 import cross from '/public/assets/component-images/cross.svg';
 import Image from 'next/image';
 import autoAnimate from '@formkit/auto-animate';
+import { useDeleteColumnMutation } from '../../utils/hooks/reactDeleteQueries';
+import { DiffieHellmanGroup } from 'crypto';
 
-const Column = ({ propData }: { propData: ColumnType }) => {
+interface IProps {
+  propData: ColumnType
+  columnsRefetch: () => void
+}
+
+const Column: React.FC<IProps> = ({ propData, columnsRefetch}) => {
+  console.log(propData);
+
   const { data, isLoading, isError } = useGetColumnIssuesQuery(propData.boardId, propData._id);
-
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
+  const deleteColumn = useDeleteColumnMutation()
 
   const titleInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -46,13 +54,22 @@ const Column = ({ propData }: { propData: ColumnType }) => {
             </div>
           </div>
         ) : (
-          <h5
-            className="mx-3 h-8 w-full cursor-pointer text-2xl font-bold text-primaryText"
-            onClick={() => setIsChanging(true)}
-          >
-            {title}
-          </h5>
+          <div className='flex'>
+            <h5
+              className="mx-3 h-8 w-full cursor-pointer text-2xl font-bold text-primaryText"
+              onClick={() => setIsChanging(true)}
+            >
+              {title}
+            </h5>
+            <button
+              onClick={() => {
+                deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
+                  columnsRefetch()
+              }}
+            >delete</button>
+          </div>
         )}
+
       </div>
       <div className="flex min-h-[92%] w-full flex-col gap-3 overflow-auto px-3 pt-1">
         {!isLoading && !isError && data.map((el, id) => <Issue column={propData} data={el} key={id} />)}

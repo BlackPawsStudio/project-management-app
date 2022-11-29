@@ -34,3 +34,8 @@ export interface LogInType {
   login: string;
   password: string;
 }
+
+export interface CreateColumnType {
+  title: string,
+  order: number
+}
