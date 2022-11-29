@@ -8,12 +8,13 @@ import Image from 'next/image';
 import autoAnimate from '@formkit/auto-animate';
 import { useDeleteColumnMutation } from '../../utils/hooks/reactDeleteQueries';
 import deleteIco from '/public/assets/component-images/deleteIcon.svg';
+import ModalSure from '../ModalSure';
 interface IProps {
   propData: ColumnType
   columnsRefetch: () => void
 }
 
-const Column: React.FC<IProps> = ({ propData, columnsRefetch}) => {
+const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
   const { data, isLoading, isError } = useGetColumnIssuesQuery(propData.boardId, propData._id);
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
@@ -35,6 +36,11 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch}) => {
     }
   };
 
+  const removeColumn = async () => {
+    await deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
+    columnsRefetch()
+  }
+
   return (
     <div className="flex h-full min-w-[300px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner">
       <div ref={titleParent}>
@@ -53,17 +59,14 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch}) => {
         ) : (
           <div className='flex'>
             <h5
-              className="mx-3 h-8 w-full cursor-pointer text-2xl font-bold text-primaryText"
+              className="mx-3 h-8 w-[80%] cursor-pointer text-2xl font-bold text-primaryText"
               onClick={() => setIsChanging(true)}
             >
               {title}
             </h5>
-            <button
-              onClick={async () => {
-               await deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
-                  columnsRefetch()
-              }}
-              ><Image src={deleteIco} alt="Delete button" width={20} className="button" /></button>
+            <ModalSure text="Are you sure want to delete account?" onSubmit={removeColumn}>
+              <Image src={deleteIco} alt="Delete button" width={20} className="button" />
+            </ModalSure>
           </div>
         )}
 
