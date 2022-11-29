@@ -1,8 +1,10 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCreateColumnMutation } from '../../utils/hooks/reactPostQueries';
 import { ColumnType } from '../../utils/types';
 import Column from '../Column';
 import Loader from '../Loader';
+import crossAdd from '/public/assets/component-images/crossAdd.svg';
 
 interface BoardPageProps {
   data: ColumnType[];
@@ -13,6 +15,11 @@ interface BoardPageProps {
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
   const addColumn = useCreateColumnMutation()
   const router = useRouter()
+
+  const createColumn = async () => {
+    await addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'ff', order: 6 } })
+    columnsRefetch()
+  }
 
   return (
     <>
@@ -26,12 +33,9 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
             {data.map((el, id) => (
               <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
             ))}
-              <button
-                onClick={async() => {
-                 await addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'ff', order: 6 } })
-                  columnsRefetch()
-                }}
-              >Add Column</button>
+              <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
+                <Image src={crossAdd} alt="add button" width={75} className="button" />
+              </button>
             </div>
         </div>
       ) : (

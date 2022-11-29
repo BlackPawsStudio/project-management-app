@@ -64,7 +64,7 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
             >
               {title}
             </h5>
-            <ModalSure text="Are you sure want to delete account?" onSubmit={removeColumn}>
+            <ModalSure text="Are you sure want to delete column?" onSubmit={removeColumn}>
               <Image src={deleteIco} alt="Delete button" width={20} className="button" />
             </ModalSure>
           </div>
