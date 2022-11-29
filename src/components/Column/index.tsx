@@ -7,16 +7,13 @@ import cross from '/public/assets/component-images/cross.svg';
 import Image from 'next/image';
 import autoAnimate from '@formkit/auto-animate';
 import { useDeleteColumnMutation } from '../../utils/hooks/reactDeleteQueries';
-import { DiffieHellmanGroup } from 'crypto';
-
+import deleteIco from '/public/assets/component-images/deleteIcon.svg';
 interface IProps {
   propData: ColumnType
   columnsRefetch: () => void
 }
 
 const Column: React.FC<IProps> = ({ propData, columnsRefetch}) => {
-  console.log(propData);
-
   const { data, isLoading, isError } = useGetColumnIssuesQuery(propData.boardId, propData._id);
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
@@ -62,11 +59,11 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch}) => {
               {title}
             </h5>
             <button
-              onClick={() => {
-                deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
+              onClick={async () => {
+               await deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
                   columnsRefetch()
               }}
-            >delete</button>
+              ><Image src={deleteIco} alt="Delete button" width={20} className="button" /></button>
           </div>
         )}
 

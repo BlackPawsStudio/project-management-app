@@ -27,8 +27,8 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
               <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
             ))}
               <button
-                onClick={() => {
-                  addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'ff', order: 6 } })
+                onClick={async() => {
+                 await addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'ff', order: 6 } })
                   columnsRefetch()
                 }}
               >Add Column</button>
