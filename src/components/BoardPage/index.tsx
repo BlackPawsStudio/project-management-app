@@ -19,7 +19,7 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
   const router = useRouter()
 
   const createColumn = async () => {
-    await addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'ff', order: 6 } })
+    await addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'new column', order: 0 } })
     columnsRefetch()
   }
 
@@ -41,11 +41,11 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
           </div>
         </div>
       ) : (
-        <div>
-          <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
+            <div className=' flex w-[calc(100% - 100px)] mx-[50px] h-full'>
           <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
             <Image src={crossAdd} alt="add button" width={75} className="button" />
           </button>
+          <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
         </div>
       )}
     </>

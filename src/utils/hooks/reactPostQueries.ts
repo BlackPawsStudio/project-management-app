@@ -48,12 +48,6 @@ export const useCreateColumnMutation = () => {
   });
 }
 
-type IssueDescription = {
-  text: string,
-  importance: string,
-  estimation: string,
-  theme: string
-}
 
 interface createIssueType {
   title: string,
