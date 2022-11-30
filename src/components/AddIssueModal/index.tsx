@@ -49,7 +49,11 @@ const AddIssueModal: React.FC<IProps> = ({ propData, refetch }) => {
             >
               Cancel
             </Button>
-            <Button submit onClick={addIssue}>
+            <Button submit onClick={() => {
+              addIssue()
+              setIsDefaultOpen(true);
+              setTimeout(() => setIsDefaultOpen(false));
+            }}>
               Confirm
             </Button>
           </div>
