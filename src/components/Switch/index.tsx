@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
 
 const LangSwitch = () => {
-  const isLangRu = (localStorage && localStorage.getItem('i18nextLng') === 'ru') ? true : false;
+  const isLangRu = (localStorage.getItem('i18nextLng') === 'ru') ? true : false;
 
   const [ruEnabled, setRuEnabled] = useState(isLangRu);
   const innerText = ruEnabled ? 'Ru' : 'En';
