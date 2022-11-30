@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { ColumnType } from '../../utils/types';
 import Column from '../Column';
 import Loader from '../Loader';
@@ -12,6 +13,14 @@ interface BoardPageProps {
 
 const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
   const { t } = useTranslation();
+  
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+  if (!loaded) {
+    return null;
+  }
   
   return (
     <>

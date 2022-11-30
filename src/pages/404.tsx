@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+// import Loader from '../components/Loader';
 import Button from '../components/Button';
 import { useTranslation } from 'react-i18next';
 import '../utils/i18next';
@@ -7,6 +9,14 @@ const NotFoundPage = () => {
   const router = useRouter();
 
   const { t } = useTranslation();
+
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <div className="flex h-full w-full items-center justify-center text-headerText">

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 interface ButtonProps {
   onClick?: () => void;
@@ -10,6 +10,13 @@ interface ButtonProps {
 }
 
 const Button = ({ onClick, type, children, className, submit, cancel }: ButtonProps) => {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+  if (!loaded) {
+    return null;
+  }
   const hover = `${submit ? 'hover:bg-submit' : cancel ? 'hover:bg-cancel' : 'hover:brightness-150'}`;
   return (
     <button

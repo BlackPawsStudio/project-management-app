@@ -62,7 +62,7 @@ const Header = () => {
           </>
         ) : (
           <>
-            {/* <LangSwitch /> */}
+            <LangSwitch />
             <LogInModal />
             <LogInModal isLogin />
           </>

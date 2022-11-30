@@ -3,7 +3,6 @@ import '../styles/globals.css';
 import { AppType } from 'next/app';
 import Head from 'next/head';
 import { useState } from 'react';
-
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 

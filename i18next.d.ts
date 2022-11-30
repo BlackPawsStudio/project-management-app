@@ -1,4 +1,4 @@
-import "i18next";
+import "react-i18next";
 
 import en from "./public/locales/en/translation.json";
 

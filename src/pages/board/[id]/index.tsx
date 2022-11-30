@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import BoardPageComponent from '../../../components/BoardPage';
 
 import Loader from '../../../components/Loader';
