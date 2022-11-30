@@ -1,6 +1,9 @@
 import { ColumnType } from '../../utils/types';
 import Column from '../Column';
 import Loader from '../Loader';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
+
 
 interface BoardPageProps {
   data: ColumnType[];
@@ -8,6 +11,8 @@ interface BoardPageProps {
 }
 
 const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
+  const { t } = useTranslation();
+  
   return (
     <>
       {isColumnsLoading ? (
@@ -23,7 +28,7 @@ const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
           </div>
         </div>
       ) : (
-        <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
+        <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">{t('no_columns')}</p>
       )}
     </>
   );

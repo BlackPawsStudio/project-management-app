@@ -6,6 +6,8 @@ import Button from '../Button';
 import Input from '../Input';
 import Loader from '../Loader';
 import Modal from '../Modal';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface LogInProps {
   isLogin?: boolean;
@@ -13,6 +15,9 @@ interface LogInProps {
 
 const LogInModal = ({ isLogin }: LogInProps) => {
   const router = useRouter();
+
+  const { t } = useTranslation();
+
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
 
   const [name, setName] = useState('');
@@ -75,7 +80,7 @@ const LogInModal = ({ isLogin }: LogInProps) => {
     }
   }, [signUpData, signUpIsLoading, SignUpIsError]);
 
-  const modalOpener = isLogin ? <Button>LOG IN</Button> : <Button>SIGN UP</Button>;
+  const modalOpener = isLogin ? <Button>{t('log_in')}</Button> : <Button>{t('sign_up')}</Button>;
 
   const modalWindow = (
     <div className="relative z-10 h-[650px] w-[500px] overflow-hidden rounded-[26px] bg-section">
@@ -92,16 +97,16 @@ const LogInModal = ({ isLogin }: LogInProps) => {
           <div className="flex h-[80%] w-[422px] flex-col justify-around rounded-[26px] bg-white px-[63px] py-[25px] shadow-xxlInner">
             {!isLogin && (
               <div>
-                <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">Name</h4>
+                <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">{t('name')}</h4>
                 <Input size="w-[296px] h-[47px]" onChange={setName} />
               </div>
             )}
             <div>
-              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">Username</h4>
+              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">{t('username')}</h4>
               <Input size="w-[296px] h-[47px]" onChange={setLogin} />
             </div>
             <div>
-              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">Password</h4>
+              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">{t('password')}</h4>
               <Input size="w-[296px] h-[47px]" type="password" onChange={setPassword} />
             </div>
             <div className="flex justify-between">
@@ -113,10 +118,10 @@ const LogInModal = ({ isLogin }: LogInProps) => {
                   setTimeout(() => setIsDefaultOpen(false));
                 }}
               >
-                Cancel
+                {t('cancel')}
               </Button>
               <Button className="h-[47px] w-[130px]" submit={true} type="submit" onClick={submit}>
-                Confirm
+                {t('confirm')}
               </Button>
             </div>
           </div>

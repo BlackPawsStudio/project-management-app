@@ -1,6 +1,8 @@
 import { BoardType } from '../../utils/types';
 import BoardCard from '../BoardCard';
 import Loader from '../Loader';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface UserPageProps {
   boardsSetData: BoardType[];
@@ -8,9 +10,12 @@ interface UserPageProps {
 }
 
 const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps) => {
+
+  const { t } = useTranslation();
+
   return (
     <>
-      <h3 className="my-[24px] text-center text-[42px] font-bold text-primaryText">My boards</h3>
+      <h3 className="my-[24px] text-center text-[42px] font-bold text-primaryText">{t('my_boards')}</h3>
       {isBoardsSetLoading ? (
         <div className="flex h-full max-w-full items-center justify-center">
           <Loader size={'w-[15vw] h-[15vw]'} />
@@ -23,7 +28,7 @@ const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps)
         </div>
       ) : (
         <p className="flex h-1/2 w-full items-center justify-center text-[36px] font-bold">
-          This user has no boards
+          {t('no_boards')}
         </p>
       )}
     </>

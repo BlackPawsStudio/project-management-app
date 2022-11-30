@@ -10,8 +10,14 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
-    locales: ['en'],
+    locales: ['en', 'ru'],
     defaultLocale: 'en'
   }
 };
 export default config;
+
+const { i18n } = require('./next-i18next.config')
+
+module.exports = {
+  i18n,
+}

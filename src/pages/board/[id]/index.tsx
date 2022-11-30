@@ -6,8 +6,13 @@ import Loader from '../../../components/Loader';
 import PageBase from '../../../components/PageBase';
 import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/hooks/reactGetQueries';
 
+import { useTranslation } from 'react-i18next';
+import '../../../utils/i18next';
+
 const BoardPage = () => {
   const router = useRouter();
+
+  const { t } = useTranslation();
 
   const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
@@ -34,7 +39,7 @@ const BoardPage = () => {
       ) : (
         <PageBase
           title={data.title}
-          text={'Search issues: '}
+          text={t('search_issues')}
           className={'mx-auto w-[95vw] overflow-hidden'}
           onSubmit={() => {}}
         >

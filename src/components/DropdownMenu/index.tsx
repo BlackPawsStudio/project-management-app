@@ -1,8 +1,12 @@
 import { useState } from "react";
 import AddIssueModal from "../AddIssueModal";
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 const DropdownMenu = () => {
   const [isDown, setIsDown] = useState(false);
+
+  const { t } = useTranslation();
 
   return (
     <aside className={`absolute ${isDown ? 'top-0' : 'top-[-80vh]'} left-0 duration-[1s]`}>
@@ -12,10 +16,10 @@ const DropdownMenu = () => {
         }`}
       >
         <ul className="flex h-full w-full flex-col items-center justify-center gap-10 text-3xl text-white">
-          <li className="button">Rename board</li>
-          <li className="button">Add table</li>
+          <li className="button">{t('rename_board')}</li>
+          <li className="button">{t('add_table')}</li>
           <AddIssueModal />
-          <li className="button">Delete board</li>
+          <li className="button">{t('delete_board')}</li>
         </ul>
       </div>
       <div

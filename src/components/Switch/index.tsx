@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Switch } from '@headlessui/react';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 const LangSwitch = () => {
-  const [ruEnabled, setRuEnabled] = useState(false);
+  const isLangRu = (localStorage && localStorage.getItem('i18nextLng') === 'ru') ? true : false;
+
+  const [ruEnabled, setRuEnabled] = useState(isLangRu);
   const innerText = ruEnabled ? 'Ru' : 'En';
 
   const classNames = (...classes: string[]) => {
     return classes.join(' ');
+  }
+
+  const { t, i18n } = useTranslation();
+  const switchLanguage = () => {
+    setRuEnabled(!ruEnabled);
+    i18n.changeLanguage(!ruEnabled ? 'ru' : 'en');
   }
 
   const outerStyle = `
@@ -24,7 +34,7 @@ const LangSwitch = () => {
   return (
     <Switch
       checked={ruEnabled}
-      onChange={setRuEnabled}
+      onChange={switchLanguage}
       className={classNames(outerStyle, borderStyle)}
     >
       <span className={classNames(innerStyle, borderStyle, uiStyle)}>{innerText}</span>
