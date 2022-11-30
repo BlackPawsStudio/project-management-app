@@ -9,10 +9,12 @@ import crossAdd from '/public/assets/component-images/crossAdd.svg';
 interface BoardPageProps {
   data: ColumnType[];
   isColumnsLoading: boolean;
-  columnsRefetch:()=>void
+  columnsRefetch: () => void
 }
 
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
+  console.log(data);
+
   const addColumn = useCreateColumnMutation()
   const router = useRouter()
 
@@ -30,16 +32,21 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
       ) : data.length > 0 ? (
         <div className="w-[calc(100% - 100px)] mx-[50px] h-full overflow-auto">
           <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
-            {data.map((el, id) => (
-              <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
+            {data.map((el) => (
+              <Column columnsRefetch={columnsRefetch} propData={el} key={el._id} />
             ))}
-              <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
-                <Image src={crossAdd} alt="add button" width={75} className="button" />
-              </button>
-            </div>
+            <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
+              <Image src={crossAdd} alt="add button" width={75} className="button" />
+            </button>
+          </div>
         </div>
       ) : (
-        <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
+        <div>
+          <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
+          <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
+            <Image src={crossAdd} alt="add button" width={75} className="button" />
+          </button>
+        </div>
       )}
     </>
   );

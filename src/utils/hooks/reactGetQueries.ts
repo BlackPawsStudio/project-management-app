@@ -43,7 +43,7 @@ export const useGetBoardIssuesQuery = (id?: string): UseQueryResult<IssueType[],
 
 export const useGetColumnIssuesQuery = (boardId?: string, columnId?: string): UseQueryResult<IssueType[], unknown> => {
   return useQuery(
-    ['getIssuesByColumnId', boardId],
+    ['getIssuesByColumnId', columnId],
     async () => await getRequest(`/boards/${boardId}/columns/${columnId}/tasks`),
     {
       enabled: !!boardId && !!columnId

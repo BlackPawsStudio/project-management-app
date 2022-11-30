@@ -7,7 +7,7 @@ const postRequest = async <T>(url: string, body: T) =>
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}${url}`, body, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('nextBoardUserToken')}`,
-        "Content-Type":"application/json"
+        "Content-Type": "application/json"
       }
 
     })
@@ -39,11 +39,49 @@ export const useSignUpMutation = () => {
 
 export const useCreateColumnMutation = () => {
   return useMutation({
-    mutationFn: async ({ id, BoardData }: { id?: string|string[], BoardData: CreateColumnType }) => {
+    mutationFn: async ({ id, BoardData }: { id?: string | string[], BoardData: CreateColumnType }) => {
       return await postRequest<CreateColumnType>(`/boards/${id}/columns`, {
         title: BoardData.title,
         order: BoardData.order
       });
+    }
+  });
+}
+
+type IssueDescription = {
+  text: string,
+  importance: string,
+  estimation: string,
+  theme: string
+}
+
+interface createIssueType {
+  title: string,
+  order: number,
+  description: string,
+  userId: number,
+  users: string[]
+}
+
+export const useCreateIssueMutation = () => {
+  return useMutation({
+    mutationFn: async ({ boardId, columnId }: { boardId?: string, columnId: string }) => {
+      return await postRequest<createIssueType>(`/boards/${boardId}/columns/${columnId}/tasks`,
+        {
+          title: "string",
+          order: 0,
+          description: JSON.stringify({
+            text: "string",
+            importance: "string",
+            estimation: "string",
+            theme: "string"
+          }),
+          userId: 0,
+          users: [
+            "string"
+          ]
+        }
+      )
     }
   });
 }

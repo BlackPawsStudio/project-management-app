@@ -1,13 +1,28 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useCreateIssueMutation } from '../../utils/hooks/reactPostQueries';
+import { ColumnType } from '../../utils/types';
 import Button from '../Button';
 import Input from '../Input';
 import Modal from '../Modal';
+import crossAdd from '/public/assets/component-images/crossAdd.svg';
+interface IProps {
+  propData: ColumnType
+  refetch: () => void
+}
 
-const AddIssueModal = () => {
-  const modalOpener = <li className="button">Add issue</li>;
+const AddIssueModal: React.FC<IProps> = ({ propData, refetch }) => {
+  const modalOpener = <Image src={crossAdd} alt="add button" width={25} className="button mr-[15px]" />;
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
+  const createIssue = useCreateIssueMutation()
+  const [title, setTitle] = useState('')
 
-  const addIssue = () => {};
+
+
+  const addIssue = async () => {
+    await createIssue.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
+    refetch()
+  };
 
   const modalWindow = (
     <div className="relative h-[67vh] w-[50vh] overflow-hidden rounded-2xl bg-section">
@@ -16,7 +31,7 @@ const AddIssueModal = () => {
         <h2 className="mb-[25px] text-2xl font-bold text-titleText">Add new issue</h2>
         <div className="flex h-[85%] w-full flex-col gap-[30px] rounded-2xl bg-white px-[50px] py-[30px] shadow-xxlInner">
           <div className="flex flex-col gap-[15px]">
-            <Input placeholder="Issue title" size="w-full py-1" />
+            <Input onChange={setTitle} placeholder="Issue title" size="w-full py-1" />
             <Input placeholder="Issue theme" size="w-full py-1" />
             <Input placeholder="Select an importance" size="w-full py-1" />
           </div>
