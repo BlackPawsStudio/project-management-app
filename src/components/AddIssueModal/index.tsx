@@ -15,10 +15,10 @@ const AddIssueModal: React.FC<IProps> = ({ propData, refetch }) => {
   const modalOpener = <Image src={crossAdd} alt="add button" width={25} className="button mr-[15px]" />;
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
   const createIssue = useCreateIssueMutation()
-  const [title, setTitle] = useState('')
-  const [text, setText] = useState('')
-  const [theme, setTheme] = useState('')
-  const [importance, setImportance] = useState('')
+  const [title, setTitle] = useState('title')
+  const [text, setText] = useState('text')
+  const [theme, setTheme] = useState('theme')
+  const [importance, setImportance] = useState('importance')
 
 
 

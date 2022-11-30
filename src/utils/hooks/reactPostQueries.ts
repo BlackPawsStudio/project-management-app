@@ -48,18 +48,18 @@ export const useCreateColumnMutation = () => {
   });
 }
 
-type Issue={
+type Issue = {
   boardId?: string,
   columnId: string,
   title: string,
-  text:string,
+  text: string,
   theme: string,
   importance: string
 }
 
 export const useCreateIssueMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, title,text, theme, importance }:Issue) => {
+    mutationFn: async ({ boardId, columnId, title, text, theme, importance }: Issue) => {
       return await postRequest<createIssueType>(`/boards/${boardId}/columns/${columnId}/tasks`,
         {
           title: title,
