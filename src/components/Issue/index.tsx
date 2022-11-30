@@ -8,13 +8,22 @@ import Image from 'next/image';
 
 import { ColumnType, IssueType } from '../../utils/types';
 import Modal from '../Modal';
+import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
 
 interface IssueProps {
   data: IssueType;
   column: ColumnType;
+  refetch: () => void
 }
 
-const Issue = ({ data, column }: IssueProps) => {
+
+const Issue = ({ data, column, refetch }: IssueProps) => {
+  const deleteTask = useDeleteTaskMutation()
+  const deleteIssue = async () => {
+    await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id })
+    refetch()
+  }
+
   const { text, importance, estimation, theme } = JSON.parse(data.description);
   const isAdmin = true;
 
@@ -25,7 +34,7 @@ const Issue = ({ data, column }: IssueProps) => {
       <h6 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{data.title}</h6>
       <div className="mb-5 flex h-fit w-full items-center justify-between">
         <h6 className="text-3xl">{column.title}</h6>
-        {isAdmin && <Image src={deleteIco} alt="Delete button" width={20} className="button" />}
+        {isAdmin && <Image onClick={deleteIssue} src={deleteIco} alt="Delete button" width={20} className="button" />}
       </div>
 
       <article className="mt-8 w-full text-left text-2xl">{text}</article>
@@ -40,12 +49,12 @@ const Issue = ({ data, column }: IssueProps) => {
                   +importance === 1
                     ? lowest
                     : +importance === 2
-                    ? low
-                    : +importance === 3
-                    ? middle
-                    : +importance === 4
-                    ? high
-                    : highest
+                      ? low
+                      : +importance === 3
+                        ? middle
+                        : +importance === 4
+                          ? high
+                          : highest
                 }
                 alt={`Task importance is ${importance}`}
               />
@@ -76,12 +85,12 @@ const Issue = ({ data, column }: IssueProps) => {
                 +importance === 1
                   ? lowest
                   : +importance === 2
-                  ? low
-                  : +importance === 3
-                  ? middle
-                  : +importance === 4
-                  ? high
-                  : highest
+                    ? low
+                    : +importance === 3
+                      ? middle
+                      : +importance === 4
+                        ? high
+                        : highest
               }
               alt={`Task importance is ${importance}`}
             />

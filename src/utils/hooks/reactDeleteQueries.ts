@@ -25,3 +25,10 @@ export const useDeleteColumnMutation = () => {
     }
   });
 };
+export const useDeleteTaskMutation = () => {
+  return useMutation({
+    mutationFn: async ({ boardId, columnId, taskId }: { boardId: string, columnId: string, taskId: string }) => {
+      return await deleteRequest(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
+    }
+  });
+};

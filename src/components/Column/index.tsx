@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
-  const { data, isLoading, isError,refetch } = useGetColumnIssuesQuery(propData.boardId, propData._id);
+  const { data, isLoading, isError, refetch } = useGetColumnIssuesQuery(propData.boardId, propData._id);
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
   const deleteColumn = useDeleteColumnMutation()
@@ -68,7 +68,7 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
             </h5>
 
 
-              <button><AddIssueModal propData={propData} refetch={refetch } /></button>
+            <button><AddIssueModal propData={propData} refetch={refetch} /></button>
 
             <ModalSure text="Are you sure want to delete column?" onSubmit={removeColumn}>
               <Image src={deleteIco} alt="Delete button" width={20} className="button" />
@@ -79,7 +79,7 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
 
       </div>
       <div className="flex min-h-[92%] w-full flex-col gap-3 overflow-auto px-3 pt-1">
-        {!isLoading && !isError && data.filter(el => el.columnId === propData._id).map((el, id) => <Issue column={propData} data={el} key={id} />)}
+        {!isLoading && !isError && data.filter(el => el.columnId === propData._id).map((el, id) => <Issue refetch={refetch} column={propData} data={el} key={id} />)}
         {!isLoading && !isError && data.length === 0 ? <div className='text-center mt-[48%]'>No issue</div> : ''}
       </div>
     </div>
