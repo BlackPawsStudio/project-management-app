@@ -43,7 +43,7 @@ const UserPage = () => {
       ) : (
         <PageBase
           title={data.name.toUpperCase()}
-          text={''}
+          text={'Search boards:'}
           className={'mx-auto w-[95vw] overflow-hidden'}
           onSubmit={() => {}}
         >
