@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { CreateColumnType, LogInType as AuthType } from '../types';
+import { CreateColumnType, createIssueType, LogInType as AuthType } from '../types';
 
 const postRequest = async <T>(url: string, body: T) =>
   await (
@@ -48,27 +48,27 @@ export const useCreateColumnMutation = () => {
   });
 }
 
-
-interface createIssueType {
+type Issue={
+  boardId?: string,
+  columnId: string,
   title: string,
-  order: number,
-  description: string,
-  userId: number,
-  users: string[]
+  text:string,
+  theme: string,
+  importance: string
 }
 
 export const useCreateIssueMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId }: { boardId?: string, columnId: string }) => {
+    mutationFn: async ({ boardId, columnId, title,text, theme, importance }:Issue) => {
       return await postRequest<createIssueType>(`/boards/${boardId}/columns/${columnId}/tasks`,
         {
-          title: "string",
+          title: title,
           order: 0,
           description: JSON.stringify({
-            text: "string",
-            importance: "string",
+            text: text,
+            importance: importance,
             estimation: "string",
-            theme: "string"
+            theme: theme
           }),
           userId: 0,
           users: [

@@ -16,11 +16,21 @@ const AddIssueModal: React.FC<IProps> = ({ propData, refetch }) => {
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
   const createIssue = useCreateIssueMutation()
   const [title, setTitle] = useState('')
+  const [text, setText] = useState('')
+  const [theme, setTheme] = useState('')
+  const [importance, setImportance] = useState('')
 
 
 
   const addIssue = async () => {
-    await createIssue.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
+    await createIssue.mutateAsync({
+      boardId: propData.boardId,
+      columnId: propData._id,
+      title: title,
+      text:text,
+      theme: theme,
+      importance: importance
+    })
     refetch()
   };
 
@@ -36,6 +46,7 @@ const AddIssueModal: React.FC<IProps> = ({ propData, refetch }) => {
             <Input placeholder="Select an importance" size="w-full py-1" />
           </div>
           <textarea
+            onChange={(e)=>setText(e.target.value)}
             placeholder="Issue description"
             className="min-h-[90px] w-full resize-none rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none"
           />
