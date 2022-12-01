@@ -12,10 +12,6 @@ i18n
  .init({
    supportedLngs: ['en','ru'],
    fallbackLng: "en",
-   detection: {
-     order: ['localStorage', 'cookie'],
-     caches: ['localStorage', 'cookie']
-   },
    backend: {
      loadPath: '/locales/{{lng}}/translation.json'
    },

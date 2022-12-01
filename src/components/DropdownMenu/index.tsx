@@ -1,21 +1,11 @@
-import { useState, useEffect } from "react";
-import AddIssueModal from "../AddIssueModal";
+import { useState } from 'react';
+import AddIssueModal from '../AddIssueModal';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
 
 const DropdownMenu = () => {
   const [isDown, setIsDown] = useState(false);
   const { t } = useTranslation();
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-  if (!loaded) {
-        // Returns null on first render, so the client and server match
-    return null;
-  }
-  
-  
 
   return (
     <aside className={`absolute ${isDown ? 'top-0' : 'top-[-80vh]'} left-0 duration-[1s]`}>

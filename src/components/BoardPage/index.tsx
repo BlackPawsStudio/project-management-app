@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
 import { ColumnType } from '../../utils/types';
 import Column from '../Column';
 import Loader from '../Loader';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
-
 
 interface BoardPageProps {
   data: ColumnType[];
@@ -13,15 +11,7 @@ interface BoardPageProps {
 
 const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
   const { t } = useTranslation();
-  
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-  if (!loaded) {
-    return null;
-  }
-  
+
   return (
     <>
       {isColumnsLoading ? (

@@ -15,7 +15,7 @@ const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps)
 
   return (
     <>
-      <h3 className="my-[24px] text-center text-[42px] font-bold text-primaryText">{t('my_boards')}</h3>
+      <h3 className="mb-[24px] text-center text-[42px] font-bold text-primaryText">{t('my_boards')}</h3>
       {isBoardsSetLoading ? (
         <div className="flex h-full max-w-full items-center justify-center">
           <Loader size={'w-[15vw] h-[15vw]'} />
