@@ -13,8 +13,6 @@ interface BoardPageProps {
 }
 
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
-  console.log(data);
-
   const addColumn = useCreateColumnMutation();
   const router = useRouter();
 

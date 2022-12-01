@@ -10,6 +10,8 @@ import { useDeleteColumnMutation } from '../../utils/hooks/reactDeleteQueries';
 import deleteIco from '/public/assets/component-images/deleteIcon.svg';
 import ModalSure from '../ModalSure';
 import AddIssueModal from '../AddIssueModal';
+import { useUpdateColumnMutation } from '../../utils/hooks/reactPutQueries';
+
 
 interface ColumnProps {
   propData: ColumnType;
@@ -18,6 +20,7 @@ interface ColumnProps {
 
 const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   const { data, isLoading, isError, refetch } = useGetColumnIssuesQuery(propData.boardId, propData._id);
+  const updateColumn = useUpdateColumnMutation()
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
   const deleteColumn = useDeleteColumnMutation();
@@ -28,12 +31,18 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
     titleParent.current && autoAnimate(titleParent.current);
   }, [titleParent]);
 
+  const update = async () => {
+    await updateColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id, title: title })
+    columnsRefetch();
+  }
+
   const changeTitle = () => {
     if (titleInputRef.current) {
       setTitle(titleInputRef.current.value);
       setIsChanging(false);
-      //  send put request
+      update()
     }
+
   };
 
   const removeColumn = async () => {
@@ -47,8 +56,10 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
         {isChanging ? (
           <div className="flex h-8 w-full items-center justify-between px-3 text-2xl font-bold">
             <input
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
               ref={titleInputRef}
-              defaultValue={title}
+              // defaultValue={title}
               className="h-full w-[150px] rounded-lg bg-inputBackground px-2.5 shadow-xxlInner focus:outline-none"
             />
             <div className="flex gap-2">

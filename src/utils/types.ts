@@ -56,3 +56,8 @@ export type Issue = {
   theme: string,
   importance: number
 }
+
+export type UpdateColumnType = {
+  title: string,
+  order: number
+}
