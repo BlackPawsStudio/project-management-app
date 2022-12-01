@@ -40,7 +40,7 @@ export interface CreateColumnType {
   order: number
 }
 
-export interface createIssueType {
+export interface CreateIssueType {
   title: string,
   order: number,
   description: string,
@@ -54,5 +54,5 @@ export type Issue = {
   title: string,
   text: string,
   theme: string,
-  importance: string
+  importance: number
 }
