@@ -9,6 +9,8 @@ import Image from 'next/image';
 import { ColumnType, IssueType } from '../../utils/types';
 import Modal from '../Modal';
 import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
+import { useState } from 'react';
+import { useUpdateIssueMutation } from '../../utils/hooks/reactPutQueries';
 
 interface IssueProps {
   data: IssueType;
@@ -17,20 +19,51 @@ interface IssueProps {
 }
 
 const Issue = ({ data, column, refetch }: IssueProps) => {
+  const { text, importance, estimation, theme } = JSON.parse(data.description);
+  const isAdmin = true;
+
+  const [focusInput, setFocusInput] = useState(false)
+  const [title, setTitle] = useState(data.title)
   const deleteTask = useDeleteTaskMutation();
+  const updateIssue = useUpdateIssueMutation()
+
+
   const deleteIssue = async () => {
     await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id });
     refetch();
   };
 
-  const { text, importance, estimation, theme } = JSON.parse(data.description);
-  const isAdmin = true;
+  const update = async () => {
+    await updateIssue.mutateAsync({
+      boardId:data.boardId,
+      columnId:data.columnId,
+      title:title,
+      text:text,
+      theme:theme,
+      importance: importance,
+      estimation: estimation,
+      taskId: data._id
+    })
+    refetch();
+  }
 
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
   const modalWindow = (
     <div className="relative min-h-[500px] w-[600px] cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl">
-      <h6 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{data.title}</h6>
+      {!focusInput
+        ? <h6
+          onClick={()=>setFocusInput(true)}
+          className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{title}</h6>
+        : <input
+          autoFocus
+          onBlur={() => {
+            setFocusInput(false)
+            update()
+          }}
+          onChange={(e) => setTitle(e.target.value)}
+          className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold w-[30%] bg-transparent outline-none placeholder: text-center"
+          value={title} />}
       <div className="mb-5 flex h-fit w-full items-center justify-between">
         <h6 className="text-3xl">{column.title}</h6>
         {isAdmin && <Image onClick={deleteIssue} src={deleteIco} alt="Delete button" width={20} className="button" />}
@@ -48,12 +81,12 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                   +importance === 1
                     ? lowest
                     : +importance === 2
-                    ? low
-                    : +importance === 3
-                    ? middle
-                    : +importance === 4
-                    ? high
-                    : highest
+                      ? low
+                      : +importance === 3
+                        ? middle
+                        : +importance === 4
+                          ? high
+                          : highest
                 }
                 alt={`Task importance is ${importance}`}
               />
@@ -84,12 +117,12 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                 +importance === 1
                   ? lowest
                   : +importance === 2
-                  ? low
-                  : +importance === 3
-                  ? middle
-                  : +importance === 4
-                  ? high
-                  : highest
+                    ? low
+                    : +importance === 3
+                      ? middle
+                      : +importance === 4
+                        ? high
+                        : highest
               }
               alt={`Task importance is ${importance}`}
             />
