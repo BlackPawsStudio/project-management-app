@@ -31,11 +31,11 @@ const BoardCard = ({ boardData }: { boardData: BoardType }) => {
       {!isLoading && !isError && !isColumnsLoading && !isColumnsError && !isIssuesLoading && !isIssuesError && (
         <div
           onClick={goToBoardPage}
-          className="button m-2 h-[95%] w-fit shrink-0 cursor-pointer rounded-[30px] bg-boardCard py-4 shadow-xxlInner"
+          className="button m-2 h-[400px] w-[95%] shrink-0 cursor-pointer rounded-[30px] bg-boardCard py-4 shadow-xxlInner lg:h-[95%] lg:w-[200px]"
         >
           <h4 className="mx-4 mb-[5px] text-center text-[28px] font-bold text-primaryText">{data.title}</h4>
           <p className="mx-4 my-[3px] text-center text-2xl leading-none text-primaryText">
-            Members: {data.users.length + 1}
+            Members: {data.users.length}
           </p>
           <p className="mx-4 my-[3px] text-center text-2xl leading-none text-primaryText">
             Issues: {issuesData.length}

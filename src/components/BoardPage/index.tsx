@@ -26,7 +26,7 @@ const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
             </div>
           </div>
 
-          <div className='top-0 left-0 p-[15px]'>
+          <div className="top-0 left-0 p-[15px] lg:hidden">
             <Swiper wrapperTag="div" className="w-full" spaceBetween={30} slidesPerView={1}>
               {data.map((el, id) => (
                 <SwiperSlide key={id}>
@@ -37,7 +37,9 @@ const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
           </div>
         </>
       ) : (
-        <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
+        <p className="flex h-full w-full items-center px-5 text-[36px] font-bold lg:px-0">
+          No columns in this board
+        </p>
       )}
     </>
   );

@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import BurgerFooter from '../BurgerFooter';
 import Button from '../Button';
 import LogInModal from '../LogInModal';
+import ModalSure from '../ModalSure';
 
 interface BurgerMenuProps {
   isLoggedIn?: boolean;
@@ -51,11 +52,11 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
                   {
                     <aside className="fixed top-0 left-0 h-screen w-screen bg-section">
                       <div className="bg-circle -z-1 top-[-20vh] left-[-30vh] h-[75vh] w-[75vh]" />
-                      <div className="absolute pb-[230px] top-0 left-0 flex h-full w-full flex-col items-center justify-between p-[100px_48px]">
+                      <div className="absolute top-0 left-0 flex h-full w-full flex-col items-center justify-between p-[100px_48px] pb-[230px]">
                         <div className="w-full">
+                          {pageName && <h2 className="text-lg">You are on {pageName} page</h2>}
                           {isLoggedIn && (
                             <>
-                              {pageName && <h2 className="text-lg">You are on {pageName} page</h2>}
                               <h2 className="text-2xl font-bold">Welcome {'username'}!</h2>
                               {userId && (
                                 <h3 className="cursor-pointer text-3xl" title={'Copy id ' + userId} onClick={copyText}>
@@ -65,24 +66,24 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
                             </>
                           )}
                         </div>
-                        <div className="flex w-full flex-col gap-[15px] text-[20px] text-titleText">
-                          <Link className="button w-full border-b-2 border-titleText" href="/">
+                        <div className="flex w-full flex-col gap-[7px] text-[20px] text-titleText">
+                          <Link className="button w-full pb-[7px] border-b-2 border-titleText" href="/">
                             Go to main page
                           </Link>
                           {isLoggedIn ? (
                             <>
                               {router.pathname.includes('user') ? (
-                                <div className="button w-full border-b-2 border-titleText" onClick={deleteAccount}>
-                                  Delete user
-                                </div>
+                                <ModalSure text="Are you sure want to delete account?" onSubmit={deleteAccount}>
+                                  <div className="button w-full border-b-2 border-titleText pb-[7px]">Delete user</div>
+                                </ModalSure>
                               ) : (
-                                <Link className="button w-full border-b-2 border-titleText" href="/user">
+                                <Link className="button w-full border-b-2 border-titleText pb-[7px]" href="/user">
                                   Go to user page
                                 </Link>
                               )}
-                              <div className="button" onClick={signOut}>
-                                Logout
-                              </div>
+                              <ModalSure text="Are you sure want to log out?" onSubmit={signOut}>
+                                <div className="button w-full">Logout</div>
+                              </ModalSure>
                             </>
                           ) : (
                             <>

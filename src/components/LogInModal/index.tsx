@@ -76,7 +76,9 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
   }, [signUpData, signUpIsLoading, SignUpIsError]);
 
   const modalOpener = isMobile ? (
-    <div className="button w-full border-b-2 border-titleText">{isLogin ? 'Log in' : 'Sign up'}</div>
+    <div className={`button w-full pb-[7px] ${isLogin && 'border-b-2 border-titleText'}`}>
+      {isLogin ? 'Log in' : 'Sign up'}
+    </div>
   ) : isLogin ? (
     <Button>LOG IN</Button>
   ) : (
