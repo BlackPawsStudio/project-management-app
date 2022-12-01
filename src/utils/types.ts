@@ -47,3 +47,12 @@ export interface createIssueType {
   userId: number,
   users: string[]
 }
+
+export type Issue = {
+  boardId?: string,
+  columnId: string,
+  title: string,
+  text: string,
+  theme: string,
+  importance: string
+}

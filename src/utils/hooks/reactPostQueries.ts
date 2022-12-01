@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { CreateColumnType, createIssueType, LogInType as AuthType } from '../types';
+import { CreateColumnType, createIssueType, Issue, LogInType as AuthType } from '../types';
 
 const postRequest = async <T>(url: string, body: T) =>
   await (
@@ -48,14 +48,6 @@ export const useCreateColumnMutation = () => {
   });
 }
 
-type Issue = {
-  boardId?: string,
-  columnId: string,
-  title: string,
-  text: string,
-  theme: string,
-  importance: string
-}
 
 export const useCreateIssueMutation = () => {
   return useMutation({

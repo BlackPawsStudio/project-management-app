@@ -6,19 +6,19 @@ import Button from '../Button';
 import Input from '../Input';
 import Modal from '../Modal';
 import crossAdd from '/public/assets/component-images/crossAdd.svg';
-interface IProps {
+interface AddIssueModalProps {
   propData: ColumnType
   refetch: () => void
 }
 
-const AddIssueModal: React.FC<IProps> = ({ propData, refetch }) => {
+const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
   const modalOpener = <Image src={crossAdd} alt="add button" width={25} className="button mr-[15px]" />;
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
   const createIssue = useCreateIssueMutation()
   const [title, setTitle] = useState('title')
   const [text, setText] = useState('text')
   const [theme, setTheme] = useState('theme')
-  const [importance, setImportance] = useState('importance')
+  const [importance, setImportance] = useState(1)
 
 
 
@@ -42,8 +42,18 @@ const AddIssueModal: React.FC<IProps> = ({ propData, refetch }) => {
         <div className="flex h-[85%] w-full flex-col gap-[30px] rounded-2xl bg-white px-[50px] py-[30px] shadow-xxlInner">
           <div className="flex flex-col gap-[15px]">
             <Input onChange={setTitle} placeholder="Issue title" size="w-full py-1" />
-            <Input placeholder="Issue theme" size="w-full py-1" />
-            <Input placeholder="Select an importance" size="w-full py-1" />
+            <Input onChange={setTheme} placeholder="Issue theme" size="w-full py-1" />
+
+            <select
+              onChange={(e) => setImportance(Number(e.target.value))}
+              placeholder="Select an importance"
+              className="w-full py-1 rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none">
+              <option value={1}>lowest</option>
+              <option value={2}>low</option>
+              <option value={3}>middle</option>
+              <option value={4}>high</option>
+              <option value={5}>highest</option>
+            </select>
           </div>
           <textarea
             onChange={(e)=>setText(e.target.value)}
