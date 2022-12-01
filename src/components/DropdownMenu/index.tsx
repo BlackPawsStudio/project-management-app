@@ -8,7 +8,7 @@ const DropdownMenu = () => {
   const { t } = useTranslation();
 
   return (
-    <aside className={`absolute ${isDown ? 'top-0' : 'top-[-80vh]'} left-0 duration-[1s]`}>
+    <aside className={`absolute ${isDown ? 'top-0' : 'top-[-80vh]'} left-0 duration-[1s] hidden lg:block`}>
       <div
         className={`z-[2] h-[80vh] w-[25vw] rounded-[0_0_50px_0] bg-headerText duration-[0.5s] ${
           isDown && 'shadow-[0_0_15px_25px_#00000043]'

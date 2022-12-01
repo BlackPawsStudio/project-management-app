@@ -40,7 +40,7 @@ const BoardPage = () => {
         <PageBase
           title={data.title}
           text={t('search_issues')}
-          className={'mx-auto w-[95vw] overflow-hidden'}
+          className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
           onSubmit={() => {}}
         >
           {columnsData && <BoardPageComponent data={columnsData} isColumnsLoading={isColumnsLoading} />}

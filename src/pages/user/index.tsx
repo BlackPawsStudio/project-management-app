@@ -40,8 +40,8 @@ const UserPage = () => {
       ) : (
         <PageBase
           title={data.name.toUpperCase()}
-          text={''}
-          className={'mx-auto w-[95vw] overflow-hidden'}
+          text={'Search boards:'}
+          className={'lg:mx-auto lg:w-[95vw] overflow-hidden'}
           onSubmit={() => {}}
         >
           {boardsSetData && <UserPageComponent boardsSetData={boardsSetData} isBoardsSetLoading={isBoardsSetLoading} />}

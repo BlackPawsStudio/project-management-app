@@ -4,7 +4,7 @@ import PageBase from '../components/PageBase';
 
 const Home: NextPage = () => {
   return (
-    <PageBase title={'Page title'} onSubmit={(str) => {}}>
+    <PageBase title='Welcome!' onSubmit={(str) => {}}>
       <></>
     </PageBase>
   );

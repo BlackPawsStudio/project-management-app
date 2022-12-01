@@ -33,7 +33,7 @@ const MyApp: AppType<CustomPageProps> = ({ Component, pageProps }) => {
   return render ? (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Layout>
           <Head>
             <title>Next Board</title>
