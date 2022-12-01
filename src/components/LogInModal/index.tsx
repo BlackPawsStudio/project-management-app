@@ -87,15 +87,15 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
     <div className="absolute top-0 left-0 z-10 h-full w-full overflow-hidden bg-section lg:relative lg:h-[650px] lg:w-[500px] lg:rounded-[26px]">
       <div className="bg-circle right-[-60%] top-[-5%] z-10 h-[500px] w-[500px] lg:right-[-30%] " />
       {isLoading ? (
-        <div className="absolute top-0 left-0 z-[11] flex h-full w-full items-center justify-center">
-          <Loader size="w-[400px] h-[400px] mx-auto" />
+        <div className="absolute top-0 left-0 z-[11] flex h-full w-full items-center justify-center lg:h-full lg:w-full">
+          <Loader size="w-[200px] h-[200px] lg:w-[400px] lg:h-[400px] mx-auto" />
         </div>
       ) : (
-        <div className="absolute top-0 left-0 z-[11] h-full w-full lg:px-[39px] px-[20px] pt-[30px]">
+        <div className="absolute top-0 left-0 z-[11] h-full w-full px-[20px] pt-[30px] lg:px-[39px]">
           <h2 className="m-auto h-[75px] text-4xl font-bold leading-[44px] text-titleText">
             {isLogin ? 'Log In' : 'Sign up'}
           </h2>
-          <div className="flex h-[80%] w-[100%] flex-col justify-around rounded-[26px] bg-white lg:px-[63px] px-[20px] py-[25px] shadow-xxlInner">
+          <div className="flex h-[80%] w-[100%] flex-col justify-around rounded-[26px] bg-white px-[20px] py-[25px] shadow-xxlInner lg:px-[63px]">
             {!isLogin && (
               <div>
                 <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">Name</h4>
@@ -112,7 +112,6 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
             </div>
             <div className="flex justify-between">
               <Button
-                className="h-[47px] w-[130px]"
                 cancel={true}
                 onClick={() => {
                   setIsDefaultOpen(true);
@@ -121,7 +120,7 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
               >
                 Cancel
               </Button>
-              <Button className="h-[47px] w-[130px]" submit={true} type="submit" onClick={submit}>
+              <Button submit={true} type="submit" onClick={submit}>
                 Confirm
               </Button>
             </div>

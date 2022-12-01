@@ -12,13 +12,16 @@
 @media (max-width: 1000px) {
   .body::-webkit-scrollbar {
     background-color: transparent;
+    width: 5px;
   }
   .body::-webkit-scrollbar-track {
-    border-radius: 100vh;
+    width: 5px;
+    border-radius: 0;
   }
   .body::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 100vh;
+    width: 5px;
+    -webkit-border-radius: 0;
+    border-radius: 0;
     background: #b6c9e6;
   }
 }
@@ -37,10 +40,8 @@
 }
 
 .body {
-  display: flex;
-  flex-direction: column;
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
   position: absolute;
   top: 0;

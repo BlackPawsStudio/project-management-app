@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
+import BurgerFooter from '../BurgerFooter';
 import Button from '../Button';
 import LogInModal from '../LogInModal';
 
@@ -50,9 +51,9 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
                   {
                     <aside className="fixed top-0 left-0 h-screen w-screen bg-section">
                       <div className="bg-circle -z-1 top-[-20vh] left-[-30vh] h-[75vh] w-[75vh]" />
-                      <div className="absolute top-0 left-0 flex h-full w-full flex-col items-center justify-between p-[100px_48px]">
+                      <div className="absolute pb-[230px] top-0 left-0 flex h-full w-full flex-col items-center justify-between p-[100px_48px]">
                         <div className="w-full">
-                          {!isLoggedIn && (
+                          {isLoggedIn && (
                             <>
                               {pageName && <h2 className="text-lg">You are on {pageName} page</h2>}
                               <h2 className="text-2xl font-bold">Welcome {'username'}!</h2>
@@ -92,6 +93,7 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
                         </div>
                         <Button onClick={() => setIsOpen(false)}>Close</Button>
                       </div>
+                      <BurgerFooter />
                     </aside>
                   }
                 </Dialog.Panel>

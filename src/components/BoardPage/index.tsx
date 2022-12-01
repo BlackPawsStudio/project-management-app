@@ -1,3 +1,5 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import { ColumnType } from '../../utils/types';
 import Column from '../Column';
 import Loader from '../Loader';
@@ -15,13 +17,25 @@ const BoardPageComponent = ({ data, isColumnsLoading }: BoardPageProps) => {
           <Loader size={'w-[15vw] h-[15vw]'} />
         </div>
       ) : data.length > 0 ? (
-        <div className="w-[calc(100% - 100px)] mx-[50px] h-full overflow-auto">
-          <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
-            {data.map((el, id) => (
-              <Column propData={el} key={id} />
-            ))}
+        <>
+          <div className="w-[calc(100% - 100px)] mx-[50px] hidden h-full overflow-auto lg:block">
+            <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
+              {data.map((el, id) => (
+                <Column propData={el} key={id} />
+              ))}
+            </div>
           </div>
-        </div>
+
+          <div className='top-0 left-0 p-[15px]'>
+            <Swiper wrapperTag="div" className="w-full" spaceBetween={30} slidesPerView={1}>
+              {data.map((el, id) => (
+                <SwiperSlide key={id}>
+                  <Column propData={el} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </>
       ) : (
         <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
       )}
