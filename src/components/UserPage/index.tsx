@@ -22,9 +22,7 @@ const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps)
           ))}
         </div>
       ) : (
-        <p className="flex h-1/2 w-full items-center justify-center text-[36px] font-bold">
-          This user has no boards
-        </p>
+        <p className="flex h-1/2 w-full items-center justify-center text-[36px] font-bold">This user has no boards</p>
       )}
     </>
   );

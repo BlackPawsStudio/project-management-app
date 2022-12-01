@@ -7,9 +7,8 @@ const postRequest = async <T>(url: string, body: T) =>
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}${url}`, body, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('nextBoardUserToken')}`,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
-
     })
   ).data;
 
@@ -34,19 +33,18 @@ export const useSignUpMutation = () => {
       });
     }
   });
-}
-
+};
 
 export const useCreateColumnMutation = () => {
   return useMutation({
-    mutationFn: async ({ id, BoardData }: { id?: string | string[], BoardData: CreateColumnType }) => {
+    mutationFn: async ({ id, BoardData }: { id?: string | string[]; BoardData: CreateColumnType }) => {
       return await postRequest<CreateColumnType>(`/boards/${id}/columns`, {
         title: BoardData.title,
         order: BoardData.order
       });
     }
   });
-}
+};
 
 
 export const useCreateIssueMutation = () => {
@@ -70,4 +68,4 @@ export const useCreateIssueMutation = () => {
       )
     }
   });
-}
+};

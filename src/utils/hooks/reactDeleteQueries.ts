@@ -20,14 +20,14 @@ export const useDeleteUserMutation = () => {
 
 export const useDeleteColumnMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId }: { boardId: string, columnId: string }) => {
+    mutationFn: async ({ boardId, columnId }: { boardId: string; columnId: string }) => {
       return await deleteRequest(`/boards/${boardId}/columns/${columnId}`);
     }
   });
 };
 export const useDeleteTaskMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, taskId }: { boardId: string, columnId: string, taskId: string }) => {
+    mutationFn: async ({ boardId, columnId, taskId }: { boardId: string; columnId: string; taskId: string }) => {
       return await deleteRequest(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
     }
   });

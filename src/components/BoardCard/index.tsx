@@ -1,4 +1,4 @@
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { BoardType } from '../../utils/types';
 import {
   useGetBoardByIdQuery,

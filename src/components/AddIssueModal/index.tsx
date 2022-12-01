@@ -1,14 +1,15 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useCreateIssueMutation } from '../../utils/hooks/reactPostQueries';
 import { ColumnType } from '../../utils/types';
 import Button from '../Button';
 import Input from '../Input';
 import Modal from '../Modal';
 import crossAdd from '/public/assets/component-images/crossAdd.svg';
+
 interface AddIssueModalProps {
-  propData: ColumnType
-  refetch: () => void
+  propData: ColumnType;
+  refetch: () => void;
 }
 
 const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
@@ -27,11 +28,11 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
       boardId: propData.boardId,
       columnId: propData._id,
       title: title,
-      text:text,
+      text: text,
       theme: theme,
       importance: importance
-    })
-    refetch()
+    });
+    refetch();
   };
 
   const modalWindow = (
@@ -56,7 +57,7 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
             </select>
           </div>
           <textarea
-            onChange={(e)=>setText(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
             placeholder="Issue description"
             className="min-h-[90px] w-full resize-none rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none"
           />
@@ -70,11 +71,14 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
             >
               Cancel
             </Button>
-            <Button submit onClick={() => {
-              addIssue()
-              setIsDefaultOpen(true);
-              setTimeout(() => setIsDefaultOpen(false));
-            }}>
+            <Button
+              submit
+              onClick={() => {
+                addIssue();
+                setIsDefaultOpen(true);
+                setTimeout(() => setIsDefaultOpen(false));
+              }}
+            >
               Confirm
             </Button>
           </div>

@@ -2,7 +2,7 @@ interface InputProps {
   placeholder?: string;
   onChange?: (str: string) => void;
   size: string;
-  type?: string
+  type?: string;
 }
 
 const Input = ({ placeholder, onChange, size, type }: InputProps) => {

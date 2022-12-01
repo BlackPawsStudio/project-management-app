@@ -28,7 +28,7 @@ const MyApp: AppType<CustomPageProps> = ({ Component, pageProps }) => {
         }
       })
   );
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>

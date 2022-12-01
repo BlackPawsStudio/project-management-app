@@ -5,7 +5,7 @@ interface PageTitleProps {
 }
 
 const PageTitle = ({ children }: PageTitleProps) => (
-  <h2 className="w-100 text-center text-[48px] font-bold text-titleText mt-[30px]">{children}</h2>
+  <h2 className="w-100 mt-[30px] text-center text-[48px] font-bold text-titleText">{children}</h2>
 );
 
 export default PageTitle;

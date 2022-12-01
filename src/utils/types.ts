@@ -36,8 +36,8 @@ export interface LogInType {
 }
 
 export interface CreateColumnType {
-  title: string,
-  order: number
+  title: string;
+  order: number;
 }
 
 export interface CreateIssueType {

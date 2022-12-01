@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGetColumnIssuesQuery } from '../../utils/hooks/reactGetQueries';
-import { ColumnType, IssueType } from '../../utils/types';
+import { ColumnType } from '../../utils/types';
 import Issue from '../Issue';
 import tick from '/public/assets/component-images/tick.svg';
 import cross from '/public/assets/component-images/cross.svg';
@@ -9,26 +9,24 @@ import autoAnimate from '@formkit/auto-animate';
 import { useDeleteColumnMutation } from '../../utils/hooks/reactDeleteQueries';
 import deleteIco from '/public/assets/component-images/deleteIcon.svg';
 import ModalSure from '../ModalSure';
-import crossAdd from '/public/assets/component-images/crossAdd.svg';
 import AddIssueModal from '../AddIssueModal';
 
-interface IProps {
-  propData: ColumnType
-  columnsRefetch: () => void
+interface ColumnProps {
+  propData: ColumnType;
+  columnsRefetch: () => void;
 }
 
-const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
+const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   const { data, isLoading, isError, refetch } = useGetColumnIssuesQuery(propData.boardId, propData._id);
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
-  const deleteColumn = useDeleteColumnMutation()
+  const deleteColumn = useDeleteColumnMutation();
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const titleParent = useRef(null);
 
   useEffect(() => {
     titleParent.current && autoAnimate(titleParent.current);
   }, [titleParent]);
-
 
   const changeTitle = () => {
     if (titleInputRef.current) {
@@ -39,9 +37,9 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
   };
 
   const removeColumn = async () => {
-    await deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id })
-    columnsRefetch()
-  }
+    await deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id });
+    columnsRefetch();
+  };
 
   return (
     <div className="flex h-full min-w-[300px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner">
@@ -59,7 +57,7 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
             </div>
           </div>
         ) : (
-          <div className='flex'>
+          <div className="flex">
             <h5
               className="mx-3 h-8 w-[67%] cursor-pointer text-2xl font-bold text-primaryText"
               onClick={() => setIsChanging(true)}
@@ -67,20 +65,23 @@ const Column: React.FC<IProps> = ({ propData, columnsRefetch }) => {
               {title}
             </h5>
 
-
-            <button><AddIssueModal propData={propData} refetch={refetch} /></button>
+            <button>
+              <AddIssueModal propData={propData} refetch={refetch} />
+            </button>
 
             <ModalSure text="Are you sure want to delete column?" onSubmit={removeColumn}>
               <Image src={deleteIco} alt="Delete button" width={20} className="button" />
             </ModalSure>
-
           </div>
         )}
-
       </div>
       <div className="flex min-h-[92%] w-full flex-col gap-3 overflow-auto px-3 pt-1">
-        {!isLoading && !isError && data.filter(el => el.columnId === propData._id).map((el, id) => <Issue refetch={refetch} column={propData} data={el} key={id} />)}
-        {!isLoading && !isError && data.length === 0 ? <div className='text-center mt-[48%]'>No issue</div> : ''}
+        {!isLoading &&
+          !isError &&
+          data
+            .filter((el) => el.columnId === propData._id)
+            .map((el, id) => <Issue refetch={() => refetch()} column={propData} data={el} key={id} />)}
+        {!isLoading && !isError && data.length === 0 ? <div className="mt-[48%] text-center">No issue</div> : ''}
       </div>
     </div>
   );
