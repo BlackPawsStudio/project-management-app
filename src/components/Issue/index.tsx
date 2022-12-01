@@ -21,10 +21,12 @@ const Issue = ({ data, column }: IssueProps) => {
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
   const modalWindow = (
-    <div className="relative min-h-[500px] w-[600px] cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl">
+    <div className="relative h-[500px] w-screen cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl lg:w-[600px]">
       <h6 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{data.title}</h6>
       <div className="mb-5 flex h-fit w-full items-center justify-between">
-        <h6 className="text-3xl">{column.title}</h6>
+        <h6 className="text-3xl" title={column.title}>
+          {column.title.length > 6 ? column.title.substring(0, 6) + '...' : column.title}
+        </h6>
         {isAdmin && <Image src={deleteIco} alt="Delete button" width={20} className="button" />}
       </div>
 
@@ -54,7 +56,7 @@ const Issue = ({ data, column }: IssueProps) => {
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.userId}`[0]}</div>
             <div className="h-10 w-10 text-3xl">{data.userId}</div>
           </div>
-          <div className="cursor-pointer text-3xl" title={'Copy id ' + data._id} onClick={copyText}>
+          <div className="lg:block hidden cursor-pointer text-3xl" title={'Copy id ' + data._id} onClick={copyText}>
             {'id: ' + data._id.substring(0, 6) + '...'}
           </div>
         </div>
