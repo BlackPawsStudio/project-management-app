@@ -39,7 +39,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 z-10 flex h-[10vh] w-screen items-center justify-center bg-header px-[22px] lg:px-[45px]">
+    <header className="sticky top-0 z-10 flex h-[10vh] w-screen items-center justify-center bg-header px-[22px] lg:px-[45px]">
       {router.pathname.includes('/board/') && isAdmin && <DropdownMenu />}
       <Link className="w-full" href={'/'}>
         <h1 className="w-full cursor-pointer text-center text-[30px] font-bold italic text-headerText lg:text-[40px]">

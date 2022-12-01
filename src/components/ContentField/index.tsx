@@ -7,7 +7,7 @@ interface ContentFieldProps {
 
 const ContentField = ({ children, className }: ContentFieldProps) => {
   return (
-    <section className={`${className} mt-[15px] h-[80%] w-full rounded-[30px] bg-section shadow-xxlInner`}>
+    <section className={`${className} lg:mt-[15px] h-[80%] w-full rounded-[30px] bg-section shadow-xxlInner`}>
       {children}
     </section>
   );

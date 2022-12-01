@@ -12,6 +12,15 @@ interface BurgerMenuProps {
   deleteAccount: () => void;
 }
 
+const transitionClasses = {
+  enter: 'transition ease-out duration-500',
+  enterFrom: '-translate-x-full',
+  enterTo: 'translate-x-0',
+  leave: 'transition ease-in duration-500',
+  leaveFrom: 'translate-x-full',
+  leaveTo: '-translate-x-full'
+};
+
 const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userId, setUserId] = useState('');
@@ -24,23 +33,10 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
   }, []);
 
   useEffect(() => {
-    setIsOpen(isOpened);
-  }, [isOpened]);
-
-  useEffect(() => {
     if (router.pathname === '/') setPageName('main');
     if (router.pathname.includes('user')) setPageName('user');
     if (router.pathname.includes('board')) setPageName('board');
   }, [router]);
-
-  const transitionClasses = {
-    enter: 'transition ease-out duration-500',
-    enterFrom: '-translate-x-full',
-    enterTo: 'translate-x-0',
-    leave: 'transition ease-in duration-500',
-    leaveFrom: 'translate-x-full',
-    leaveTo: '-translate-x-full'
-  };
 
   const copyText = async () => await navigator.clipboard.writeText(userId || '');
   return (
@@ -106,7 +102,7 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
       </Transition>
 
       <div
-        className="button absolute left-[22px] flex h-[30px] w-[40px] flex-col justify-between lg:hidden"
+        className="button absolute left-[22px] flex h-[20px] w-[30px] flex-col justify-between lg:hidden"
         onClick={() => setIsOpen(true)}
       >
         <span className="h-1 w-full bg-headerText" />
