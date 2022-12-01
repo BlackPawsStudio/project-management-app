@@ -47,6 +47,25 @@ export const useCreateColumnMutation = () => {
 };
 
 
+export type CreateBoardType = {
+  title: string,
+  owner: string,
+  users: string[]
+}
+
+export const useCreateBoardMutation = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await postRequest<CreateBoardType>(`/boards`, {
+        title: 'string',
+        owner: id,
+        users: ['string']
+      });
+    }
+  });
+};
+
+
 export const useCreateIssueMutation = () => {
   return useMutation({
     mutationFn: async ({ boardId, columnId, title, text, theme, importance }: Issue) => {

@@ -61,3 +61,9 @@ export type UpdateColumnType = {
   title: string,
   order: number
 }
+
+export type CreateBoardType = {
+  title: string,
+  owner: string,
+  users: string[]
+}
