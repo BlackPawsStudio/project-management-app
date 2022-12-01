@@ -1,12 +1,12 @@
-import create from 'zustand'
-import { ColumnType } from '../utils/types'
+import create from 'zustand';
+import { ColumnType } from '../utils/types';
 
 interface BearState {
-  column: ColumnType[]
-  setColumn: (by: ColumnType[]) => void
+  column: ColumnType[];
+  setColumn: (by: ColumnType[]) => void;
 }
 
 export const useStore = create<BearState>()((set) => ({
   column: [],
-  setColumn: (data) => set((state) => ({ column: data })),
-}))
+  setColumn: (data) => set((state) => ({ column: data }))
+}));

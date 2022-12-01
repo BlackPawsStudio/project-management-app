@@ -8,7 +8,7 @@ interface ModalAttentionProps {
   children: ReactNode | ReactNode[];
 }
 
-const ModalAttention = ({ text, onSubmit, children }: ModalAttentionProps) => {  
+const ModalAttention = ({ text, onSubmit, children }: ModalAttentionProps) => {
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
   const modalOpener = children;
 
@@ -16,7 +16,7 @@ const ModalAttention = ({ text, onSubmit, children }: ModalAttentionProps) => {
     onSubmit();
     setIsDefaultOpen(true);
     setTimeout(() => setIsDefaultOpen(false));
-  }
+  };
 
   const modalWindow = (
     <div className="flex h-[190px] w-[550px] flex-col justify-between rounded-[15px] bg-section px-[20px] pt-[25px] pb-[25px]">

@@ -36,14 +36,14 @@ export interface LogInType {
 }
 
 export interface CreateColumnType {
-  title: string,
-  order: number
+  title: string;
+  order: number;
 }
 
-export interface createIssueType {
-  title: string,
-  order: number,
-  description: string,
-  userId: number,
-  users: string[]
+export interface CreateIssueType {
+  title: string;
+  order: number;
+  description: string;
+  userId: number;
+  users: string[];
 }

@@ -9,13 +9,12 @@ import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/ho
 
 const BoardPage = () => {
   const router = useRouter();
-  const column = useStore((state) => state.column)
-  const setColumn = useStore((state) => state.setColumn)
+  const column = useStore((state) => state.column);
+  const setColumn = useStore((state) => state.setColumn);
 
   const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
   );
-
 
   const {
     data: columnsData,
@@ -24,11 +23,9 @@ const BoardPage = () => {
     refetch: columnsRefetch
   } = useGetBoardColumnsQuery(typeof router.query.id === 'string' ? router.query.id : undefined);
 
-
   useEffect(() => {
-    if (columnsData) setColumn(columnsData)
-  }, [columnsData])
-
+    if (columnsData) setColumn(columnsData);
+  }, [columnsData]);
 
   useEffect(() => {
     if (isError || isColumnsError) {
@@ -47,9 +44,11 @@ const BoardPage = () => {
           title={data.title}
           text={'Search issues: '}
           className={'mx-auto w-[95vw] overflow-hidden'}
-          onSubmit={() => { }}
+          onSubmit={() => {}}
         >
-            {columnsData && <BoardPageComponent columnsRefetch={columnsRefetch} data={column} isColumnsLoading={isColumnsLoading} />}
+          {columnsData && (
+            <BoardPageComponent columnsRefetch={columnsRefetch} data={column} isColumnsLoading={isColumnsLoading} />
+          )}
         </PageBase>
       )}
     </>

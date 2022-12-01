@@ -14,7 +14,7 @@ const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
   const onSubmitFunc = () => {
     setIsDefaultOpen(true);
     onSubmit();
-  }
+  };
 
   const modalOpener = children;
 

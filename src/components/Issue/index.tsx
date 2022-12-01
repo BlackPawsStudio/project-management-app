@@ -13,16 +13,15 @@ import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
 interface IssueProps {
   data: IssueType;
   column: ColumnType;
-  refetch: () => void
+  refetch: () => void;
 }
 
-
 const Issue = ({ data, column, refetch }: IssueProps) => {
-  const deleteTask = useDeleteTaskMutation()
+  const deleteTask = useDeleteTaskMutation();
   const deleteIssue = async () => {
-    await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id })
-    refetch()
-  }
+    await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id });
+    refetch();
+  };
 
   const { text, importance, estimation, theme } = JSON.parse(data.description);
   const isAdmin = true;
@@ -49,12 +48,12 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                   +importance === 1
                     ? lowest
                     : +importance === 2
-                      ? low
-                      : +importance === 3
-                        ? middle
-                        : +importance === 4
-                          ? high
-                          : highest
+                    ? low
+                    : +importance === 3
+                    ? middle
+                    : +importance === 4
+                    ? high
+                    : highest
                 }
                 alt={`Task importance is ${importance}`}
               />
@@ -85,12 +84,12 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                 +importance === 1
                   ? lowest
                   : +importance === 2
-                    ? low
-                    : +importance === 3
-                      ? middle
-                      : +importance === 4
-                        ? high
-                        : highest
+                  ? low
+                  : +importance === 3
+                  ? middle
+                  : +importance === 4
+                  ? high
+                  : highest
               }
               alt={`Task importance is ${importance}`}
             />

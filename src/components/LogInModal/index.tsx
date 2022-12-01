@@ -38,7 +38,6 @@ const LogInModal = ({ isLogin }: LogInProps) => {
 
         router.push('/user');
       });
-      
     } else {
       await signUpMutation.mutateAsync({
         name,
@@ -46,7 +45,7 @@ const LogInModal = ({ isLogin }: LogInProps) => {
         password
       });
       const logInData = await logInMutation.mutateAsync({ login, password });
-      
+
       const userData = parseJwt(logInData.token);
       localStorage.setItem('nextBoardUserToken', logInData.token);
       localStorage.setItem('nextBoardUserId', userData.id);
