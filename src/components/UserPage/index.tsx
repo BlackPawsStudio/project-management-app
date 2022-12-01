@@ -3,6 +3,8 @@ import 'swiper/css';
 import { BoardType } from '../../utils/types';
 import BoardCard from '../BoardCard';
 import Loader from '../Loader';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface UserPageProps {
   boardsSetData: BoardType[];
@@ -10,11 +12,11 @@ interface UserPageProps {
 }
 
 const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps) => {
-  console.log(boardsSetData);
+  const { t } = useTranslation();
 
   return (
     <>
-      <h3 className="text-center text-[42px] font-bold text-primaryText lg:mb-[24px]">My boards</h3>
+      <h3 className="text-center text-[42px] font-bold text-primaryText lg:mb-[24px]">{t('my_boards')}</h3>
       {isBoardsSetLoading ? (
         <div className="flex h-full max-w-full items-center justify-center">
           <Loader size={'w-[15vw] h-[15vw]'} />
@@ -39,7 +41,7 @@ const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps)
         </>
       ) : (
         <p className="lg:px-0 flex h-1/2 w-full items-center px-5 text-[36px] font-bold">
-          This user has no boards
+          {t('no_boards')}
         </p>
       )}
     </>

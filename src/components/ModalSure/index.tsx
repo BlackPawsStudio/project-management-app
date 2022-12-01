@@ -1,6 +1,8 @@
 import { ReactNode, useState } from 'react';
 import Button from '../Button';
 import Modal from '../Modal';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface ModalSureProps {
   text: string;
@@ -18,6 +20,8 @@ const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
 
   const modalOpener = children;
 
+  const { t } = useTranslation();
+
   const modalWindow = (
     <div className="flex w-screen flex-col justify-between gap-5 rounded-[15px] bg-section px-[20px] pt-[25px] pb-[40px] lg:h-[190px] lg:w-[550px]">
       <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
@@ -30,10 +34,10 @@ const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
             setTimeout(() => setIsDefaultOpen(false));
           }}
         >
-          No
+          {t('no')}
         </Button>
         <Button className="h-[44px] w-[107px] font-bold" submit={true} onClick={onSubmitFunc}>
-          Yes
+        {t('yes')}
         </Button>
       </div>
     </div>

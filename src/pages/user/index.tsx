@@ -9,13 +9,10 @@ import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/h
 const UserPage = () => {
   const router = useRouter();
 
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(localStorage.getItem('nextBoardUserId') || '');
 
   useEffect(() => {
-    const data = localStorage.getItem('nextBoardUserId');
-    if (data) {
-      setUserId(data);
-    } else {
+    if (!userId) {
       router.push('/404');
     }
   }, []);
