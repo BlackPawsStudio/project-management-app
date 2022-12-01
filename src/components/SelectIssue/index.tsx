@@ -38,7 +38,7 @@ export default function Example({ setFocusSelect, importance, setImportance, upd
   const updateIssue = (img: any, num: number) => {
     setSelect(img)
     setFocusSelect(false)
-    setImportance(+num)
+    setImportance(num)
     update()
   }
 
