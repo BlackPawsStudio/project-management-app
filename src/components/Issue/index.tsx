@@ -19,11 +19,15 @@ interface IssueProps {
 }
 
 const Issue = ({ data, column, refetch }: IssueProps) => {
-  const { text, importance, estimation, theme } = JSON.parse(data.description);
+  // const { text, importance, estimation, theme } = JSON.parse(data.description);
+  const { importance, estimation, } = JSON.parse(data.description);
+  const description = JSON.parse(data.description);
   const isAdmin = true;
 
   const [focusInput, setFocusInput] = useState(false)
   const [title, setTitle] = useState(data.title)
+  const [text, setText] = useState(description.text)
+  const [theme, setTheme] = useState(description.theme)
   const deleteTask = useDeleteTaskMutation();
   const updateIssue = useUpdateIssueMutation()
 
@@ -35,11 +39,11 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
 
   const update = async () => {
     await updateIssue.mutateAsync({
-      boardId:data.boardId,
-      columnId:data.columnId,
-      title:title,
-      text:text,
-      theme:theme,
+      boardId: data.boardId,
+      columnId: data.columnId,
+      title: title,
+      text: text,
+      theme: theme,
       importance: importance,
       estimation: estimation,
       taskId: data._id
@@ -53,7 +57,7 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
     <div className="relative min-h-[500px] w-[600px] cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl">
       {!focusInput
         ? <h6
-          onClick={()=>setFocusInput(true)}
+          onClick={() => setFocusInput(true)}
           className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{title}</h6>
         : <input
           autoFocus
@@ -68,11 +72,24 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
         <h6 className="text-3xl">{column.title}</h6>
         {isAdmin && <Image onClick={deleteIssue} src={deleteIco} alt="Delete button" width={20} className="button" />}
       </div>
-
-      <article className="mt-8 w-full text-left text-2xl">{text}</article>
+      <textarea
+        className="mt-8 w-full h-[250px] text-left text-2xl outline-none"
+        onChange={(e) => setText(e.target.value)}
+        onBlur={() => {
+          update()
+        }}
+        value={text}
+      />
 
       <div className="absolute bottom-4 w-[calc(100%-32px)]">
-        <div className="mb-5 rounded-full bg-headerText px-2 py-1 text-left text-3xl text-white">{theme}</div>
+        <input
+          onChange={(e) => setTheme(e.target.value)}
+          onBlur={() => {
+            update()
+          }}
+          className="mb-5 w-full rounded-full bg-headerText px-2 py-1 text-left text-3xl text-white outline-none"
+          value={theme}
+        />
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             <div className="h-10 w-10 text-center">
