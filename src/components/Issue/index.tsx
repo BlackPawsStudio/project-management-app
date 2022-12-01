@@ -11,6 +11,7 @@ import Modal from '../Modal';
 import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
 import { useState } from 'react';
 import { useUpdateIssueMutation } from '../../utils/hooks/reactPutQueries';
+import Example from '../SelectIssue';
 
 interface IssueProps {
   data: IssueType;
@@ -20,14 +21,17 @@ interface IssueProps {
 
 const Issue = ({ data, column, refetch }: IssueProps) => {
   // const { text, importance, estimation, theme } = JSON.parse(data.description);
-  const { importance, estimation, } = JSON.parse(data.description);
+  const {  estimation } = JSON.parse(data.description);
+
+
   const description = JSON.parse(data.description);
   const isAdmin = true;
-
   const [focusInput, setFocusInput] = useState(false)
+  const [focusSelect, setFocusSelect] = useState(false)
   const [title, setTitle] = useState(data.title)
   const [text, setText] = useState(description.text)
   const [theme, setTheme] = useState(description.theme)
+  const [importance, setImportance] = useState(description.importance)
   const deleteTask = useDeleteTaskMutation();
   const updateIssue = useUpdateIssueMutation()
 
@@ -80,7 +84,6 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
         }}
         value={text}
       />
-
       <div className="absolute bottom-4 w-[calc(100%-32px)]">
         <input
           onChange={(e) => setTheme(e.target.value)}
@@ -92,22 +95,34 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
         />
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
-            <div className="h-10 w-10 text-center">
-              <Image
-                src={
-                  +importance === 1
-                    ? lowest
-                    : +importance === 2
-                      ? low
-                      : +importance === 3
-                        ? middle
-                        : +importance === 4
-                          ? high
-                          : highest
-                }
-                alt={`Task importance is ${importance}`}
-              />
-            </div>
+            {!focusSelect
+              ? <div className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
+                <Image
+                  src={
+                    +importance === 1
+                      ? lowest
+                      : +importance === 2
+                        ? low
+                        : +importance === 3
+                          ? middle
+                          : +importance === 4
+                            ? high
+                            : highest
+                  }
+                  alt={`Task importance is ${importance}`}
+                />
+              </div>
+              : <div className="h-10 w-10 text-center" >
+                <Example
+                  importance={importance}
+                  setFocusSelect={setFocusSelect}
+                  setImportance={setImportance}
+                  update={update}
+                />
+              </div>
+            }
+
+
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.userId}`[0]}</div>
             <div className="h-10 w-10 text-3xl">{data.userId}</div>
