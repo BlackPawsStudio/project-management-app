@@ -101,7 +101,7 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             {!focusSelect
-              ? <div className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
+              ? <button className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
                 <Image
                   src={
                     +importance === 1
@@ -116,7 +116,7 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                   }
                   alt={`Task importance is ${importance}`}
                 />
-              </div>
+              </button>
               : <div className="h-10 w-10 text-center" >
                 <SelectIssue
                   importance={importance}
@@ -126,8 +126,6 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                 />
               </div>
             }
-
-
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.userId}`[0]}</div>
             <div className="h-10 w-10 text-3xl">{data.userId}</div>
