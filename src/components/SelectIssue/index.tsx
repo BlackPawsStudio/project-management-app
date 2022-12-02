@@ -15,7 +15,7 @@ type IProps = {
 };
 
 export default function SelectIssue({ setFocusSelect, importance, setImportance, update }: IProps) {
-  const [select, setSelect] = useState(lowest)
+  const [select, setSelect] = useState(lowest);
 
   useEffect(() => {
     switch (importance) {
@@ -47,7 +47,7 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
   };
 
   return (
-    <div className="p-0 h-10 w-10">
+    <div className="h-10 w-10 p-0">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="h-10 w-10 text-center">
@@ -63,7 +63,7 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-fit top-[-180px] divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 top-[-180px] mt-2 w-fit divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
@@ -81,8 +81,9 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(low, 2)}
-                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                      active ? 'bg-headerText text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={low} alt={`Task importance is ${low}`} />
                   </button>
@@ -106,8 +107,9 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(high, 4)}
-                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                      active ? 'bg-headerText text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={high} alt={`Task importance is ${high}`} />
                   </button>

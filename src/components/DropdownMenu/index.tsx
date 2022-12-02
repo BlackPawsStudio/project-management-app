@@ -18,7 +18,9 @@ const DropdownMenu = () => {
   };
 
   return (
-    <aside className={`absolute ${!isDown && 'translate-y-[calc(-100%+100px)]'} top-0 left-0 hidden duration-[1s] lg:block`}>
+    <aside
+      className={`absolute ${!isDown && 'translate-y-[calc(-100%+100px)]'} top-0 left-0 hidden duration-[1s] lg:block`}
+    >
       <div
         className={`z-[2] w-[25vw] rounded-[0_0_50px_0] bg-headerText py-[10vh] duration-[0.5s] ${
           isDown && 'shadow-[0_0_15px_25px_#00000043]'

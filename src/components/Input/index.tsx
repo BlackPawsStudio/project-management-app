@@ -1,7 +1,7 @@
 interface InputProps {
   placeholder?: string;
   onChange?: (str: string) => void;
-  onBlur?: () => void
+  onBlur?: () => void;
   size: string;
   type?: string;
 }

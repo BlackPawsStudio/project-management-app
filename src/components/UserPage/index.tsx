@@ -12,7 +12,7 @@ import Image from 'next/image';
 
 interface UserPageProps {
   boardsSetData: BoardType[];
-  refetch: () => void
+  refetch: () => void;
 }
 
 const UserPageComponent = ({ refetch, boardsSetData }: UserPageProps) => {
@@ -34,7 +34,7 @@ const UserPageComponent = ({ refetch, boardsSetData }: UserPageProps) => {
   const createBoardFunc = async () => {
     await createBoard.mutateAsync(userId);
     refetch();
-  }
+  };
 
   return (
     <>
