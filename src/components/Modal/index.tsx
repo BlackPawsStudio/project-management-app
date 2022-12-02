@@ -49,7 +49,9 @@ const Modal = ({ children, open, isDefaultOpen, isMobile }: ModalProps) => {
         </Dialog>
       </Transition>
 
-      <div className={`${isMobile && 'w-full'}`} onClick={() => setIsOpen(true)}>{open}</div>
+      <div className={`${isMobile && 'w-full'}`} onClick={() => setIsOpen(true)}>
+        {open}
+      </div>
     </>
   );
 };

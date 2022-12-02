@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import BoardPageComponent from '../../../components/BoardPage';
 
 import Loader from '../../../components/Loader';
@@ -12,7 +12,7 @@ import '../../../utils/i18next';
 const BoardPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  
+
   const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
   );
@@ -39,12 +39,16 @@ const BoardPage = () => {
       ) : (
         <PageBase
           title={data.title}
-          text={t('search_issues')}
+          text={t('search_issues') as string}
           className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
           onSubmit={() => {}}
         >
           {columnsData && (
-              <BoardPageComponent columnsRefetch={columnsRefetch} data={columnsData} isColumnsLoading={isColumnsLoading} />
+            <BoardPageComponent
+              columnsRefetch={columnsRefetch}
+              data={columnsData}
+              isColumnsLoading={isColumnsLoading}
+            />
           )}
         </PageBase>
       )}

@@ -37,7 +37,7 @@ const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
           {t('no')}
         </Button>
         <Button className="h-[44px] w-[107px] font-bold" submit={true} onClick={onSubmitFunc}>
-        {t('yes')}
+          {t('yes')}
         </Button>
       </div>
     </div>

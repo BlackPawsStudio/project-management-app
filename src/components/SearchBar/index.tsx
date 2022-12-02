@@ -12,9 +12,9 @@ const SearchBar = ({ text, onSubmit }: SearchBarProps) => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="lg:absolute lg:right-[45px] lg:top-[17px] lg:px-0 px-[22px] flex justify-center items-center gap-3 lg:text-2xl text-lg text-headerText">
+    <div className="flex items-center justify-center gap-3 px-[22px] text-lg text-headerText lg:absolute lg:right-[45px] lg:top-[17px] lg:px-0 lg:text-2xl">
       <label className="font-bold">{text}</label>
-      <div className="relative flex lg:h-[45px] h-[40px] w-[220px] items-center">
+      <div className="relative flex h-[40px] w-[220px] items-center lg:h-[45px]">
         <Input onChange={setSearchValue} size="w-full h-full" />
         <Image
           src={glassIcon}
