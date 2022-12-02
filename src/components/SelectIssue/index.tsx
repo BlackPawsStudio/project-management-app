@@ -43,7 +43,7 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
   }
 
   return (
-    <div className="">
+    <div className="p-0 h-10 w-10">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="h-10 w-10 text-center">
@@ -59,13 +59,13 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 mt-2 w-fit top-[-180px] divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(lowest, 1)}
-                    className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={lowest} alt={`Task importance is ${lowest}`} />
@@ -76,7 +76,7 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(low, 2)}
-                    className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={low} alt={`Task importance is ${low}`} />
@@ -89,7 +89,7 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(middle, 3)}
-                    className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={middle} alt={`Task importance is ${middle}`} />
@@ -100,7 +100,7 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(high, 4)}
-                    className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={high} alt={`Task importance is ${high}`} />
@@ -113,7 +113,7 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(highest, 5)}
-                    className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={highest} alt={`Task importance is ${highest}`} />
