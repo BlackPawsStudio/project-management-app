@@ -4,7 +4,6 @@ import { AppType } from 'next/app';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import Layout from '../components/Layout';
 
@@ -27,13 +26,14 @@ const MyApp: AppType<CustomPageProps> = ({ Component, pageProps }) => {
         }
       })
   );
+
   const [render, setRender] = useState(false);
   useEffect(() => setRender(true), []);
 
   return render ? (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Layout>
           <Head>
             <title>Next Board</title>

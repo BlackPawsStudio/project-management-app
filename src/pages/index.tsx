@@ -1,6 +1,8 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import '../utils/i18next';
 import PageBase from '../components/PageBase';
 import githubIcon from 'public/assets/icons/github-icon-black.svg';
 import nextjsIcon from 'public/assets/component-images/tech-icons/nextjs.jpg';
@@ -19,7 +21,6 @@ import { useTranslation } from 'react-i18next';
 import '../utils/i18next';
 
 const Home: NextPage = () => {
-
   const { t } = useTranslation();
 
   const h4Style = 'text-[Inter] text-[24px] text-primaryText leading-8 my-[20px] font-bold'

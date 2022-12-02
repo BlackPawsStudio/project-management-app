@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import BoardPageComponent from '../../../components/BoardPage';
 
 import Loader from '../../../components/Loader';
@@ -11,7 +11,6 @@ import '../../../utils/i18next';
 
 const BoardPage = () => {
   const router = useRouter();
-
   const { t } = useTranslation();
 
   const { data, isLoading, isError } = useGetBoardByIdQuery(
@@ -21,7 +20,8 @@ const BoardPage = () => {
   const {
     data: columnsData,
     isLoading: isColumnsLoading,
-    isError: isColumnsError
+    isError: isColumnsError,
+    refetch: columnsRefetch
   } = useGetBoardColumnsQuery(typeof router.query.id === 'string' ? router.query.id : undefined);
 
   useEffect(() => {
@@ -39,11 +39,17 @@ const BoardPage = () => {
       ) : (
         <PageBase
           title={data.title}
-          text={t('search_issues')}
-          className={'mx-auto w-[95vw] overflow-hidden'}
+          text={t('search_issues') as string}
+          className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
           onSubmit={() => {}}
         >
-          {columnsData && <BoardPageComponent data={columnsData} isColumnsLoading={isColumnsLoading} />}
+          {columnsData && (
+            <BoardPageComponent
+              columnsRefetch={columnsRefetch}
+              data={columnsData}
+              isColumnsLoading={isColumnsLoading}
+            />
+          )}
         </PageBase>
       )}
     </>

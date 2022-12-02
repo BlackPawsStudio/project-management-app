@@ -17,4 +17,4 @@ export const parseJwt = (token: string) => {
 export const cleanLocalStorage = () => {
   localStorage.removeItem('nextBoardUserId');
   localStorage.removeItem('nextBoardUserToken');
-}
+};

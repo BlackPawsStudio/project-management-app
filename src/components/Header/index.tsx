@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { cleanLocalStorage } from '../../utils';
 import { useDeleteUserMutation } from '../../utils/hooks/reactDeleteQueries';
+import BurgerMenu from '../BurgerMenu';
 import LangSwitch from '../Switch';
 import Button from '../Button';
 import DropdownMenu from '../DropdownMenu';
@@ -18,12 +19,15 @@ const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [isBurgerOpened, setIsBurgerOpened] = useState(false);
+
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('nextBoardUserId'));
   }, []);
 
   const signOut = () => {
     setIsLoggedIn(false);
+    setIsBurgerOpened(false);
     cleanLocalStorage();
     router.push('/');
   };
@@ -31,6 +35,7 @@ const Header = () => {
   const deleteAccount = async () => {
     await mutation.mutateAsync(localStorage.getItem('nextBoardUserId') as string);
     setIsLoggedIn(false);
+    setIsBurgerOpened(false);
     cleanLocalStorage();
     router.push('/');
   };
@@ -38,12 +43,14 @@ const Header = () => {
   const { t } = useTranslation();
 
   return (
-    <header className="fixed top-0 z-10 flex h-[10vh] w-screen items-center justify-center bg-header p-[0_45px]">
+    <header className="sticky top-0 z-10 flex h-[10vh] w-screen items-center justify-center bg-header px-[22px] lg:px-[45px]">
       {router.pathname.includes('/board/') && isAdmin && <DropdownMenu />}
-      <Link href={'/'}>
-        <h1 className="w-100 cursor-pointer text-[40px] font-bold italic text-headerText">NEXT BOARD</h1>
+      <Link className="w-full" href={'/'}>
+        <h1 className="w-full cursor-pointer text-center text-[30px] font-bold italic text-headerText lg:text-[40px]">
+          NEXT BOARD
+        </h1>
       </Link>
-      <div className="absolute right-[45px] flex items-center gap-[40px]">
+      <div className="absolute right-[45px] hidden items-center gap-[40px] lg:flex">
         {isLoggedIn ? (
           <>
             <LangSwitch />
@@ -67,14 +74,8 @@ const Header = () => {
             <LogInModal isLogin />
           </>
         )}
-
-        {/* <ModalSure text={'Are you sure you want to delete board'} onSubmit={() => {}}>
-          <Button>ModalSure</Button>
-        </ModalSure>
-        <ModalAttention text={'Attention! You will be redirected to homepage.'} onSubmit={() => {}}>
-          <Button>ModalAttention</Button>
-        </ModalAttention> */}
       </div>
+      <BurgerMenu signOut={signOut} deleteAccount={deleteAccount} isOpened={isBurgerOpened} isLoggedIn={isLoggedIn} />
     </header>
   );
 };

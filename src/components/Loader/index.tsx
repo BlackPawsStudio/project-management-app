@@ -1,5 +1,5 @@
 interface LoaderProps {
-  size: `w-${string} h-${string}`;
+  size: string;
 }
 
 const Loader = ({ size }: LoaderProps) => {

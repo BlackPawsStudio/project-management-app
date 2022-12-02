@@ -34,3 +34,36 @@ export interface LogInType {
   login: string;
   password: string;
 }
+
+export interface CreateColumnType {
+  title: string;
+  order: number;
+}
+
+export interface CreateIssueType {
+  title: string,
+  order: number,
+  description: string,
+  userId: number,
+  users: string[]
+}
+
+export type Issue = {
+  boardId?: string,
+  columnId: string,
+  title: string,
+  text: string,
+  theme: string,
+  importance: number
+}
+
+export type UpdateColumnType = {
+  title: string,
+  order: number
+}
+
+export type CreateBoardType = {
+  title: string,
+  owner: string,
+  users: string[]
+}

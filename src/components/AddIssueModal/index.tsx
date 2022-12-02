@@ -1,18 +1,42 @@
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useCreateIssueMutation } from '../../utils/hooks/reactPostQueries';
+import { ColumnType } from '../../utils/types';
 import Button from '../Button';
 import Input from '../Input';
 import Modal from '../Modal';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import crossAdd from '/public/assets/component-images/crossAdd.svg';
 
-const AddIssueModal = () => {
+interface AddIssueModalProps {
+  propData: ColumnType;
+  refetch: () => void;
+}
+
+const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
+  const modalOpener = <Image src={crossAdd} alt="add button" width={25} className="button mr-[15px]" />;
+
   const { t } = useTranslation();
 
-  const modalOpener = <li className="button">{t('add_issue')}</li>;
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
+  const createIssue = useCreateIssueMutation();
+  const [title, setTitle] = useState('title');
+  const [text, setText] = useState('text');
+  const [theme, setTheme] = useState('theme');
+  const [importance, setImportance] = useState(1);
 
-
-  const addIssue = () => {};
+  const addIssue = async () => {
+    await createIssue.mutateAsync({
+      boardId: propData.boardId,
+      columnId: propData._id,
+      title: title,
+      text: text,
+      theme: theme,
+      importance: importance
+    });
+    refetch();
+  };
 
   const modalWindow = (
     <div className="relative h-[67vh] w-[50vh] overflow-hidden rounded-2xl bg-section">
@@ -21,12 +45,24 @@ const AddIssueModal = () => {
         <h2 className="mb-[25px] text-2xl font-bold text-titleText">{t('add_new_issue')}</h2>
         <div className="flex h-[85%] w-full flex-col gap-[30px] rounded-2xl bg-white px-[50px] py-[30px] shadow-xxlInner">
           <div className="flex flex-col gap-[15px]">
-            <Input placeholder={t('issue_title')} size="w-full py-1" />
-            <Input placeholder={t('issue_theme')} size="w-full py-1" />
-            <Input placeholder={t('select_importance')} size="w-full py-1" />
+            <Input onChange={setTitle} placeholder={t('issue_title') as string} size="w-full py-1" />
+            <Input onChange={setTheme} placeholder={t('issue_theme') as string} size="w-full py-1" />
+
+            <select
+              onChange={(e) => setImportance(Number(e.target.value))}
+              placeholder={t('select_importance') as string}
+              className="w-full rounded-lg bg-inputBackground py-1 px-2.5 pr-14 shadow-xxlInner focus:outline-none"
+            >
+              <option value={1}>lowest</option>
+              <option value={2}>low</option>
+              <option value={3}>middle</option>
+              <option value={4}>high</option>
+              <option value={5}>highest</option>
+            </select>
           </div>
           <textarea
-            placeholder={t('issue_description')}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={t('issue_description') as string}
             className="min-h-[90px] w-full resize-none rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none"
           />
           <div className="flex w-full items-center justify-between">
@@ -39,8 +75,15 @@ const AddIssueModal = () => {
             >
               {t('cancel')}
             </Button>
-            <Button submit onClick={addIssue}>
-            {t('confirm')}
+            <Button
+              submit
+              onClick={() => {
+                addIssue();
+                setIsDefaultOpen(true);
+                setTimeout(() => setIsDefaultOpen(false));
+              }}
+            >
+              {t('confirm')}
             </Button>
           </div>
         </div>
