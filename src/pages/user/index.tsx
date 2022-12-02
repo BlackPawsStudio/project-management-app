@@ -1,29 +1,33 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Loader from '../../components/Loader';
 import PageBase from '../../components/PageBase';
 import UserPageComponent from '../../components/UserPage';
 import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/hooks/reactGetQueries';
+import '../../utils/i18next';
 
 const UserPage = () => {
   const router = useRouter();
 
-  const [userId, setUserId] = useState(localStorage.getItem('nextBoardUserId') || '');
+  const [userId] = useState(localStorage.getItem('nextBoardUserId') || '');
+
+  const { data, isLoading, isError } = useGetUserByIdQuery(userId as string);
+  const { t } = useTranslation();
+
+  const {
+    data: boardsSetData,
+    refetch: boardsRefetch,
+    isError: isBoardsSetError
+  } = useGetBoardsSetByUserIdQuery(userId as string);
 
   useEffect(() => {
     if (!userId) {
       router.push('/404');
     }
+    boardsRefetch();
   }, []);
-
-  const { data, isLoading, isError } = useGetUserByIdQuery(userId as string);
-
-  const {
-    data: boardsSetData,
-    isLoading: isBoardsSetLoading,
-    isError: isBoardsSetError
-  } = useGetBoardsSetByUserIdQuery(userId as string);
 
   useEffect(() => {
     if (isError || isBoardsSetError) {
@@ -40,11 +44,11 @@ const UserPage = () => {
       ) : (
         <PageBase
           title={data.name.toUpperCase()}
-          text={'Search boards:'}
-          className={'lg:mx-auto lg:w-[95vw] overflow-hidden'}
+          text={t('search_boards') as string}
+          className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
           onSubmit={() => {}}
         >
-          {boardsSetData && <UserPageComponent boardsSetData={boardsSetData} isBoardsSetLoading={isBoardsSetLoading} />}
+          {boardsSetData && <UserPageComponent refetch={() => boardsRefetch()} boardsSetData={boardsSetData} />}
         </PageBase>
       )}
     </>

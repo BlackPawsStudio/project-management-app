@@ -18,13 +18,13 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
   const modalOpener = <Image src={crossAdd} alt="add button" width={25} className="button mr-[15px]" />;
 
   const { t } = useTranslation();
-  
+
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
-  const createIssue = useCreateIssueMutation()
-  const [title, setTitle] = useState('title')
-  const [text, setText] = useState('text')
-  const [theme, setTheme] = useState('theme')
-  const [importance, setImportance] = useState(1)
+  const createIssue = useCreateIssueMutation();
+  const [title, setTitle] = useState('title');
+  const [text, setText] = useState('text');
+  const [theme, setTheme] = useState('theme');
+  const [importance, setImportance] = useState(1);
 
   const addIssue = async () => {
     await createIssue.mutateAsync({
@@ -45,13 +45,14 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
         <h2 className="mb-[25px] text-2xl font-bold text-titleText">{t('add_new_issue')}</h2>
         <div className="flex h-[85%] w-full flex-col gap-[30px] rounded-2xl bg-white px-[50px] py-[30px] shadow-xxlInner">
           <div className="flex flex-col gap-[15px]">
-            <Input onChange={setTitle} placeholder={t('issue_title')} size="w-full py-1" />
-            <Input onChange={setTheme} placeholder={t('issue_theme')} size="w-full py-1" />
+            <Input onChange={setTitle} placeholder={t('issue_title') as string} size="w-full py-1" />
+            <Input onChange={setTheme} placeholder={t('issue_theme') as string} size="w-full py-1" />
 
             <select
               onChange={(e) => setImportance(Number(e.target.value))}
-              placeholder={t('select_importance')}
-              className="w-full py-1 rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none">
+              placeholder={t('select_importance') as string}
+              className="w-full rounded-lg bg-inputBackground py-1 px-2.5 pr-14 shadow-xxlInner focus:outline-none"
+            >
               <option value={1}>lowest</option>
               <option value={2}>low</option>
               <option value={3}>middle</option>
@@ -61,7 +62,7 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
           </div>
           <textarea
             onChange={(e) => setText(e.target.value)}
-            placeholder={t('issue_description')}
+            placeholder={t('issue_description') as string}
             className="min-h-[90px] w-full resize-none rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none"
           />
           <div className="flex w-full items-center justify-between">

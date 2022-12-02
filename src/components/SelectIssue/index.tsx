@@ -1,6 +1,6 @@
-import { Menu, Transition } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react';
 import Image from 'next/image';
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react';
 import lowest from '/public/assets/component-images/importance-icons/1.svg';
 import low from '/public/assets/component-images/importance-icons/2.svg';
 import middle from '/public/assets/component-images/importance-icons/3.svg';
@@ -8,39 +8,43 @@ import high from '/public/assets/component-images/importance-icons/4.svg';
 import highest from '/public/assets/component-images/importance-icons/5.svg';
 
 type IProps = {
-  setFocusSelect: (bool: boolean) => void
-  importance: number,
-  setImportance: (num: number) => void
-  update: () => void
-}
+  setFocusSelect: (bool: boolean) => void;
+  importance: number;
+  setImportance: (num: number) => void;
+  update: () => void;
+};
 
 export default function SelectIssue({ setFocusSelect, importance, setImportance, update }: IProps) {
   const [select, setSelect] = useState(lowest)
 
   useEffect(() => {
     switch (importance) {
-      case 1: setSelect(lowest)
-        break
-      case 2: setSelect(low)
-        break
-      case 3: setSelect(middle)
-        break
-      case 4: setSelect(high)
-        break
-      case 5: setSelect(highest)
-        break
+      case 1:
+        setSelect(lowest);
+        break;
+      case 2:
+        setSelect(low);
+        break;
+      case 3:
+        setSelect(middle);
+        break;
+      case 4:
+        setSelect(high);
+        break;
+      case 5:
+        setSelect(highest);
+        break;
       default:
-        break
+        break;
     }
-
-  }, [importance])
+  }, [importance]);
 
   const updateIssue = (img: any, num: number) => {
-    setSelect(img)
-    setFocusSelect(false)
-    setImportance(num)
-    update()
-  }
+    setSelect(img);
+    setFocusSelect(false);
+    setImportance(num);
+    update();
+  };
 
   return (
     <div className="p-0 h-10 w-10">
@@ -65,8 +69,9 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(lowest, 1)}
-                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={lowest} alt={`Task importance is ${lowest}`} />
                   </button>
@@ -89,8 +94,9 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(middle, 3)}
-                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={middle} alt={`Task importance is ${middle}`} />
                   </button>
@@ -113,8 +119,9 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
                 {({ active }) => (
                   <button
                     onClick={() => updateIssue(highest, 5)}
-                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={highest} alt={`Task importance is ${highest}`} />
                   </button>
@@ -125,6 +132,5 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
         </Transition>
       </Menu>
     </div>
-  )
+  );
 }
-
