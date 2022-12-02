@@ -19,9 +19,6 @@ interface BoardPageProps {
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
   const { t } = useTranslation();
 
-  const addColumn = useCreateColumnMutation();
-  const router = useRouter();
-
   const createColumn = async () => {
     await addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'new column', order: 0 } });
     columnsRefetch();

@@ -9,9 +9,10 @@ import Image from 'next/image';
 import { ColumnType, IssueType } from '../../utils/types';
 import Modal from '../Modal';
 import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUpdateIssueMutation } from '../../utils/hooks/reactPutQueries';
 import Example from '../SelectIssue';
+import SelectIssue from '../SelectIssue';
 import ModalSure from '../ModalSure';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
@@ -58,6 +59,10 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
     refetch();
   };
 
+  useEffect(() => {
+    update()
+  }, [importance])
+
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
   const modalWindow = (
@@ -99,16 +104,14 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
       <div className="absolute bottom-4 w-[calc(100%-32px)]">
         <input
           onChange={(e) => setTheme(e.target.value)}
-          onBlur={() => {
-            update();
-          }}
+          onBlur={() => update()}
           className="mb-5 w-full rounded-full bg-headerText px-2 py-1 text-left text-3xl text-white outline-none"
           value={theme}
         />
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
-            {!focusSelect ? (
-              <div className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
+            {!focusSelect
+              ? <button className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
                 <Image
                   src={
                     +importance === 1
@@ -123,10 +126,9 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                   }
                   alt={`Task importance is ${importance}`}
                 />
-              </div>
-            ) : (
-              <div className="h-10 w-10 text-center">
-                <Example
+              </button>
+              : <div className="h-10 w-10 text-center" >
+                <SelectIssue
                   importance={importance}
                   setFocusSelect={setFocusSelect}
                   setImportance={setImportance}
@@ -134,7 +136,6 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                 />
               </div>
             )}
-
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.userId}`[0]}</div>
             <div className="h-10 w-10 text-3xl">{data.userId}</div>
