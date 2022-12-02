@@ -67,7 +67,7 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
                           )}
                         </div>
                         <div className="flex w-full flex-col gap-[7px] text-[20px] text-titleText">
-                          <Link className="button w-full pb-[7px] border-b-2 border-titleText" href="/">
+                          <Link className="button w-full border-b-2 border-titleText pb-[7px]" href="/">
                             Go to main page
                           </Link>
                           {isLoggedIn ? (

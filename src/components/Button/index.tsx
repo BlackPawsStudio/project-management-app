@@ -15,7 +15,7 @@ const Button = ({ onClick, type, children, className, submit, cancel }: ButtonPr
     <button
       onClick={onClick}
       type={type ? type : 'button'}
-      className={`${className} rounded-lg bg-headerText lg:p-[3px_10px] p-[5px] text-[20px] text-white ${hover} active:brightness-75`}
+      className={`${className} rounded-lg bg-headerText p-[5px] text-[20px] text-white lg:p-[3px_10px] ${hover} active:brightness-75`}
     >
       {children}
     </button>

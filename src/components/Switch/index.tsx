@@ -10,7 +10,7 @@ const LangSwitch = () => {
 
   useEffect(() => {
     i18n.changeLanguage(ruEnabled ? 'ru' : 'en');
-  }, [])
+  }, []);
 
   const switchLanguage = () => {
     setRuEnabled(!ruEnabled);

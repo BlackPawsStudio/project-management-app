@@ -12,7 +12,6 @@ import ModalSure from '../ModalSure';
 import AddIssueModal from '../AddIssueModal';
 import { useUpdateColumnMutation } from '../../utils/hooks/reactPutQueries';
 
-
 interface ColumnProps {
   propData: ColumnType;
   columnsRefetch: () => void;
@@ -20,7 +19,7 @@ interface ColumnProps {
 
 const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   const { data, isLoading, isError, refetch } = useGetColumnIssuesQuery(propData.boardId, propData._id);
-  const updateColumn = useUpdateColumnMutation()
+  const updateColumn = useUpdateColumnMutation();
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
   const deleteColumn = useDeleteColumnMutation();
@@ -32,17 +31,16 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   }, [titleParent]);
 
   const update = async () => {
-    await updateColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id, title: title })
+    await updateColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id, title: title });
     columnsRefetch();
-  }
+  };
 
   const changeTitle = () => {
     if (titleInputRef.current) {
       setTitle(titleInputRef.current.value);
       setIsChanging(false);
-      update()
+      update();
     }
-
   };
 
   const removeColumn = async () => {
@@ -51,7 +49,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   };
 
   return (
-    <div className="flex h-[500px] lg:h-full w-[90%] lg:min-w-[300px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner">
+    <div className="flex h-[500px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:h-full lg:min-w-[300px]">
       <div ref={titleParent}>
         {isChanging ? (
           <div className="flex h-8 w-full items-center justify-between px-3 text-2xl font-bold">
@@ -68,7 +66,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
             </div>
           </div>
         ) : (
-          <div className="flex">
+          <div className="flex pr-[10px]">
             <h5
               className="mx-3 h-8 w-[67%] cursor-pointer text-2xl font-bold text-primaryText"
               onClick={() => setIsChanging(true)}

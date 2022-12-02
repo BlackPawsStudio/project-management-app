@@ -9,21 +9,22 @@ import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/h
 const UserPage = () => {
   const router = useRouter();
 
-  const [userId, setUserId] = useState(localStorage.getItem('nextBoardUserId') || '');
-
-  useEffect(() => {
-    if (!userId) {
-      router.push('/404');
-    }
-  }, []);
+  const [userId] = useState(localStorage.getItem('nextBoardUserId') || '');
 
   const { data, isLoading, isError } = useGetUserByIdQuery(userId as string);
 
   const {
     data: boardsSetData,
-    isLoading: isBoardsSetLoading,
+    refetch: boardsRefetch,
     isError: isBoardsSetError
   } = useGetBoardsSetByUserIdQuery(userId as string);
+
+  useEffect(() => {
+    if (!userId) {
+      router.push('/404');
+    }
+    boardsRefetch();
+  }, []);
 
   useEffect(() => {
     if (isError || isBoardsSetError) {
@@ -41,10 +42,10 @@ const UserPage = () => {
         <PageBase
           title={data.name.toUpperCase()}
           text={'Search boards:'}
-          className={'lg:mx-auto lg:w-[95vw] overflow-hidden'}
+          className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
           onSubmit={() => {}}
         >
-          {boardsSetData && <UserPageComponent boardsSetData={boardsSetData} isBoardsSetLoading={isBoardsSetLoading} />}
+          {boardsSetData && <UserPageComponent refetch={() => boardsRefetch()} boardsSetData={boardsSetData} />}
         </PageBase>
       )}
     </>

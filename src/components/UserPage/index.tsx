@@ -5,18 +5,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { BoardType } from '../../utils/types';
 import BoardCard from '../BoardCard';
-import Loader from '../Loader';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import crossAdd from '/public/assets/component-images/crossAdd.svg';
+import Image from 'next/image';
 
 interface UserPageProps {
   boardsSetData: BoardType[];
-  isBoardsSetLoading: boolean;
+  refetch: () => void
 }
 
-const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps) => {
+const UserPageComponent = ({ refetch, boardsSetData }: UserPageProps) => {
   const [userId, setUserId] = useState('');
-  const createBoard = useCreateBoardMutation()
+  const createBoard = useCreateBoardMutation();
   const router = useRouter();
 
   useEffect(() => {
@@ -26,27 +27,29 @@ const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps)
     } else {
       router.push('/404');
     }
-  },[])
+  }, []);
 
-    const { t } = useTranslation();
+  const { t } = useTranslation();
+
+  const createBoardFunc = async () => {
+    await createBoard.mutateAsync(userId);
+    refetch();
+  }
 
   return (
     <>
       <h3 className="text-center text-[42px] font-bold text-primaryText lg:mb-[24px]">{t('my_boards')}</h3>
-      {isBoardsSetLoading ? (
-        <div className="flex h-full max-w-full items-center justify-center">
-          <Loader size={'w-[15vw] h-[15vw]'} />
-        </div>
-      ) : boardsSetData.length > 0 ? (
+      {boardsSetData.length > 0 ? (
         <>
           <div className="w-[calc(100% - 100px)] mx-[50px] hidden h-[75%] overflow-auto lg:flex">
             {boardsSetData.map((board, id) => (
               <BoardCard boardData={board} key={id} />
             ))}
             <button
-              onClick={() => createBoard.mutateAsync(userId)}
+              className="button m-2 flex h-[400px] w-[95%] shrink-0 cursor-pointer items-center justify-center rounded-[30px] bg-boardCard py-4 shadow-xxlInner lg:h-[95%] lg:w-[200px]"
+              onClick={createBoardFunc}
             >
-              add board
+              <Image src={crossAdd} alt="add button" width={75} />
             </button>
           </div>
 
@@ -57,13 +60,24 @@ const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps)
                   <BoardCard boardData={board} />
                 </SwiperSlide>
               ))}
+              <SwiperSlide>
+                <button
+                  className="button m-2 flex h-[400px] w-[95%] shrink-0 cursor-pointer items-center justify-center rounded-[30px] bg-boardCard py-4 shadow-xxlInner lg:h-[95%] lg:w-[200px]"
+                  onClick={createBoardFunc}
+                >
+                  <Image src={crossAdd} alt="add button" width={75} />
+                </button>
+              </SwiperSlide>
             </Swiper>
           </div>
         </>
       ) : (
-        <p className="lg:px-0 flex h-1/2 w-full items-center px-5 text-[36px] font-bold">
-          {t('no_boards')}
-        </p>
+        <button
+          className="mx-auto flex h-[75%] w-full items-center justify-center gap-1 rounded-3xl bg-boardCard shadow-xxlInner lg:my-[22px] lg:w-[300px]"
+          onClick={createBoardFunc}
+        >
+          <Image src={crossAdd} alt="add button" width={75} className="button" />
+        </button>
       )}
     </>
   );

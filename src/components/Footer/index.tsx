@@ -8,8 +8,8 @@ export const authorsArray = ['BlackPawsStudio', 'maiklshetinin', 'vvsar'];
 const Footer = () => {
   return (
     <footer
-      className={`lg:flex hidden h-fit w-screen items-center justify-between mt-auto
-      bg-header p-[10px] text-2xl text-headerText lg:h-[10vh] lg:p-[0_45px]`}
+      className={`mt-auto hidden h-fit w-screen items-center justify-between bg-header
+      p-[10px] text-2xl text-headerText lg:flex lg:h-[10vh] lg:p-[0_45px]`}
     >
       <Link href="https://rs.school/react/" className="flex items-end">
         <Image src={rssIcon} alt="RSS logo" height={40} />
