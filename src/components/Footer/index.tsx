@@ -5,7 +5,7 @@ import rssIcon from 'public/assets/icons/rs-school-logo.svg';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
 
-export const authorsArray = ['BlackP(awsStudio', 'maiklshetinin', 'vvsar'];
+export const authorsArray = ['BlackPawsStudio', 'maiklshetinin', 'vvsar'];
 
 const Footer = () => {
   const { t } = useTranslation();

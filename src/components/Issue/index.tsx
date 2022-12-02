@@ -11,7 +11,6 @@ import Modal from '../Modal';
 import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
 import { useEffect, useState } from 'react';
 import { useUpdateIssueMutation } from '../../utils/hooks/reactPutQueries';
-import Example from '../SelectIssue';
 import SelectIssue from '../SelectIssue';
 import ModalSure from '../ModalSure';
 import { useTranslation } from 'react-i18next';
@@ -60,8 +59,8 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
   };
 
   useEffect(() => {
-    update()
-  }, [importance])
+    update();
+  }, [importance]);
 
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
@@ -110,8 +109,8 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
         />
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
-            {!focusSelect
-              ? <button className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
+            {!focusSelect ? (
+              <button className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
                 <Image
                   src={
                     +importance === 1
@@ -127,7 +126,8 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                   alt={`Task importance is ${importance}`}
                 />
               </button>
-              : <div className="h-10 w-10 text-center" >
+            ) : (
+              <div className="h-10 w-10 text-center">
                 <SelectIssue
                   importance={importance}
                   setFocusSelect={setFocusSelect}

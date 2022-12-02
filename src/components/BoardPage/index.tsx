@@ -18,6 +18,8 @@ interface BoardPageProps {
 
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
   const { t } = useTranslation();
+  const router = useRouter();
+  const addColumn = useCreateColumnMutation();
 
   const createColumn = async () => {
     await addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'new column', order: 0 } });
@@ -67,7 +69,7 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
       ) : (
         <div className=" w-[calc(100% - 100px)] mx-[50px] flex h-full">
           <button
-            className="button h-[80%] my-auto mx-auto flex w-full items-center justify-center gap-1 rounded-3xl bg-boardCard shadow-xxlInner"
+            className="button my-auto mx-auto flex h-[80%] w-full items-center justify-center gap-1 rounded-3xl bg-boardCard shadow-xxlInner lg:w-[300px]"
             onClick={createColumn}
           >
             <Image src={crossAdd} alt="add button" width={75} />
