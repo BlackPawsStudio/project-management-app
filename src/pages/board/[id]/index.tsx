@@ -12,7 +12,7 @@ import '../../../utils/i18next';
 const BoardPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  
+
   const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
   );

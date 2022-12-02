@@ -17,9 +17,7 @@ interface BoardPageProps {
 }
 
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
-  console.log(data);
-
-const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const addColumn = useCreateColumnMutation()
   const router = useRouter()
@@ -31,39 +29,41 @@ const { t } = useTranslation();
 
   return (
     <>
-      {isColumnsLoading ? (
-        <div className="flex h-full max-w-full items-center justify-center">
-          <Loader size={'w-[15vw] h-[15vw]'} />
-        </div>
-      ) : data.length > 0 ? (
-        <div className="w-[calc(100% - 100px)] mx-[50px] hidden h-full overflow-auto lg:block">
-          <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
-            {data.map((el, id) => (
-              <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
-            ))}
-            <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
-              <Image src={crossAdd} alt="add button" width={75} className="button" />
-            </button>
-          </div>
+      {isColumnsLoading
+        ? (
+          <div className="flex h-full max-w-full items-center justify-center">
+            <Loader size={'w-[15vw] h-[15vw]'} />
+          </div>)
+        : data.length > 0
+          ? (
+            <div className="w-[calc(100% - 100px)] mx-[50px] hidden h-full overflow-auto lg:block">
+              <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
+                {data.map((el, id) => (<Column columnsRefetch={columnsRefetch} propData={el} key={id} />
+                ))}
+                <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
+                  <Image src={crossAdd} alt="add button" width={75} className="button" />
+                </button>
+              </div>
 
-          <div className="top-0 left-0 p-[15px] lg:hidden">
-            <Swiper wrapperTag="div" className="w-full" spaceBetween={30} slidesPerView={1}>
-              {data.map((el, id) => (
-                <SwiperSlide key={id}>
-                  <Column propData={el} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </>
-      ) : (
+              <div className="top-0 left-0 p-[15px] lg:hidden">
+                <Swiper wrapperTag="div" className="w-full" spaceBetween={30} slidesPerView={1}>
+                  {data.map((el, id) => (
+                    <SwiperSlide key={id}>
+                      <Column columnsRefetch={columnsRefetch} propData={el} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </div>)
+          : (
             <div className=' flex w-[calc(100% - 100px)] mx-[50px] h-full'>
-          <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
-            <Image src={crossAdd} alt="add button" width={75} className="button" />
-          </button>
-          <p className="flex h-full w-full items-center px-5 text-[36px] font-bold lg:px-0">{t('no_columns')}</p>
-        </div>
-      )}
+              <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
+                <Image src={crossAdd} alt="add button" width={75} className="button" />
+              </button>
+              <p className="flex h-full w-full items-center px-5 text-[36px] font-bold lg:px-0">{t('no_columns')}</p>
+            </div>
+          )
+      }
     </>
   );
 };

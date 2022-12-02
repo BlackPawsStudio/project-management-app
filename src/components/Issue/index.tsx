@@ -9,9 +9,10 @@ import Image from 'next/image';
 import { ColumnType, IssueType } from '../../utils/types';
 import Modal from '../Modal';
 import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUpdateIssueMutation } from '../../utils/hooks/reactPutQueries';
 import Example from '../SelectIssue';
+import SelectIssue from '../SelectIssue';
 
 interface IssueProps {
   data: IssueType;
@@ -55,6 +56,10 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
     refetch();
   }
 
+  useEffect(() => {
+    update()
+  }, [importance])
+
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
   const modalWindow = (
@@ -89,9 +94,7 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
       <div className="absolute bottom-4 w-[calc(100%-32px)]">
         <input
           onChange={(e) => setTheme(e.target.value)}
-          onBlur={() => {
-            update()
-          }}
+          onBlur={() => update()}
           className="mb-5 w-full rounded-full bg-headerText px-2 py-1 text-left text-3xl text-white outline-none"
           value={theme}
         />
@@ -115,7 +118,7 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
                 />
               </div>
               : <div className="h-10 w-10 text-center" >
-                <Example
+                <SelectIssue
                   importance={importance}
                   setFocusSelect={setFocusSelect}
                   setImportance={setImportance}
