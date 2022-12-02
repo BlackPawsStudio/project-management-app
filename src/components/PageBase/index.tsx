@@ -5,7 +5,7 @@ import PageTitle from '../PageTitle';
 import SearchBar from '../SearchBar';
 
 interface PageBaseProps {
-  title: string;
+  title?: string;
   children: ReactNode | ReactNode[];
   className?: string;
   text?: string;

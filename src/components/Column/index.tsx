@@ -51,7 +51,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   };
 
   return (
-    <div className="flex h-full min-w-[300px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner">
+    <div className="flex h-[500px] lg:h-full w-[90%] lg:min-w-[300px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner">
       <div ref={titleParent}>
         {isChanging ? (
           <div className="flex h-8 w-full items-center justify-between px-3 text-2xl font-bold">

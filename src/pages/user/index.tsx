@@ -9,13 +9,10 @@ import { useGetUserByIdQuery, useGetBoardsSetByUserIdQuery } from '../../utils/h
 const UserPage = () => {
   const router = useRouter();
 
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(localStorage.getItem('nextBoardUserId') || '');
 
   useEffect(() => {
-    const data = localStorage.getItem('nextBoardUserId');
-    if (data) {
-      setUserId(data);
-    } else {
+    if (!userId) {
       router.push('/404');
     }
   }, []);
@@ -43,8 +40,8 @@ const UserPage = () => {
       ) : (
         <PageBase
           title={data.name.toUpperCase()}
-          text={''}
-          className={'mx-auto w-[95vw] overflow-hidden'}
+          text={'Search boards:'}
+          className={'lg:mx-auto lg:w-[95vw] overflow-hidden'}
           onSubmit={() => {}}
         >
           {boardsSetData && <UserPageComponent boardsSetData={boardsSetData} isBoardsSetLoading={isBoardsSetLoading} />}

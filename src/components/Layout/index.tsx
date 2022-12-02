@@ -9,12 +9,12 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
+    <div className="body">
       <Header />
-      <div className="bg-circle -z-1 top-[-50vw] right-[-35vw] h-[100vw] w-screen" />
-      <main className="w-100 relative mt-[10vh] h-[80vh] px-[45px]">{children}</main>
+      <div className="bg-circle -z-1 top-[-20vw] right-[-30vw] h-[75vw] w-[75vh] lg:top-[-50vw] lg:right-[-35vw] lg:h-[100vw] lg:w-screen" />
+      <main className="w-100 relative h-[80vh] lg:px-[45px]">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 

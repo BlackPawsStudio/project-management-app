@@ -2,8 +2,7 @@ import '../styles/globals.css';
 
 import { AppType } from 'next/app';
 import Head from 'next/head';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -28,11 +27,14 @@ const MyApp: AppType<CustomPageProps> = ({ Component, pageProps }) => {
         }
       })
   );
+  
+  const [render, setRender] = useState(false);
+  useEffect(() => setRender(true), []);
 
-  return (
+  return render ? (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Layout>
           <Head>
             <title>Next Board</title>
@@ -43,6 +45,8 @@ const MyApp: AppType<CustomPageProps> = ({ Component, pageProps }) => {
         </Layout>
       </Hydrate>
     </QueryClientProvider>
+  ) : (
+    <></>
   );
 };
 

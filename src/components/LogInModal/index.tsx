@@ -6,13 +6,19 @@ import Button from '../Button';
 import Input from '../Input';
 import Loader from '../Loader';
 import Modal from '../Modal';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface LogInProps {
   isLogin?: boolean;
+  isMobile?: boolean;
 }
 
-const LogInModal = ({ isLogin }: LogInProps) => {
+const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
   const router = useRouter();
+
+  const { t } = useTranslation();
+
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
 
   const [name, setName] = useState('');
@@ -74,48 +80,55 @@ const LogInModal = ({ isLogin }: LogInProps) => {
     }
   }, [signUpData, signUpIsLoading, SignUpIsError]);
 
-  const modalOpener = isLogin ? <Button>LOG IN</Button> : <Button>SIGN UP</Button>;
+  const modalOpener = isMobile ? (
+    <div className={`button w-full pb-[7px] ${isLogin && 'border-b-2 border-titleText'}`}>
+      {isLogin ? t('log_in') : t('sign_up')}
+    </div>
+  ) : isLogin ? (
+    <Button>{t('log_in')}</Button>
+  ) : (
+    <Button>{t('sign_up')}</Button>
+  );
 
   const modalWindow = (
-    <div className="relative z-10 h-[650px] w-[500px] overflow-hidden rounded-[26px] bg-section">
-      <div className="bg-circle right-[-40%] top-[9.91px] z-10 h-[500px] w-[500px] " />
+    <div className="absolute top-0 left-0 z-10 h-full w-full overflow-hidden bg-section lg:relative lg:h-[650px] lg:w-[500px] lg:rounded-[26px]">
+      <div className="bg-circle right-[-60%] top-[-5%] z-10 h-[500px] w-[500px] lg:right-[-30%] " />
       {isLoading ? (
-        <div className="absolute top-0 left-0 z-[11] flex h-full w-full items-center justify-center">
-          <Loader size="w-[400px] h-[400px] mx-auto" />
+        <div className="absolute top-0 left-0 z-[11] flex h-full w-full items-center justify-center lg:h-full lg:w-full">
+          <Loader size="w-[200px] h-[200px] lg:w-[400px] lg:h-[400px] mx-auto" />
         </div>
       ) : (
-        <div className="absolute top-0 left-0 z-[11] h-full w-full px-[39px] pt-[30px]">
+        <div className="absolute top-0 left-0 z-[11] h-full w-full px-[20px] pt-[30px] lg:px-[39px]">
           <h2 className="m-auto h-[75px] text-4xl font-bold leading-[44px] text-titleText">
             {isLogin ? 'Log In' : 'Sign up'}
           </h2>
-          <div className="flex h-[80%] w-[422px] flex-col justify-around rounded-[26px] bg-white px-[63px] py-[25px] shadow-xxlInner">
+          <div className="flex h-[80%] w-[100%] flex-col justify-around rounded-[26px] bg-white px-[20px] py-[25px] shadow-xxlInner lg:px-[63px]">
             {!isLogin && (
               <div>
-                <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">Name</h4>
-                <Input size="w-[296px] h-[47px]" onChange={setName} />
+                <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">{t('name')}</h4>
+                <Input size="w-full lg:w-[296px] h-[47px]" onChange={setName} />
               </div>
             )}
             <div>
-              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">Username</h4>
-              <Input size="w-[296px] h-[47px]" onChange={setLogin} />
+              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">{t('username')}</h4>
+              <Input size="w-full lg:w-[296px] h-[47px]" onChange={setLogin} />
             </div>
             <div>
-              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">Password</h4>
-              <Input size="w-[296px] h-[47px]" type="password" onChange={setPassword} />
+              <h4 className="mb-2 text-left text-2xl font-bold leading-[29px] text-titleText">{t('password')}</h4>
+              <Input size="w-full lg:w-[296px] h-[47px]" type="password" onChange={setPassword} />
             </div>
             <div className="flex justify-between">
               <Button
-                className="h-[47px] w-[130px]"
                 cancel={true}
                 onClick={() => {
                   setIsDefaultOpen(true);
                   setTimeout(() => setIsDefaultOpen(false));
                 }}
               >
-                Cancel
+                {t('cancel')}
               </Button>
-              <Button className="h-[47px] w-[130px]" submit={true} type="submit" onClick={submit}>
-                Confirm
+              <Button submit={true} type="submit" onClick={submit}>
+                {t('confirm')}
               </Button>
             </div>
           </div>
@@ -125,7 +138,7 @@ const LogInModal = ({ isLogin }: LogInProps) => {
   );
 
   return (
-    <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>
+    <Modal isMobile={isMobile} isDefaultOpen={isDefaultOpen} open={modalOpener}>
       {modalWindow}
     </Modal>
   );

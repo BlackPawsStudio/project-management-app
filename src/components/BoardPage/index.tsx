@@ -5,6 +5,10 @@ import { ColumnType } from '../../utils/types';
 import Column from '../Column';
 import Loader from '../Loader';
 import crossAdd from '/public/assets/component-images/crossAdd.svg';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface BoardPageProps {
   data: ColumnType[];
@@ -14,6 +18,8 @@ interface BoardPageProps {
 
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
   console.log(data);
+
+const { t } = useTranslation();
 
   const addColumn = useCreateColumnMutation()
   const router = useRouter()
@@ -30,22 +36,32 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
           <Loader size={'w-[15vw] h-[15vw]'} />
         </div>
       ) : data.length > 0 ? (
-        <div className="w-[calc(100% - 100px)] mx-[50px] h-full overflow-auto">
+        <div className="w-[calc(100% - 100px)] mx-[50px] hidden h-full overflow-auto lg:block">
           <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
-            {data.map((el) => (
-              <Column columnsRefetch={columnsRefetch} propData={el} key={el._id} />
+            {data.map((el, id) => (
+              <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
             ))}
             <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
               <Image src={crossAdd} alt="add button" width={75} className="button" />
             </button>
           </div>
-        </div>
+
+          <div className="top-0 left-0 p-[15px] lg:hidden">
+            <Swiper wrapperTag="div" className="w-full" spaceBetween={30} slidesPerView={1}>
+              {data.map((el, id) => (
+                <SwiperSlide key={id}>
+                  <Column propData={el} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </>
       ) : (
             <div className=' flex w-[calc(100% - 100px)] mx-[50px] h-full'>
           <button className='flex items-center justify-center h-full min-w-[300px] bg-boardCard rounded-3xl shadow-xxlInner' onClick={createColumn}>
             <Image src={crossAdd} alt="add button" width={75} className="button" />
           </button>
-          <p className="flex h-full w-full items-center justify-center text-[36px] font-bold">No columns in this board</p>
+          <p className="flex h-full w-full items-center px-5 text-[36px] font-bold lg:px-0">{t('no_columns')}</p>
         </div>
       )}
     </>
