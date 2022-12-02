@@ -8,50 +8,123 @@ import Image from 'next/image';
 
 import { ColumnType, IssueType } from '../../utils/types';
 import Modal from '../Modal';
+import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
+import { useState } from 'react';
+import { useUpdateIssueMutation } from '../../utils/hooks/reactPutQueries';
+import Example from '../SelectIssue';
 
 interface IssueProps {
   data: IssueType;
   column: ColumnType;
+  refetch: () => void;
 }
 
-const Issue = ({ data, column }: IssueProps) => {
-  const { text, importance, estimation, theme } = JSON.parse(data.description);
+const Issue = ({ data, column, refetch }: IssueProps) => {
+  // const { text, importance, estimation, theme } = JSON.parse(data.description);
+  const {  estimation } = JSON.parse(data.description);
+
+
+  const description = JSON.parse(data.description);
   const isAdmin = true;
+  const [focusInput, setFocusInput] = useState(false)
+  const [focusSelect, setFocusSelect] = useState(false)
+  const [title, setTitle] = useState(data.title)
+  const [text, setText] = useState(description.text)
+  const [theme, setTheme] = useState(description.theme)
+  const [importance, setImportance] = useState(description.importance)
+  const deleteTask = useDeleteTaskMutation();
+  const updateIssue = useUpdateIssueMutation()
+
+
+  const deleteIssue = async () => {
+    await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id });
+    refetch();
+  };
+
+  const update = async () => {
+    await updateIssue.mutateAsync({
+      boardId: data.boardId,
+      columnId: data.columnId,
+      title: title,
+      text: text,
+      theme: theme,
+      importance: importance,
+      estimation: estimation,
+      taskId: data._id
+    })
+    refetch();
+  }
 
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
   const modalWindow = (
     <div className="relative h-[500px] w-screen cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl lg:w-[600px]">
-      <h6 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{data.title}</h6>
+      {!focusInput
+        ? <h6
+          onClick={() => setFocusInput(true)}
+          className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">{title}</h6>
+        : <input
+          autoFocus
+          onBlur={() => {
+            setFocusInput(false)
+            update()
+          }}
+          onChange={(e) => setTitle(e.target.value)}
+          className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold w-[30%] bg-transparent outline-none placeholder: text-center"
+          value={title} />}
       <div className="mb-5 flex h-fit w-full items-center justify-between">
         <h6 className="text-3xl" title={column.title}>
           {column.title.length > 6 ? column.title.substring(0, 6) + '...' : column.title}
         </h6>
-        {isAdmin && <Image src={deleteIco} alt="Delete button" width={20} className="button" />}
+        {isAdmin && <Image onClick={deleteIssue} src={deleteIco} alt="Delete button" width={20} className="button" />}
       </div>
-
-      <article className="mt-8 w-full text-left text-2xl">{text}</article>
-
+      <textarea
+        className="mt-8 w-full h-[250px] text-left text-2xl outline-none"
+        onChange={(e) => setText(e.target.value)}
+        onBlur={() => {
+          update()
+        }}
+        value={text}
+      />
       <div className="absolute bottom-4 w-[calc(100%-32px)]">
-        <div className="mb-5 rounded-full bg-headerText px-2 py-1 text-left text-3xl text-white">{theme}</div>
+        <input
+          onChange={(e) => setTheme(e.target.value)}
+          onBlur={() => {
+            update()
+          }}
+          className="mb-5 w-full rounded-full bg-headerText px-2 py-1 text-left text-3xl text-white outline-none"
+          value={theme}
+        />
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
-            <div className="h-10 w-10 text-center">
-              <Image
-                src={
-                  +importance === 1
-                    ? lowest
-                    : +importance === 2
-                    ? low
-                    : +importance === 3
-                    ? middle
-                    : +importance === 4
-                    ? high
-                    : highest
-                }
-                alt={`Task importance is ${importance}`}
-              />
-            </div>
+            {!focusSelect
+              ? <div className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
+                <Image
+                  src={
+                    +importance === 1
+                      ? lowest
+                      : +importance === 2
+                        ? low
+                        : +importance === 3
+                          ? middle
+                          : +importance === 4
+                            ? high
+                            : highest
+                  }
+                  alt={`Task importance is ${importance}`}
+                />
+              </div>
+              : <div className="h-10 w-10 text-center" >
+                <Example
+                  importance={importance}
+                  setFocusSelect={setFocusSelect}
+                  setImportance={setImportance}
+                  update={update}
+                />
+              </div>
+            }
+
+
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.userId}`[0]}</div>
             <div className="h-10 w-10 text-3xl">{data.userId}</div>
@@ -78,12 +151,12 @@ const Issue = ({ data, column }: IssueProps) => {
                 +importance === 1
                   ? lowest
                   : +importance === 2
-                  ? low
-                  : +importance === 3
-                  ? middle
-                  : +importance === 4
-                  ? high
-                  : highest
+                    ? low
+                    : +importance === 3
+                      ? middle
+                      : +importance === 4
+                        ? high
+                        : highest
               }
               alt={`Task importance is ${importance}`}
             />

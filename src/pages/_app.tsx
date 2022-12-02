@@ -27,6 +27,7 @@ const MyApp: AppType<CustomPageProps> = ({ Component, pageProps }) => {
         }
       })
   );
+  
   const [render, setRender] = useState(false);
   useEffect(() => setRender(true), []);
 

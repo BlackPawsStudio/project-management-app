@@ -11,9 +11,8 @@ import '../../../utils/i18next';
 
 const BoardPage = () => {
   const router = useRouter();
-
   const { t } = useTranslation();
-
+  
   const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
   );
@@ -21,7 +20,8 @@ const BoardPage = () => {
   const {
     data: columnsData,
     isLoading: isColumnsLoading,
-    isError: isColumnsError
+    isError: isColumnsError,
+    refetch: columnsRefetch
   } = useGetBoardColumnsQuery(typeof router.query.id === 'string' ? router.query.id : undefined);
 
   useEffect(() => {
@@ -43,7 +43,9 @@ const BoardPage = () => {
           className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
           onSubmit={() => {}}
         >
-          {columnsData && <BoardPageComponent data={columnsData} isColumnsLoading={isColumnsLoading} />}
+          {columnsData && (
+              <BoardPageComponent columnsRefetch={columnsRefetch} data={columnsData} isColumnsLoading={isColumnsLoading} />
+          )}
         </PageBase>
       )}
     </>

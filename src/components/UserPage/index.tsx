@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useCreateBoardMutation } from '../../utils/hooks/reactPostQueries';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { BoardType } from '../../utils/types';
@@ -12,7 +15,20 @@ interface UserPageProps {
 }
 
 const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps) => {
-  const { t } = useTranslation();
+  const [userId, setUserId] = useState('');
+  const createBoard = useCreateBoardMutation()
+  const router = useRouter();
+
+  useEffect(() => {
+    const data = localStorage.getItem('nextBoardUserId');
+    if (data) {
+      setUserId(data);
+    } else {
+      router.push('/404');
+    }
+  },[])
+
+    const { t } = useTranslation();
 
   return (
     <>
@@ -27,6 +43,11 @@ const UserPageComponent = ({ boardsSetData, isBoardsSetLoading }: UserPageProps)
             {boardsSetData.map((board, id) => (
               <BoardCard boardData={board} key={id} />
             ))}
+            <button
+              onClick={() => createBoard.mutateAsync(userId)}
+            >
+              add board
+            </button>
           </div>
 
           <div className="top-0 left-0 p-[15px] lg:hidden">

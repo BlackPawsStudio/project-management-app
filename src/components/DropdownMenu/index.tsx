@@ -1,10 +1,14 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import AddIssueModal from '../AddIssueModal';
-import { useTranslation } from 'react-i18next';
+import { useCreateColumnMutation } from '../../utils/hooks/reactPostQueries';
 import '../../utils/i18next';
+import { useTranslation } from 'react-i18next';
 
 const DropdownMenu = () => {
   const [isDown, setIsDown] = useState(false);
+  const addColumn = useCreateColumnMutation();
+  const router = useRouter();
   const { t } = useTranslation();
 
   return (
@@ -16,8 +20,12 @@ const DropdownMenu = () => {
       >
         <ul className="flex h-full w-full flex-col items-center justify-center gap-10 text-3xl text-white">
           <li className="button">{t('rename_board')}</li>
-          <li className="button">{t('add_table')}</li>
-          <AddIssueModal />
+          <li
+            onClick={() => addColumn.mutateAsync({ id: router.query.id, BoardData: { title: 'ff', order: 6 } })}
+            className="button"
+          >
+            {t('add_table')}
+          </li>
           <li className="button">{t('delete_board')}</li>
         </ul>
       </div>
