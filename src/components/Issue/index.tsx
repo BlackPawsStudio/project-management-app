@@ -12,6 +12,9 @@ import { useDeleteTaskMutation } from '../../utils/hooks/reactDeleteQueries';
 import { useState } from 'react';
 import { useUpdateIssueMutation } from '../../utils/hooks/reactPutQueries';
 import Example from '../SelectIssue';
+import ModalSure from '../ModalSure';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface IssueProps {
   data: IssueType;
@@ -38,6 +41,8 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
     await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id });
     refetch();
   };
+
+  const { t } = useTranslation();
 
   const update = async () => {
     await updateIssue.mutateAsync({
@@ -77,10 +82,14 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
         <h6 className="text-3xl" title={column.title}>
           {column.title.length > 6 ? column.title.substring(0, 6) + '...' : column.title}
         </h6>
-        {isAdmin && <Image onClick={deleteIssue} src={deleteIco} alt="Delete button" width={20} className="button" />}
+        {isAdmin && (
+          <ModalSure text={t('delete_issue') as string} onSubmit={deleteIssue}>
+            <Image src={deleteIco} alt="Delete button" width={20} className="button" />
+          </ModalSure>
+        )}
       </div>
       <textarea
-        className="resize-none mt-8 h-[250px] w-full text-left text-2xl outline-none"
+        className="mt-8 h-[250px] w-full resize-none text-left text-2xl outline-none"
         onChange={(e) => setText(e.target.value)}
         onBlur={() => {
           update();

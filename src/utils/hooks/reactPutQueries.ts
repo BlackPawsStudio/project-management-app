@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { CreateIssueType, Issue, UpdateColumnType } from '../types';
+import { CreateBoardType, UpdateColumnType } from '../types';
 
 const putRequest = async <T>(url: string, body: T) =>
   await (
@@ -12,16 +12,25 @@ const putRequest = async <T>(url: string, body: T) =>
     })
   ).data;
 
+export const useUpdateBoardMutation = () => {
+  return useMutation({
+    mutationFn: async ({ boardId, title, owner, users }: CreateBoardType & { boardId: string }) => {
+      return await putRequest<CreateBoardType>(`/boards/${boardId}`, {
+        title: title,
+        owner: owner,
+        users: users
+      });
+    }
+  });
+};
 
 export const useUpdateColumnMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, title }: { boardId: string, columnId: string, title: string }) => {
-      return await putRequest<UpdateColumnType>(`/boards/${boardId}/columns/${columnId}`,
-        {
-          title: title,
-          order: 0
-        }
-      )
+    mutationFn: async ({ boardId, columnId, title }: UpdateColumnType & { boardId: string; columnId: string }) => {
+      return await putRequest<UpdateColumnType>(`/boards/${boardId}/columns/${columnId}`, {
+        title: title,
+        order: 0
+      });
     }
   });
 };
@@ -33,38 +42,34 @@ export type UpdateIssue = {
   text: string;
   theme: string;
   importance: number;
-  estimation:string
-  taskId: string
-}
+  estimation: string;
+  taskId: string;
+};
 
 export interface UpdateIssueType {
-  title: string,
-  order: number,
-  description: string,
-  userId: number,
-  columnId: string,
-  users: string[]
+  title: string;
+  order: number;
+  description: string;
+  userId: number;
+  columnId: string;
+  users: string[];
 }
 export const useUpdateIssueMutation = () => {
   return useMutation({
     mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId }: UpdateIssue) => {
-      return await putRequest<UpdateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
-        {
-          title: title,
-          order: 0,
-          description: JSON.stringify({
-            text: text,
-            importance: importance,
-            estimation: estimation,
-            theme: theme
-          }),
-          columnId:columnId,
-          userId: 0,
-          users: [
-            "string"
-          ]
-        }
-      )
+      return await putRequest<UpdateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {
+        title: title,
+        order: 0,
+        description: JSON.stringify({
+          text: text,
+          importance: importance,
+          estimation: estimation,
+          theme: theme
+        }),
+        columnId: columnId,
+        userId: 0,
+        users: ['string']
+      });
     }
   });
 };

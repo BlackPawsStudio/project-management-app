@@ -23,7 +23,7 @@ const LangSwitch = () => {
 
   const outerStyle = `
     group w-[90px] h-[36px] px-[2px] rounded-lg flex justify-center items-center
-    cursor-pointer
+    cursor-pointer mx-auto
   `;
   const innerStyle = `
     w-[32px] h-[28px] rounded-lg text-[20px] leading-6 font-bold
@@ -31,7 +31,7 @@ const LangSwitch = () => {
     pointer-events-none transform transition duration-200
   `;
   const borderStyle = 'border-solid border-[3px] border-headerText';
-  const uiStyle = 'ui-checked:translate-x-3/4 ui-not-checked:-translate-x-3/4';
+  const uiStyle = ruEnabled ? 'ui-checked:translate-x-3/4' : ' ui-not-checked:-translate-x-3/4';
 
   return (
     <Switch checked={ruEnabled} onChange={switchLanguage} className={classNames(outerStyle, borderStyle)}>

@@ -11,6 +11,8 @@ import deleteIco from '/public/assets/component-images/deleteIcon.svg';
 import ModalSure from '../ModalSure';
 import AddIssueModal from '../AddIssueModal';
 import { useUpdateColumnMutation } from '../../utils/hooks/reactPutQueries';
+import { useTranslation } from 'react-i18next';
+import '../../utils/i18next';
 
 interface ColumnProps {
   propData: ColumnType;
@@ -31,7 +33,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   }, [titleParent]);
 
   const update = async () => {
-    await updateColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id, title: title });
+    await updateColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id, title: title, order: 0 });
     columnsRefetch();
   };
 
@@ -47,6 +49,8 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
     await deleteColumn.mutateAsync({ boardId: propData.boardId, columnId: propData._id });
     columnsRefetch();
   };
+
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-[500px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:h-full lg:min-w-[300px]">
@@ -78,7 +82,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
               <AddIssueModal propData={propData} refetch={refetch} />
             </button>
 
-            <ModalSure text="Are you sure want to delete column?" onSubmit={removeColumn}>
+            <ModalSure text={t('delete_column')} onSubmit={removeColumn}>
               <Image src={deleteIco} alt="Delete button" width={20} className="button" />
             </ModalSure>
           </div>

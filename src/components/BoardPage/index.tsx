@@ -58,7 +58,7 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
               ))}
               <SwiperSlide>
                 <button
-                  className="flex h-[500px] w-full items-center justify-center gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:h-full lg:min-w-[300px]"
+                  className="flex h-[500px] w-full items-center justify-center gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner"
                   onClick={createColumn}
                 >
                   <Image src={crossAdd} alt="add button" width={75} className="button" />
@@ -70,10 +70,10 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
       ) : (
         <div className=" w-[calc(100% - 100px)] mx-[50px] flex h-full">
           <button
-            className="flex w-full items-center justify-center gap-1 rounded-3xl bg-boardCard lg:my-[22px] shadow-xxlInner mx-auto h-[calc(100% + 144px)] lg:w-[300px]"
+            className="button h-[80%] my-auto mx-auto flex w-full items-center justify-center gap-1 rounded-3xl bg-boardCard shadow-xxlInner"
             onClick={createColumn}
           >
-            <Image src={crossAdd} alt="add button" width={75} className="button" />
+            <Image src={crossAdd} alt="add button" width={75} />
           </button>
         </div>
       )}
