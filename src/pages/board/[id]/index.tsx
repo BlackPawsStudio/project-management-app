@@ -38,10 +38,11 @@ const BoardPage = () => {
         </div>
       ) : (
         <PageBase
+          data={data}
           title={data.title}
           text={t('search_issues') as string}
           className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
-          onSubmit={() => {}}
+          onSubmit={() => { }}
         >
           {columnsData && (
             <BoardPageComponent

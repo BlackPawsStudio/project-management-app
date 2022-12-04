@@ -67,3 +67,23 @@ export type CreateBoardType = {
   owner: string,
   users: string[]
 }
+
+export type UpdateIssue = {
+  boardId?: string | undefined;
+  columnId: string;
+  title: string;
+  text: string;
+  theme: string;
+  importance: number;
+  estimation: string;
+  taskId: string;
+};
+
+export interface UpdateIssueType {
+  title: string;
+  order: number;
+  description: string;
+  userId: number;
+  columnId: string;
+  users: string[];
+}
