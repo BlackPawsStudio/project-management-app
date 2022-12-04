@@ -15,14 +15,16 @@ import SelectIssue from '../SelectIssue';
 import ModalSure from '../ModalSure';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import { Draggable } from 'react-beautiful-dnd';
 
 interface IssueProps {
   data: IssueType;
   column: ColumnType;
   refetch: () => void;
+  index: number;
 }
 
-const Issue = ({ data, column, refetch }: IssueProps) => {
+const Issue = ({ data, column, refetch, index }: IssueProps) => {
   // const { text, importance, estimation, theme } = JSON.parse(data.description);
   const { estimation } = JSON.parse(data.description);
 
@@ -149,37 +151,46 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
   );
 
   const modalOpener = (
-    <div className="button min-h-[130px] w-full rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl">
-      <div className="mb-5 flex h-fit w-full items-center justify-between">
-        <h6 className=" text-2xl">{data.title}</h6>
-      </div>
-      <div className="mb-2 rounded-xl bg-headerText px-2 text-white">{theme}</div>
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2">
-          <div className="h-6 w-6 text-center">
-            <Image
-              src={
-                +importance === 1
-                  ? lowest
-                  : +importance === 2
-                  ? low
-                  : +importance === 3
-                  ? middle
-                  : +importance === 4
-                  ? high
-                  : highest
-              }
-              alt={`Task importance is ${importance}`}
-            />
+    <Draggable draggableId={data._id} index={index}>
+      {(provided) => (
+        <div
+          className="button min-h-[130px] w-full rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl"
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          <div className="mb-5 flex h-fit w-full items-center justify-between">
+            <h6 className=" text-2xl">{data.title}</h6>
           </div>
-          <div className="h-6 w-6 rounded-full bg-section text-center">{estimation}</div>
-          <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.userId}`[0]}</div>
+          <div className="mb-2 rounded-xl bg-headerText px-2 text-white">{theme}</div>
+          <div className="flex items-center justify-between">
+            <div className="flex gap-2">
+              <div className="h-6 w-6 text-center">
+                <Image
+                  src={
+                    +importance === 1
+                      ? lowest
+                      : +importance === 2
+                      ? low
+                      : +importance === 3
+                      ? middle
+                      : +importance === 4
+                      ? high
+                      : highest
+                  }
+                  alt={`Task importance is ${importance}`}
+                />
+              </div>
+              <div className="h-6 w-6 rounded-full bg-section text-center">{estimation}</div>
+              <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.userId}`[0]}</div>
+            </div>
+            <div className="cursor-pointer" title={'Copy id ' + data._id} onClick={copyText}>
+              {'id: ' + data._id.substring(0, 6) + '...'}
+            </div>
+          </div>
         </div>
-        <div className="cursor-pointer" title={'Copy id ' + data._id} onClick={copyText}>
-          {'id: ' + data._id.substring(0, 6) + '...'}
-        </div>
-      </div>
-    </div>
+      )}
+    </Draggable>
   );
 
   return <Modal open={modalOpener}>{modalWindow}</Modal>;

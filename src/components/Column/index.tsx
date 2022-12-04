@@ -13,6 +13,7 @@ import AddIssueModal from '../AddIssueModal';
 import { useUpdateColumnMutation } from '../../utils/hooks/reactPutQueries';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 interface ColumnProps {
   propData: ColumnType;
@@ -88,14 +89,29 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
           </div>
         )}
       </div>
-      <div className="flex min-h-[92%] w-full flex-col gap-3 overflow-auto px-3 pt-1">
-        {!isLoading &&
-          !isError &&
-          data
-            .filter((el) => el.columnId === propData._id)
-            .map((el, id) => <Issue refetch={() => refetch()} column={propData} data={el} key={id} />)}
-        {!isLoading && !isError && data.length === 0 ? <div className="mt-[48%] text-center">No issue</div> : ''}
-      </div>
+      <DragDropContext
+        onDragEnd={(result) => {
+          console.log(result);
+        }}
+      >
+        <Droppable droppableId={propData._id}>
+          {(provided) => (
+            <div
+              className="flex min-h-[92%] w-full flex-col gap-3 px-3 pt-1"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {!isLoading &&
+                !isError &&
+                data
+                  .filter((el) => el.columnId === propData._id)
+                  .map((el, id) => <Issue refetch={() => refetch()} index={id} column={propData} data={el} key={id} />)}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      {!isLoading && !isError && data.length === 0 ? <div className="mt-[48%] text-center">No issue</div> : ''}
     </div>
   );
 };
