@@ -2,7 +2,7 @@
 
 ## Welcome to Next-board! Kanban application to manage your projects!
 
-![image]()
+![image](https://media.discordapp.net/attachments/902251775644532736/1049176942261325874/image.png?width=1043&height=586)
 
 We used following technologies (clickable link images):
 
