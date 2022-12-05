@@ -92,7 +92,7 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
   );
 
   return (
-    <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>
+    <Modal hasToClose={isDefaultOpen} open={modalOpener}>
       {modalWindow}
     </Modal>
   );
