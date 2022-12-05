@@ -9,7 +9,6 @@ import Button from '../Button';
 import DropdownMenu from '../DropdownMenu';
 import LogInModal from '../LogInModal';
 import ModalSure from '../ModalSure';
-import AuthErrorModal from '../AuthErrorModal';
 import { useTranslation } from 'react-i18next';
 import { useStore } from '../../store/store';
 import ModalCopyId from '../ModalCopyId';
@@ -18,8 +17,8 @@ import '../../utils/i18next';
 const Header = () => {
   const router = useRouter();
   const isAdmin = true;
-  const setIsLogin = useStore((state) => state.setIsLogin)
-  const isLogin = useStore((state) => state.isLogin)
+  const setIsLogin = useStore((state) => state.setIsLogin);
+  const isLogin = useStore((state) => state.isLogin);
 
   const { t } = useTranslation();
 
@@ -33,14 +32,14 @@ const Header = () => {
   const [signUpError, setSignUpError] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(isLogin)
-  }, [isLogin])
+    setIsLoggedIn(isLogin);
+  }, [isLogin]);
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('nextBoardUserId'));
   }, []);
   const signOut = () => {
-    setIsLogin(false)
+    setIsLogin(false);
     setIsBurgerOpened(false);
     cleanLocalStorage();
     router.push('/');
@@ -48,7 +47,7 @@ const Header = () => {
 
   const deleteAccount = async () => {
     await mutation.mutateAsync(localStorage.getItem('nextBoardUserId') as string);
-    setIsLogin(false)
+    setIsLogin(false);
     setIsBurgerOpened(false);
     cleanLocalStorage();
     router.push('/');
@@ -56,14 +55,15 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-10 flex h-[10vh] w-screen items-center justify-center bg-header px-[22px] lg:px-[45px]">
-      {router.pathname.includes('user')
-        ? <ModalCopyId text="Copy link to add user to current board">
-          <Button>{t('copy id')}</Button>
+      {router.pathname.includes('user') ? (
+        <ModalCopyId text={t('copy_id_text')}>
+          <Button className="hidden top-1/4 absolute lg:block">{t('copy_id')}</Button>
         </ModalCopyId>
-        : ''
-      }
+      ) : (
+        ''
+      )}
       {router.pathname.includes('/board/') && isAdmin && <DropdownMenu />}
-      <Link className="w-full" href={'/'}>
+      <Link className="mx-auto w-fit" href={'/'}>
         <h1 className="w-full cursor-pointer text-center text-[30px] font-bold italic text-headerText lg:text-[40px]">
           NEXT BOARD
         </h1>
@@ -71,7 +71,6 @@ const Header = () => {
       <div className="absolute right-[45px] hidden items-center gap-[40px] lg:flex">
         {isLoggedIn ? (
           <>
-
             <LangSwitch />
             {router.pathname.includes('user') ? (
               <ModalSure text={t('sure_delete_account')} onSubmit={deleteAccount}>

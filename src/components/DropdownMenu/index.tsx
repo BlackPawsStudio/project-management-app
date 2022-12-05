@@ -4,7 +4,6 @@ import '../../utils/i18next';
 import { useTranslation } from 'react-i18next';
 import ModalSure from '../ModalSure';
 import { useDeleteBoardMutation } from '../../utils/hooks/reactDeleteQueries';
-import ModalCopyId from '../ModalCopyId';
 import ModalAddUser from '../ModalAddUser';
 
 const DropdownMenu = () => {
@@ -28,9 +27,11 @@ const DropdownMenu = () => {
           isDown && 'shadow-[0_0_15px_25px_#00000043]'
         }`}
       >
-        <ul className="flex h-full w-full flex-col items-center justify-center gap-10 text-center text-3xl text-white">
-          <ModalAddUser text='add user'><li className="button">{t('add user')}</li></ModalAddUser>
-          <ModalSure text="Are you sure you want to delete board?" onSubmit={deleteBoard}>
+        <ul className="px-4 flex h-full w-full flex-col items-center justify-center gap-10 text-center text-3xl text-white">
+          <ModalAddUser text={t('add_user_text')}>
+            <li className="button">{t('add_user')}</li>
+          </ModalAddUser>
+          <ModalSure text={t('sure_board')} onSubmit={deleteBoard}>
             <li className="button">{t('delete_board')}</li>
           </ModalSure>
         </ul>

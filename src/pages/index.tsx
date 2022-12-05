@@ -30,7 +30,7 @@ const Home: NextPage = () => {
       <div className="ml-[8%] h-[100%] overflow-auto">
         <h4 className={h4Style}>{t('start_1')}</h4>
         <h4 className={h4Style}>{t('start_2')}</h4>
-        <div className="flex gap-6">
+        <div className="flex gap-6 flex-wrap">
           <div className="relative h-[72px] w-[72px] bg-cover bg-center">
             <Link href="https://nextjs.org/">
               <Image className="left 0 absolute top-0" src={nextjsHoverIcon} alt="nextjs logo" height={72} />

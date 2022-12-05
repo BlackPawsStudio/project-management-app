@@ -33,13 +33,14 @@ const ModalAddUser = ({ text, children }: ModalSureProps) => {
   const modalWindow = (
     <div className="flex w-screen flex-col items-center justify-between gap-5 rounded-[15px] bg-section px-[20px] pt-[10px] pb-[20px] lg:h-[190px] lg:w-[550px]">
       <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
-      <input className=' w-[60%] p-[5px] rounded-[5px] shadow-xxlInner'
+      <input
+        className=" w-[60%] rounded-[5px] p-[5px] shadow-xxlInner"
         onChange={(e) => setId(e.target.value)}
         value={id}
       />
       <div className="flex w-full flex-col-reverse justify-between gap-5 px-[120px] lg:flex-row">
         <Button
-          className="h-[44px] w-[107px] font-bold"
+          className="h-[44px] w-fit font-bold"
           cancel={true}
           onClick={() => {
             setIsDefaultOpen(true);
@@ -48,12 +49,15 @@ const ModalAddUser = ({ text, children }: ModalSureProps) => {
         >
           {t('cancel')}
         </Button>
-        <Button className="h-[44px] w-[107px] font-bold" submit={true}
+        <Button
+          className="h-[44px] w-fit font-bold"
+          submit={true}
           onClick={() => {
-            addUser()
+            addUser();
             setIsDefaultOpen(true);
             setTimeout(() => setIsDefaultOpen(false));
-          }}>
+          }}
+        >
           {t('add')}
         </Button>
       </div>

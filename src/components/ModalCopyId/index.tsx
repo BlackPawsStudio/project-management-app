@@ -25,7 +25,7 @@ const ModalCopyId = ({ text, children }: ModalSureProps) => {
       <div className="flex w-full flex-col-reverse justify-between gap-5 px-[120px] lg:flex-row">
 
         <Button
-          className="h-[44px] w-[107px] font-bold"
+          className="h-[44px] w-fit font-bold"
           cancel={true}
           onClick={() => {
             setIsDefaultOpen(true);
@@ -34,7 +34,7 @@ const ModalCopyId = ({ text, children }: ModalSureProps) => {
         >
           {t('cancel')}
         </Button>
-        <Button className="h-[44px] w-[107px] font-bold" submit={true}
+        <Button className="h-[44px] w-fit font-bold" submit={true}
           onClick={() => {
             copyText()
             setIsDefaultOpen(true);

@@ -79,7 +79,6 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
   const submit = async () => {
     if (isLogin) {
       await logInMutation.mutateAsync({ login, password });
-      setIsDefaultOpen(true);
       setTimeout(() => {
         if (!logInMutation.data) {
           setIsLoginError(true);
