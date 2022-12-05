@@ -1,5 +1,7 @@
 # NEXT-BOARD
 
+[Deploy link](https://next-board.netlify.app/ru]
+
 ## Welcome to Next-board! Kanban application to manage your projects!
 
 ![image](https://media.discordapp.net/attachments/902251775644532736/1049176942261325874/image.png?width=1043&height=586)
