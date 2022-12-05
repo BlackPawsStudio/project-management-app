@@ -12,9 +12,10 @@ import '../../utils/i18next';
 interface LogInProps {
   isLogin?: boolean;
   isMobile?: boolean;
+  onError: (value: boolean) => void;
 }
 
-const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
+const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
   const router = useRouter();
 
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
   const { data, isLoading, isError } = logInMutation;
 
   const signUpMutation = useSignUpMutation();
-  const { data: signUpData, isLoading: signUpIsLoading, isError: SignUpIsError } = signUpMutation;
+  const { data: signUpData, isLoading: signUpIsLoading, isError: signUpIsError } = signUpMutation;
 
   const submit = async () => {
     if (isLogin) {
@@ -62,13 +63,15 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
 
   useEffect(() => {
     if (isError) {
-      router.push('/404');
+      // router.push('/404');
+      onError(isError);
     }
   }, [isError]);
 
   useEffect(() => {
-    if (SignUpIsError) {
-      router.push('/404');
+    if (signUpIsError) {
+      // router.push('/404');
+      onError(signUpIsError);
     }
     if (!signUpIsLoading && signUpData) {
       setIsDefaultOpen(true);
@@ -78,7 +81,7 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
         router.push('/user');
       });
     }
-  }, [signUpData, signUpIsLoading, SignUpIsError]);
+  }, [signUpData, signUpIsLoading, signUpIsError]);
 
   const modalOpener = isMobile ? (
     <div className={`button w-full pb-[7px] ${isLogin && 'border-b-2 border-titleText'}`}>
