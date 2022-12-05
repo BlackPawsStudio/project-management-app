@@ -44,6 +44,7 @@ export type UpdateIssue = {
   importance: number;
   estimation: string;
   taskId: string;
+  order: number;
 };
 
 export interface UpdateIssueType {
@@ -56,10 +57,10 @@ export interface UpdateIssueType {
 }
 export const useUpdateIssueMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId }: UpdateIssue) => {
+    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId, order }: UpdateIssue) => {
       return await putRequest<UpdateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {
         title: title,
-        order: 0,
+        order: order,
         description: JSON.stringify({
           text: text,
           importance: importance,

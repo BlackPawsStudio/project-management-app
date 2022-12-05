@@ -74,19 +74,21 @@ export const useCreateBoardMutation = () => {
 
 export const useCreateIssueMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, title, text, theme, importance }: Issue) => {
-      return await postRequest<CreateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks`, {
-        title: title,
-        order: 0,
-        description: JSON.stringify({
-          text: text,
-          importance: importance,
-          estimation: 'string',
-          theme: theme
-        }),
-        userId: 0,
-        users: ['string']
-      });
+    mutationFn: async ({ boardId, columnId, title, text, theme, importance, order }: Issue) => {
+      return await postRequest<CreateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks`,
+        {
+          title: title,
+          order: order,
+          description: JSON.stringify({
+            text: text,
+            importance: importance,
+            estimation: "string",
+            theme: theme
+          }),
+          userId: 0,
+          users: ["string"]
+        }
+      )
     }
   });
 };

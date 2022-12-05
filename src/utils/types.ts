@@ -48,7 +48,8 @@ export interface CreateIssueType {
   users: string[]
 }
 
-export type Issue = {
+export interface Issue {
+  order: number
   boardId?: string,
   columnId: string,
   title: string,
