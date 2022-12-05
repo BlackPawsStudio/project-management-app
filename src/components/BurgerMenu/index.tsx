@@ -9,6 +9,7 @@ import LogInModal from '../LogInModal';
 import ModalSure from '../ModalSure';
 import LangSwitch from '../Switch';
 import '../../utils/i18next';
+import ModalCopyId from '../ModalCopyId';
 
 interface BurgerMenuProps {
   isLoggedIn?: boolean;
@@ -90,11 +91,18 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
                           {isLoggedIn ? (
                             <>
                               {router.pathname.includes('user') ? (
-                                <ModalSure text={t('sure_delete_account')} onSubmit={deleteAccount}>
-                                  <div className="button w-full border-b-2 border-titleText pb-[7px]">
-                                    {t('delete_account')}
-                                  </div>
-                                </ModalSure>
+                                <>
+                                  <ModalCopyId text={t('copy_id_text')}>
+                                    <div className="button w-full border-b-2 border-titleText pb-[7px]">
+                                      {t('copy_id')}
+                                    </div>
+                                  </ModalCopyId>
+                                  <ModalSure text={t('sure_delete_account')} onSubmit={deleteAccount}>
+                                    <div className="button w-full border-b-2 border-titleText pb-[7px]">
+                                      {t('delete_account')}
+                                    </div>
+                                  </ModalSure>
+                                </>
                               ) : (
                                 <Link className="button w-full border-b-2 border-titleText pb-[7px]" href="/user">
                                   {t('to_user_page')}

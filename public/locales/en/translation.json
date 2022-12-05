@@ -48,12 +48,19 @@
   "to_main_page": "Go to main page",
   "welcome_title": "Welcome",
   "search_boards": "Search boards:",
-  "delete_issue": "Are you sure you want to delete issue?",
-  "delete_column": "Are you sure you want to delete column?",
+  "delete_issue": "Are you sure you want to delete this issue?",
+  "delete_column": "Are you sure you want to delete this column?",
+  "sure_board": "Are you sure you want to delete this board?",
   "authors": "Authors:",
   "navigator": "You are on",
   "main_page": "main page",
   "user_page": "user page",
   "board_page": "board page",
-  "close": "Close"
+  "close": "Close",
+  "add_user": "Add user",
+  "copy_id": "Copy id",
+  "add": "Add",
+  "add_user_text": "Paste user id here",
+  "copy": "Copy",
+  "copy_id_text": "Copy your id"
 }

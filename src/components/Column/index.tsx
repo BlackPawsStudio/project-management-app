@@ -93,19 +93,14 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
           }
           return newIssue as IssueType;
         });
-
-        console.log(requestArr, newIssueArr, 'a');
-
         setIssuesArr(newIssueArr);
       }
-
       await updateIssue.mutateAsync(requestArr);
-      refetch();
     }
   };
 
   return (
-    <div className="flex min-h-[400px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:min-w-[300px]">
+    <div className="flex min-h-[500px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:min-h-[400px] lg:min-w-[300px]">
       <div ref={titleParent}>
         {isChanging ? (
           <div className="flex h-8 w-full items-center justify-between px-3 text-2xl font-bold">
@@ -113,8 +108,8 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
               onChange={(e) => setTitle(e.target.value)}
               value={title}
               ref={titleInputRef}
-              // defaultValue={title}
               className="h-full w-[150px] rounded-lg bg-inputBackground px-2.5 shadow-xxlInner focus:outline-none"
+              maxLength={15}
             />
             <div className="flex gap-2">
               <Image onClick={changeTitle} src={tick} alt="" className="button" />

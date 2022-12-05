@@ -25,8 +25,6 @@ interface IssueProps {
 }
 
 const Issue = ({ data, column, refetch, index }: IssueProps) => {
-  // const { text, importance, estimation, theme } = JSON.parse(data.description);
-  
   const [description, setDescription] = useState(JSON.parse(data.description));
   const isAdmin = true;
   const [focusInput, setFocusInput] = useState(false);
@@ -59,21 +57,21 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
       importance: importance,
       estimation: estimation,
       taskId: data._id,
-      users:data.users
+      users: data.users
     });
     refetch();
   };
 
   useEffect(() => {
     if (data) {
-      setTitle(data.title)
-      setDescription(JSON.parse(data.description))
+      setTitle(data.title);
+      setDescription(JSON.parse(data.description));
       setText(description.text);
       setTheme(description.theme);
       setEstimation(description.estimation);
       setImportance(description.importance);
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     update();
@@ -82,7 +80,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
   const modalWindow = (
-    <div className="relative h-[500px] w-screen cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl lg:w-[600px]">
+    <div className="relative h-[500px] w-screen cursor-pointer bg-issueBg p-4 shadow-xxl lg:w-[600px] lg:rounded-3xl">
       {!focusInput ? (
         <h6 onClick={() => setFocusInput(true)} className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">
           {title}
@@ -99,7 +97,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
           value={title}
         />
       )}
-      <div className="mb-5 flex h-fit w-full items-center justify-between">
+      <div className="mb-5 hidden h-fit w-full items-center justify-between lg:flex">
         <h6 className="text-3xl" title={column.title}>
           {column.title.length > 6 ? column.title.substring(0, 6) + '...' : column.title}
         </h6>
@@ -127,11 +125,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             <div className="h-10 w-10 text-center">
-              <SelectIssue
-                importance={importance}
-                setImportance={setImportance}
-                update={update}
-              />
+              <SelectIssue importance={importance} setImportance={setImportance} update={update} />
             </div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.users[0]}`[0]}</div>
@@ -188,7 +182,11 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
     </Draggable>
   );
 
-  return <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>{modalWindow}</Modal>;
+  return (
+    <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>
+      {modalWindow}
+    </Modal>
+  );
 };
 
 export default Issue;

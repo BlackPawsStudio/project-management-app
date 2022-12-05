@@ -19,7 +19,7 @@ interface LogInProps {
 
 const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
   const router = useRouter();
-  const setIsLogin=useStore((state)=>state.setIsLogin)
+  const setIsLogin = useStore((state) => state.setIsLogin);
 
   const { t } = useTranslation();
 
@@ -50,7 +50,7 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
         const userData = parseJwt(data.token);
         localStorage.setItem('nextBoardUserToken', data.token);
         localStorage.setItem('nextBoardUserId', userData.id);
-        setIsLogin(true)
+        setIsLogin(true);
 
         router.push('/user');
       }
@@ -79,7 +79,6 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
   const submit = async () => {
     if (isLogin) {
       await logInMutation.mutateAsync({ login, password });
-      setIsDefaultOpen(true);
       setTimeout(() => {
         if (!logInMutation.data) {
           setIsLoginError(true);
@@ -91,14 +90,6 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
         login,
         password
       });
-      const logInData = await logInMutation.mutateAsync({ login, password });
-
-      const userData = parseJwt(logInData.token);
-      localStorage.setItem('nextBoardUserToken', logInData.token);
-      localStorage.setItem('nextBoardUserId', userData.id);
-      setIsLogin(true)
-
-      router.push('/user');
       if (!signUpMutation.data) {
         setIsSignUpError(true);
       }
@@ -166,13 +157,13 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
               <Button submit={true} type="submit" onClick={submit}>
                 {t('confirm')}
               </Button>
-              <AuthErrorModal
-                text={authErrorMessage}
-                onLogInError={() => setIsLoginError(false)}
-                onSignUpError={() => setIsSignUpError(false)}
-                isError={isLoginError || isSignUpError}
-              />
             </div>
+            <AuthErrorModal
+              text={authErrorMessage}
+              onLogInError={() => setIsLoginError(false)}
+              onSignUpError={() => setIsSignUpError(false)}
+              isError={isLoginError || isSignUpError}
+            />
           </div>
         </div>
       )}

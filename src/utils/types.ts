@@ -41,33 +41,33 @@ export interface CreateColumnType {
 }
 
 export interface CreateIssueType {
-  title: string,
-  order: number,
-  description: string,
-  userId: number,
-  users: string[]
+  title: string;
+  order: number;
+  description: string;
+  userId: number;
+  users: string[];
 }
 
 export interface Issue {
-  order: number
-  boardId?: string,
-  columnId: string,
-  title: string,
-  text: string,
-  theme: string,
-  importance: number
+  order: number;
+  boardId?: string;
+  columnId: string;
+  title: string;
+  text: string;
+  theme: string;
+  importance: number;
 }
 
 export type UpdateColumnType = {
-  title: string,
-  order: number
-}
+  title: string;
+  order: number;
+};
 
 export type CreateBoardType = {
-  title: string,
-  owner: string,
-  users: string[]
-}
+  title: string;
+  owner: string;
+  users: string[];
+};
 
 export type UpdateIssue = {
   boardId?: string | undefined;
@@ -78,7 +78,7 @@ export type UpdateIssue = {
   importance: number;
   estimation: string;
   taskId: string;
-  users:string[]
+  users: string[];
 };
 
 export interface UpdateIssueType {

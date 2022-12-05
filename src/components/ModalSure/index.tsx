@@ -23,7 +23,7 @@ const ModalSure = ({ text, onSubmit, children }: ModalSureProps) => {
   const { t } = useTranslation();
 
   const modalWindow = (
-    <div className="flex w-screen flex-col justify-between gap-5 rounded-[15px] bg-section px-[20px] pt-[25px] pb-[40px] lg:h-[190px] lg:w-[550px]">
+    <div className="flex w-screen flex-col justify-between gap-5 lg:rounded-[15px] bg-section px-[20px] pt-[25px] pb-[40px] lg:h-[190px] lg:w-[550px]">
       <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
       <div className="flex flex-col-reverse justify-between gap-5 px-[90px] lg:flex-row">
         <Button

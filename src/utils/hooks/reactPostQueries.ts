@@ -20,12 +20,7 @@ export const useLogInMutation = () => {
           login: logInData.login,
           password: logInData.password
         });
-      } catch {
-        // return await postRequest<AuthType>('/auth/signin', {
-        //   login: logInData.login,
-        //   password: logInData.password
-        // });
-      }
+      } catch {}
     }
   });
 };
@@ -39,12 +34,7 @@ export const useSignUpMutation = () => {
           login: logInData.login,
           password: logInData.password
         });
-      } catch {
-        // return await postRequest<AuthType>('/auth/signin', {
-        //   login: logInData.login,
-        //   password: logInData.password
-        // });
-      }
+      } catch {}
     }
   });
 };
@@ -64,7 +54,7 @@ export const useCreateBoardMutation = () => {
   return useMutation({
     mutationFn: async (id: string) => {
       return await postRequest<CreateBoardType>(`/boards`, {
-        title: 'string',
+        title: 'New board',
         owner: id,
         users: [id]
       });
@@ -75,22 +65,18 @@ export const useCreateBoardMutation = () => {
 export const useCreateIssueMutation = () => {
   return useMutation({
     mutationFn: async ({ boardId, columnId, title, text, theme, importance, order }: Issue) => {
-      return await postRequest<CreateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks`,
-        {
-          title: title,
-          order: order,
-          description: JSON.stringify({
-            text: text,
-            importance: importance,
-            estimation: "0",
-            theme: theme
-          }),
-          userId: 0,
-          users: [
-            localStorage.getItem("nextBoardUserId") as string
-          ]
-        }
-      )
+      return await postRequest<CreateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks`, {
+        title: title,
+        order: order,
+        description: JSON.stringify({
+          text: text,
+          importance: importance,
+          estimation: '0',
+          theme: theme
+        }),
+        userId: 0,
+        users: [localStorage.getItem('nextBoardUserId') as string]
+      });
     }
   });
 };

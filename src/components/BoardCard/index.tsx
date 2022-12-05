@@ -9,7 +9,6 @@ import {
 import ColumnTitleField from '../ColumnTitleField';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
-import { useStore } from '../../store/store';
 
 const BoardCard = ({ boardData }: { boardData: BoardType }) => {
   const router = useRouter();
@@ -43,11 +42,13 @@ const BoardCard = ({ boardData }: { boardData: BoardType }) => {
       {!isLoading && !isError && !isColumnsLoading && !isColumnsError && !isIssuesLoading && !isIssuesError && (
         <div
           onClick={() => {
-            goToBoardPage()
+            goToBoardPage();
           }}
           className="button m-2 h-[400px] w-[95%] shrink-0 cursor-pointer rounded-[30px] bg-boardCard py-4 shadow-xxlInner lg:h-[95%] lg:w-[200px]"
         >
-          <h4 className="mx-4 mb-[5px] text-center text-[28px] font-bold text-primaryText">{data.title}</h4>
+          <h4 className="mx-4 mb-[5px] text-center text-[28px] font-bold text-primaryText">
+            {data.title.length > 10 ? data.title.substring(0, 9) + '...' : data.title}
+          </h4>
           <p className="mx-4 my-[3px] text-center text-2xl leading-none text-primaryText">
             {t('members')}: {data.users.length}
           </p>
@@ -59,8 +60,10 @@ const BoardCard = ({ boardData }: { boardData: BoardType }) => {
           </p>
           <div className="card-scrollbar m-full my-[10px] max-h-[55%] overflow-auto px-4">
             <div className="flex h-fit flex-col gap-[10px]">
-              {columnsData.map((column, i) => (
-                <ColumnTitleField key={i}>{column.title}</ColumnTitleField>
+              {columnsData.map((el, id) => (
+                <ColumnTitleField key={id}>
+                  {el.title.length > 10 ? el.title.substring(0, 9) + '...' : el.title}
+                </ColumnTitleField>
               ))}
             </div>
           </div>

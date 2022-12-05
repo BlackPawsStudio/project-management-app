@@ -7,9 +7,10 @@ interface ModalProps {
   isDefaultOpen?: boolean;
   hasToClose?: boolean;
   isMobile?: boolean;
+  isError?: boolean;
 }
 
-const Modal = ({ children, open, isDefaultOpen, hasToClose, isMobile }: ModalProps) => {
+const Modal = ({ children, open, isDefaultOpen, hasToClose, isMobile, isError }: ModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [wasTriggered, setWasTriggered] = useState(false);
 
@@ -23,8 +24,8 @@ const Modal = ({ children, open, isDefaultOpen, hasToClose, isMobile }: ModalPro
   };
 
   useEffect(() => {
-    setIsOpen(!!isDefaultOpen)
-  }, [isDefaultOpen])
+    setIsOpen(!!isDefaultOpen);
+  }, [isDefaultOpen]);
 
   useEffect(() => {
     if (hasToClose && !wasTriggered) {
@@ -54,7 +55,7 @@ const Modal = ({ children, open, isDefaultOpen, hasToClose, isMobile }: ModalPro
         </Dialog>
       </Transition>
 
-      <div className={`${isMobile && 'w-full'}`} onClick={() => setIsOpen(true)}>
+      <div className={`${isMobile && 'w-full'} ${isError && 'absolute'}`} onClick={() => setIsOpen(true)}>
         {open}
       </div>
     </>

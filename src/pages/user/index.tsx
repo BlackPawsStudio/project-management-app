@@ -42,12 +42,12 @@ const UserPage = () => {
           <Loader size={'w-[25vw] h-[25vw]'} />
         </div>
       ) : (
-          <PageBase
-          boardsRefetch={boardsRefetch}
+        <PageBase
           title={data.name.toUpperCase()}
           text={t('search_boards') as string}
           className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
-          onSubmit={() => { }}
+          onSubmit={() => {}}
+          boardsRefetch={boardsRefetch}
         >
           {boardsSetData && <UserPageComponent refetch={() => boardsRefetch()} boardsSetData={boardsSetData} />}
         </PageBase>

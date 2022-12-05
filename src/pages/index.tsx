@@ -26,11 +26,11 @@ const Home: NextPage = () => {
   const pStyle = 'text-[Inter] text-[24px] text-primaryText indent-8 leading-8';
 
   return (
-    <PageBase title={t('start_title') as string} onSubmit={(str) => {}}>
+    <PageBase title={t('start_title')}>
       <div className="ml-[8%] h-[100%] overflow-auto">
         <h4 className={h4Style}>{t('start_1')}</h4>
         <h4 className={h4Style}>{t('start_2')}</h4>
-        <div className="flex gap-6">
+        <div className="flex flex-wrap gap-6">
           <div className="relative h-[72px] w-[72px] bg-cover bg-center">
             <Link href="https://nextjs.org/">
               <Image className="left 0 absolute top-0" src={nextjsHoverIcon} alt="nextjs logo" height={72} />
@@ -109,7 +109,7 @@ const Home: NextPage = () => {
           <li className={`${pStyle} indent-3`}>
             <Link href="https://github.com/maiklshetinin" className="flex items-center">
               <Image src={githubIcon} alt="github logo" height={25} />
-              mailkshetinin - {t('fe_dev')}
+              maiklshetinin - {t('fe_dev')}
             </Link>
           </li>
           <li className={`${pStyle} indent-3`}>
@@ -128,7 +128,7 @@ const Home: NextPage = () => {
         <h4 className={h4Style}>{t('start_4')}</h4>
         <p className={pStyle}>{t('start_5')}</p>
         <p className={pStyle}>{t('start_6')}</p>
-        <p className={pStyle}>{t('start_7')}</p>
+        <p className={`${pStyle} pb-5`}>{t('start_7')}</p>
       </div>
     </PageBase>
   );
