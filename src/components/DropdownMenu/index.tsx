@@ -27,7 +27,7 @@ const DropdownMenu = () => {
           isDown && 'shadow-[0_0_15px_25px_#00000043]'
         }`}
       >
-        <ul className="px-4 flex h-full w-full flex-col items-center justify-center gap-10 text-center text-3xl text-white">
+        <ul className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 text-center text-3xl text-white">
           <ModalAddUser text={t('add_user_text')}>
             <li className="button">{t('add_user')}</li>
           </ModalAddUser>

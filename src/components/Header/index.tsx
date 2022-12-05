@@ -57,7 +57,7 @@ const Header = () => {
     <header className="sticky top-0 z-10 flex h-[10vh] w-screen items-center justify-center bg-header px-[22px] lg:px-[45px]">
       {router.pathname.includes('user') ? (
         <ModalCopyId text={t('copy_id_text')}>
-          <Button className="hidden top-1/4 absolute lg:block">{t('copy_id')}</Button>
+          <Button className="absolute top-1/4 hidden lg:block">{t('copy_id')}</Button>
         </ModalCopyId>
       ) : (
         ''

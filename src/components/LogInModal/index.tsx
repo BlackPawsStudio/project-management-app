@@ -19,7 +19,7 @@ interface LogInProps {
 
 const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
   const router = useRouter();
-  const setIsLogin=useStore((state)=>state.setIsLogin)
+  const setIsLogin = useStore((state) => state.setIsLogin);
 
   const { t } = useTranslation();
 
@@ -50,7 +50,7 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
         const userData = parseJwt(data.token);
         localStorage.setItem('nextBoardUserToken', data.token);
         localStorage.setItem('nextBoardUserId', userData.id);
-        setIsLogin(true)
+        setIsLogin(true);
 
         router.push('/user');
       }
@@ -95,7 +95,7 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
       const userData = parseJwt(logInData.token);
       localStorage.setItem('nextBoardUserToken', logInData.token);
       localStorage.setItem('nextBoardUserId', userData.id);
-      setIsLogin(true)
+      setIsLogin(true);
 
       router.push('/user');
       if (!signUpMutation.data) {

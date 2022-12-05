@@ -23,8 +23,8 @@ const Modal = ({ children, open, isDefaultOpen, hasToClose, isMobile }: ModalPro
   };
 
   useEffect(() => {
-    setIsOpen(!!isDefaultOpen)
-  }, [isDefaultOpen])
+    setIsOpen(!!isDefaultOpen);
+  }, [isDefaultOpen]);
 
   useEffect(() => {
     if (hasToClose && !wasTriggered) {

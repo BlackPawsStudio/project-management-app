@@ -25,8 +25,6 @@ interface IssueProps {
 }
 
 const Issue = ({ data, column, refetch, index }: IssueProps) => {
-  // const { text, importance, estimation, theme } = JSON.parse(data.description);
-  
   const [description, setDescription] = useState(JSON.parse(data.description));
   const isAdmin = true;
   const [focusInput, setFocusInput] = useState(false);
@@ -59,21 +57,21 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
       importance: importance,
       estimation: estimation,
       taskId: data._id,
-      users:data.users
+      users: data.users
     });
     refetch();
   };
 
   useEffect(() => {
     if (data) {
-      setTitle(data.title)
-      setDescription(JSON.parse(data.description))
+      setTitle(data.title);
+      setDescription(JSON.parse(data.description));
       setText(description.text);
       setTheme(description.theme);
       setEstimation(description.estimation);
       setImportance(description.importance);
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     update();
@@ -127,11 +125,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             <div className="h-10 w-10 text-center">
-              <SelectIssue
-                importance={importance}
-                setImportance={setImportance}
-                update={update}
-              />
+              <SelectIssue importance={importance} setImportance={setImportance} update={update} />
             </div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.users[0]}`[0]}</div>
@@ -188,7 +182,11 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
     </Draggable>
   );
 
-  return <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>{modalWindow}</Modal>;
+  return (
+    <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>
+      {modalWindow}
+    </Modal>
+  );
 };
 
 export default Issue;

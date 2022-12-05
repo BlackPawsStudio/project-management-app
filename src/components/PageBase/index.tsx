@@ -5,16 +5,16 @@ import ContentField from '../ContentField';
 import PageTitle from '../PageTitle';
 
 interface PageBaseProps {
-  data?:BoardType
+  data?: BoardType;
   title: string;
   children: ReactNode | ReactNode[];
   className?: string;
   text?: string;
   onSubmit?: (search: string) => void;
-  boardsRefetch?: () => void
+  boardsRefetch?: () => void;
 }
 
-const PageBase = ({ title, onSubmit, children, className, text, boardsRefetch,data }: PageBaseProps) => {
+const PageBase = ({ title, children, className, boardsRefetch, data }: PageBaseProps) => {
   return (
     <>
       <PageTitle data={data} title={title} boardsRefetch={boardsRefetch} />

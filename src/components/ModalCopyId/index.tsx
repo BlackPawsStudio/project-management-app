@@ -11,7 +11,7 @@ interface ModalSureProps {
 
 const ModalCopyId = ({ text, children }: ModalSureProps) => {
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
-  const userId = localStorage.getItem('nextBoardUserId') as string
+  const userId = localStorage.getItem('nextBoardUserId') as string;
 
   const copyText = async () => await navigator.clipboard.writeText(userId);
   const modalOpener = children;
@@ -21,9 +21,8 @@ const ModalCopyId = ({ text, children }: ModalSureProps) => {
   const modalWindow = (
     <div className="flex w-screen flex-col items-center justify-between gap-5 rounded-[15px] bg-section px-[20px] pt-[10px] pb-[20px] lg:h-[190px] lg:w-[550px]">
       <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
-      <div className=' w-[60%] p-[5px] rounded-[5px] shadow-xxlInner'>id: {userId}</div>
+      <div className=" w-[60%] rounded-[5px] p-[5px] shadow-xxlInner">id: {userId}</div>
       <div className="flex w-full flex-col-reverse justify-between gap-5 px-[120px] lg:flex-row">
-
         <Button
           className="h-[44px] w-fit font-bold"
           cancel={true}
@@ -34,12 +33,15 @@ const ModalCopyId = ({ text, children }: ModalSureProps) => {
         >
           {t('cancel')}
         </Button>
-        <Button className="h-[44px] w-fit font-bold" submit={true}
+        <Button
+          className="h-[44px] w-fit font-bold"
+          submit={true}
           onClick={() => {
-            copyText()
+            copyText();
             setIsDefaultOpen(true);
             setTimeout(() => setIsDefaultOpen(false));
-          }}>
+          }}
+        >
           {t('copy')}
         </Button>
       </div>

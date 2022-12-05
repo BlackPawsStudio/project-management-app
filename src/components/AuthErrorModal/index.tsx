@@ -12,7 +12,7 @@ interface AuthErrorModalProps {
 
 const AuthErrorModal = ({ text, isError, onLogInError, onSignUpError }: AuthErrorModalProps) => {
   const [isOpen, setIsOpen] = useState(isError);
-  
+
   useEffect(() => {
     setIsOpen(isError);
   }, [isError]);
@@ -41,24 +41,6 @@ const AuthErrorModal = ({ text, isError, onLogInError, onSignUpError }: AuthErro
       {modalWindow}
     </Modal>
   );
-  // return (
-  //   <>
-  //     <Transition appear show={isOpen} as={Fragment}>
-  //       <Dialog as="div" className="relative z-20 h-screen w-screen" onClose={() => setIsOpen(false)}>
-  //         <Transition.Child as={Fragment} {...transitionClasses}>
-  //           <div className="fixed inset-0 bg-black bg-opacity-25" />
-  //         </Transition.Child>
-  //         <Transition.Child as={Fragment} {...transitionClasses}>
-  //           <div className="fixed inset-0 overflow-y-auto" onClick={() => setIsOpen(false)}>
-  //             <div className="flex min-h-full items-center justify-center p-4 text-center">
-  //               <Dialog.Panel>{modalWindow}</Dialog.Panel>
-  //             </div>
-  //           </div>
-  //         </Transition.Child>
-  //       </Dialog>
-  //     </Transition>
-  //   </>
-  // );
 };
 
 export default AuthErrorModal;

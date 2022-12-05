@@ -13,18 +13,18 @@ interface ModalSureProps {
 
 const ModalAddUser = ({ text, children }: ModalSureProps) => {
   const [isDefaultOpen, setIsDefaultOpen] = useState(false);
-  const [id, setId] = useState('')
-  const currentBoard = useStore((state) => state.currentBoard)
-  const update = useUpdateBoardMutation()
+  const [id, setId] = useState('');
+  const currentBoard = useStore((state) => state.currentBoard);
+  const update = useUpdateBoardMutation();
 
   const addUser = () => {
     update.mutateAsync({
-      boardId:currentBoard.boardId,
+      boardId: currentBoard.boardId,
       title: currentBoard.title,
       owner: currentBoard.owner,
       users: [...currentBoard.users, id]
-    })
-  }
+    });
+  };
 
   const modalOpener = children;
 

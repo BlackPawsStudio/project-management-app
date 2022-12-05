@@ -11,7 +11,7 @@ interface IProps {
   importance: number;
   setImportance: (num: number) => void;
   update: () => void;
-};
+}
 
 const imagesArr = [lowest, low, middle, high, highest];
 
@@ -68,9 +68,10 @@ export default function SelectIssue({ importance, setImportance, update }: IProp
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    onClick={() => updateIssue(el, id+1)}
-                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={() => updateIssue(el, id + 1)}
+                    className={`${
+                      active ? 'bg-headerText text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <Image src={el} alt={`Task importance is ${id}`} />
                   </button>
