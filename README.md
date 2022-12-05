@@ -1,6 +1,6 @@
 # NEXT-BOARD
 
-[Deploy link](https://next-board.netlify.app/ru]
+[Deploy link](https://next-board.netlify.app/ru)
 
 ## Welcome to Next-board! Kanban application to manage your projects!
 
