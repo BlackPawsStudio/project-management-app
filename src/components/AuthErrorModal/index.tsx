@@ -18,8 +18,8 @@ const AuthErrorModal = ({ text, isError, onLogInError, onSignUpError }: AuthErro
   }, [isError]);
 
   const modalWindow = (
-    <div className="flex h-[190px] w-screen flex-col justify-between rounded-[15px] bg-section px-[20px] pt-[25px] pb-[25px] lg:w-[550px]">
-      <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
+    <div className="flex lg:h-[190px] w-screen flex-col justify-between lg:rounded-[15px] bg-section px-[20px] py-[35px] lg:py-[25px] lg:w-[550px]">
+      <h2 className="text-[28px] font-bold text-titleText mb-5">{text}</h2>
       <div className="flex justify-center">
         <Button
           className="h-[38px] w-[807px] font-bold"
@@ -37,7 +37,7 @@ const AuthErrorModal = ({ text, isError, onLogInError, onSignUpError }: AuthErro
   );
 
   return (
-    <Modal isDefaultOpen={isOpen} open={<></>}>
+    <Modal isError isDefaultOpen={isOpen} open={<></>}>
       {modalWindow}
     </Modal>
   );

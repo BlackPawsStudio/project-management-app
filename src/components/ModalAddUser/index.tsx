@@ -31,7 +31,7 @@ const ModalAddUser = ({ text, children }: ModalSureProps) => {
   const { t } = useTranslation();
 
   const modalWindow = (
-    <div className="flex w-screen flex-col items-center justify-between gap-5 rounded-[15px] bg-section px-[20px] pt-[10px] pb-[20px] lg:h-[190px] lg:w-[550px]">
+    <div className="flex w-screen flex-col items-center justify-between gap-5 lg:rounded-[15px] bg-section px-[20px] pt-[10px] pb-[20px] lg:h-[190px] lg:w-[550px]">
       <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
       <input
         className=" w-[60%] rounded-[5px] p-[5px] shadow-xxlInner"

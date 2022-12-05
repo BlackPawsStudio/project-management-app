@@ -19,12 +19,12 @@ const ModalCopyId = ({ text, children }: ModalSureProps) => {
   const { t } = useTranslation();
 
   const modalWindow = (
-    <div className="flex w-screen flex-col items-center justify-between gap-5 rounded-[15px] bg-section px-[20px] pt-[10px] pb-[20px] lg:h-[190px] lg:w-[550px]">
+    <div className="flex w-screen flex-col items-center justify-between gap-5 bg-section px-[20px] pt-[10px] pb-[20px] lg:h-[190px] lg:w-[550px] lg:rounded-[15px]">
       <h2 className="text-[28px] font-bold text-titleText">{text}</h2>
-      <div className=" w-[60%] rounded-[5px] p-[5px] shadow-xxlInner">id: {userId}</div>
-      <div className="flex w-full flex-col-reverse justify-between gap-5 px-[120px] lg:flex-row">
+      <div className="w-fit rounded-[5px] p-[5px] px-3 shadow-xxlInner">id: {userId}</div>
+      <div className="mx-auto flex w-full max-w-[65%] flex-col-reverse items-center justify-between gap-5 lg:flex-row">
         <Button
-          className="h-[44px] w-fit font-bold"
+          className="h-[44px] w-full font-bold"
           cancel={true}
           onClick={() => {
             setIsDefaultOpen(true);
@@ -34,7 +34,7 @@ const ModalCopyId = ({ text, children }: ModalSureProps) => {
           {t('cancel')}
         </Button>
         <Button
-          className="h-[44px] w-fit font-bold"
+          className="h-[44px] w-full font-bold"
           submit={true}
           onClick={() => {
             copyText();

@@ -109,6 +109,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
               value={title}
               ref={titleInputRef}
               className="h-full w-[150px] rounded-lg bg-inputBackground px-2.5 shadow-xxlInner focus:outline-none"
+              maxLength={15}
             />
             <div className="flex gap-2">
               <Image onClick={changeTitle} src={tick} alt="" className="button" />

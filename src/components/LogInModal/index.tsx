@@ -90,14 +90,6 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
         login,
         password
       });
-      const logInData = await logInMutation.mutateAsync({ login, password });
-
-      const userData = parseJwt(logInData.token);
-      localStorage.setItem('nextBoardUserToken', logInData.token);
-      localStorage.setItem('nextBoardUserId', userData.id);
-      setIsLogin(true);
-
-      router.push('/user');
       if (!signUpMutation.data) {
         setIsSignUpError(true);
       }
@@ -165,13 +157,13 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
               <Button submit={true} type="submit" onClick={submit}>
                 {t('confirm')}
               </Button>
-              <AuthErrorModal
-                text={authErrorMessage}
-                onLogInError={() => setIsLoginError(false)}
-                onSignUpError={() => setIsSignUpError(false)}
-                isError={isLoginError || isSignUpError}
-              />
             </div>
+            <AuthErrorModal
+              text={authErrorMessage}
+              onLogInError={() => setIsLoginError(false)}
+              onSignUpError={() => setIsSignUpError(false)}
+              isError={isLoginError || isSignUpError}
+            />
           </div>
         </div>
       )}

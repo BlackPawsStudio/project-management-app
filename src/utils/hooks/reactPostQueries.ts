@@ -54,7 +54,7 @@ export const useCreateBoardMutation = () => {
   return useMutation({
     mutationFn: async (id: string) => {
       return await postRequest<CreateBoardType>(`/boards`, {
-        title: 'string',
+        title: 'New board',
         owner: id,
         users: [id]
       });

@@ -41,7 +41,7 @@ const AddIssueModal = ({ propData, refetch, order }: AddIssueModalProps) => {
   };
 
   const modalWindow = (
-    <div className="relative h-[67vh] w-[4ц00px] overflow-hidden rounded-2xl bg-section">
+    <div className="relative h-[80vh] lg:h-[67vh] w-screen lg:w-[400px] overflow-hidden lg:rounded-2xl bg-section">
       <div className="bg-circle -right-[45%] -top-[10%] h-[75vh] w-[75vh]" />
       <div className="absolute top-0 left-0 z-[2] h-full w-full p-[25px]">
         <h2 className="mb-[25px] text-2xl font-bold text-titleText">{t('add_new_issue')}</h2>
@@ -67,7 +67,7 @@ const AddIssueModal = ({ propData, refetch, order }: AddIssueModalProps) => {
             placeholder={t('issue_description') as string}
             className="min-h-[90px] w-full resize-none rounded-lg bg-inputBackground px-2.5 pr-14 shadow-xxlInner focus:outline-none"
           />
-          <div className="flex w-full items-center justify-between">
+          <div className="flex w-full gap-5 flex-col-reverse lg:flex-row items-center justify-between">
             <Button
               cancel
               onClick={() => {

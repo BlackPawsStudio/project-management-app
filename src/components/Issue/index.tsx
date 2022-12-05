@@ -80,7 +80,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
   const copyText = async () => await navigator.clipboard.writeText(data._id);
 
   const modalWindow = (
-    <div className="relative h-[500px] w-screen cursor-pointer rounded-3xl bg-issueBg p-4 shadow-xxl lg:w-[600px]">
+    <div className="relative h-[500px] w-screen cursor-pointer bg-issueBg p-4 shadow-xxl lg:w-[600px] lg:rounded-3xl">
       {!focusInput ? (
         <h6 onClick={() => setFocusInput(true)} className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold">
           {title}
@@ -97,7 +97,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
           value={title}
         />
       )}
-      <div className="mb-5 flex h-fit w-full items-center justify-between">
+      <div className="mb-5 hidden h-fit w-full items-center justify-between lg:flex">
         <h6 className="text-3xl" title={column.title}>
           {column.title.length > 6 ? column.title.substring(0, 6) + '...' : column.title}
         </h6>

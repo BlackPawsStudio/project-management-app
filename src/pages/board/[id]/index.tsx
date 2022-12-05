@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import BoardPageComponent from '../../../components/BoardPage';
 
 import Loader from '../../../components/Loader';
 import PageBase from '../../../components/PageBase';
-import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/hooks/reactGetQueries';
+import { useGetBoardByIdQuery, useGetBoardColumnsQuery, useGetBoardsSetByUserIdQuery } from '../../../utils/hooks/reactGetQueries';
 
 import { useTranslation } from 'react-i18next';
 import '../../../utils/i18next';
@@ -13,8 +13,10 @@ import { useStore } from '../../../store/store';
 const BoardPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const setcurrentBoard = useStore((state) => state.setСurrentBoard);
+  const setCurrentBoard = useStore((state) => state.setСurrentBoard);
   const currentBoard = useStore((state) => state.currentBoard);
+
+  const [userId] = useState(localStorage.getItem('nextBoardUserId') || '');
 
   const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
@@ -22,7 +24,7 @@ const BoardPage = () => {
 
   useEffect(() => {
     if (data)
-      setcurrentBoard({
+      setCurrentBoard({
         boardId: data._id,
         title: data.title,
         owner: data.owner,
@@ -36,6 +38,10 @@ const BoardPage = () => {
     isError: isColumnsError,
     refetch: columnsRefetch
   } = useGetBoardColumnsQuery(typeof router.query.id === 'string' ? router.query.id : undefined);
+
+   const {
+     refetch: boardsRefetch,
+   } = useGetBoardsSetByUserIdQuery(userId as string);
 
   useEffect(() => {
     if (isError || isColumnsError) {
@@ -56,6 +62,7 @@ const BoardPage = () => {
           text={t('search_issues') as string}
           className={'overflow-hidden px-0 lg:mx-auto lg:w-[95vw]'}
           onSubmit={() => {}}
+          boardsRefetch={boardsRefetch}
         >
           {columnsData && (
             <BoardPageComponent

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useUpdateBoardMutation } from '../../utils/hooks/reactPutQueries';
 import { BoardType } from '../../utils/types';
 
@@ -13,6 +14,8 @@ const PageTitle = ({ title, boardsRefetch, data }: PageTitleProps) => {
   const [isFocus, setIsFocus] = useState(false);
   const [name, setName] = useState(title);
 
+  const router = useRouter();
+
   const update = () => {
     if (data) {
       updateBoard.mutateAsync({
@@ -22,12 +25,10 @@ const PageTitle = ({ title, boardsRefetch, data }: PageTitleProps) => {
         users: data.users
       });
     }
-    if (boardsRefetch) boardsRefetch();
+    if (boardsRefetch) {      
+      boardsRefetch()
+    };
   };
-
-  useEffect(() => {
-    update();
-  }, [name]);
 
   return (
     <div className="flex justify-center">
@@ -36,13 +37,17 @@ const PageTitle = ({ title, boardsRefetch, data }: PageTitleProps) => {
           onClick={() => setIsFocus(true)}
           className="w-100 text-center text-[32px] font-bold text-titleText lg:px-0 lg:text-[40px]"
         >
-          {name}
+          {router.pathname.includes('board') ? name : title}
         </h2>
       ) : (
         <input
           className="w-[50%] bg-transparent text-center text-[32px] font-bold text-titleText outline-blue-600 lg:px-0 lg:text-[40px]"
           onChange={(e) => setName(e.target.value)}
-          onBlur={() => setIsFocus(false)}
+          onBlur={() => {
+            setIsFocus(false);
+            update();
+          }}
+          maxLength={15}
           value={name}
         />
       )}
