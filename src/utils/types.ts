@@ -13,7 +13,7 @@ export interface IssueType {
   boardId: string;
   columnId: string;
   description: string;
-  userId: number;
+  users: string[];
 }
 
 export interface ColumnType {
@@ -77,6 +77,7 @@ export type UpdateIssue = {
   importance: number;
   estimation: string;
   taskId: string;
+  users:string[]
 };
 
 export interface UpdateIssueType {

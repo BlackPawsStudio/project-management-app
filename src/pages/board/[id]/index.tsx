@@ -8,14 +8,28 @@ import { useGetBoardByIdQuery, useGetBoardColumnsQuery } from '../../../utils/ho
 
 import { useTranslation } from 'react-i18next';
 import '../../../utils/i18next';
+import { useStore } from '../../../store/store';
 
 const BoardPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
+  const setcurrentBoard = useStore((state) => state.setcurrentBoard)
+  const currentBoard = useStore((state) => state.currentBoard)
 
   const { data, isLoading, isError } = useGetBoardByIdQuery(
     typeof router.query.id === 'string' ? router.query.id : undefined
   );
+
+  useEffect(() => {
+    if (data) setcurrentBoard({
+      boardId:data._id,
+      title:data.title,
+      owner: data.owner,
+      users:data.users
+    })
+    console.log(data);
+
+  }, [data])
 
   const {
     data: columnsData,
@@ -23,6 +37,7 @@ const BoardPage = () => {
     isError: isColumnsError,
     refetch: columnsRefetch
   } = useGetBoardColumnsQuery(typeof router.query.id === 'string' ? router.query.id : undefined);
+  // console.log(columnsData);
 
   useEffect(() => {
     if (isError || isColumnsError) {

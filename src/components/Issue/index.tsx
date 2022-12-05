@@ -52,7 +52,8 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
       theme: theme,
       importance: importance,
       estimation: estimation,
-      taskId: data._id
+      taskId: data._id,
+      users:data.users
     });
     refetch();
   };
@@ -116,8 +117,8 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
               />
             </div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
-            <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.userId}`[0]}</div>
-            <div className="h-10 w-10 text-3xl">{data.userId}</div>
+            <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.users[0]}`[0]}</div>
+            <div className="h-10 w-10 text-3xl">{data.users[0]?.substring(0, 8) + '...'}</div>
           </div>
           <div className="hidden cursor-pointer text-3xl lg:block" title={'Copy id ' + data._id} onClick={copyText}>
             {'id: ' + data._id.substring(0, 6) + '...'}
@@ -152,7 +153,7 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
             />
           </div>
           <div className="h-6 w-6 rounded-full bg-section text-center">{estimation}</div>
-          <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.userId}`[0]}</div>
+          <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.users[0]}`[0]}</div>
         </div>
         <div className="cursor-pointer" title={'Copy id ' + data._id} onClick={copyText}>
           {'id: ' + data._id.substring(0, 6) + '...'}

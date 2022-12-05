@@ -37,7 +37,7 @@ export const useUpdateColumnMutation = () => {
 
 export const useUpdateIssueMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId }: UpdateIssue) => {
+    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId, users }: UpdateIssue) => {
       return await putRequest<UpdateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {
         title: title,
         order: 0,
@@ -49,7 +49,7 @@ export const useUpdateIssueMutation = () => {
         }),
         columnId: columnId,
         userId: 0,
-        users: ['string']
+        users: users
       });
     }
   });

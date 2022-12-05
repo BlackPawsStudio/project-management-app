@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import ModalSure from '../ModalSure';
 import { useDeleteBoardMutation } from '../../utils/hooks/reactDeleteQueries';
 import ModalCopyId from '../ModalCopyId';
+import ModalAddUser from '../ModalAddUser';
 
 const DropdownMenu = () => {
   const [isDown, setIsDown] = useState(false);
@@ -18,10 +19,6 @@ const DropdownMenu = () => {
     router.push('/user');
   };
 
-  const copyId = () => {
-    alert('ggg')
-  }
-
   return (
     <aside
       className={`absolute ${!isDown && 'translate-y-[calc(-100%+100px)]'} top-0 left-0 hidden duration-[1s] lg:block`}
@@ -32,9 +29,7 @@ const DropdownMenu = () => {
         }`}
       >
         <ul className="flex h-full w-full flex-col items-center justify-center gap-10 text-center text-3xl text-white">
-          <li className="button">{t('add user')}</li>
-          <ModalCopyId text="Copy link to add user to current board" onSubmit={copyId}><li className="button">{t('copy id')}</li></ModalCopyId>
-          <li className="button">{t('rename_board')}</li>
+          <ModalAddUser text='add user'><li className="button">{t('add user')}</li></ModalAddUser>
           <ModalSure text="Are you sure you want to delete board?" onSubmit={deleteBoard}>
             <li className="button">{t('delete_board')}</li>
           </ModalSure>

@@ -8,6 +8,7 @@ import Loader from '../Loader';
 import Modal from '../Modal';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import { useStore } from '../../store/store';
 
 interface LogInProps {
   isLogin?: boolean;
@@ -16,6 +17,7 @@ interface LogInProps {
 
 const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
   const router = useRouter();
+  const setIsLogin=useStore((state)=>state.setIsLogin)
 
   const { t } = useTranslation();
 
@@ -41,6 +43,7 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
         const userData = parseJwt(data.token);
         localStorage.setItem('nextBoardUserToken', data.token);
         localStorage.setItem('nextBoardUserId', userData.id);
+        setIsLogin(true)
 
         router.push('/user');
       });
@@ -55,6 +58,7 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
       const userData = parseJwt(logInData.token);
       localStorage.setItem('nextBoardUserToken', logInData.token);
       localStorage.setItem('nextBoardUserId', userData.id);
+      setIsLogin(true)
 
       router.push('/user');
     }
