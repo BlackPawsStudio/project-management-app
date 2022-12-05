@@ -7,7 +7,6 @@ import Loader from '../Loader';
 import crossAdd from '/public/assets/component-images/crossAdd.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
 
 interface BoardPageProps {
@@ -17,7 +16,6 @@ interface BoardPageProps {
 }
 
 const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPageProps) => {
-  const { t } = useTranslation();
   const router = useRouter();
   const addColumn = useCreateColumnMutation();
 
@@ -34,13 +32,13 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
         </div>
       ) : data.length > 0 ? (
         <>
-          <div className="w-[calc(100% - 100px)] mx-[50px] hidden h-full overflow-auto lg:block">
-            <div className="flex h-full w-fit items-center gap-[40px] py-[22px]">
+          <div className="w-[calc(100% - 100px)] hidden h-full overflow-auto px-[50px] lg:block">
+            <div className="flex h-fit w-fit gap-[40px] py-[22px]">
               {data.map((el, id) => (
                 <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
               ))}
               <button
-                className="flex h-[500px] w-[90%] items-center justify-center gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:h-full lg:min-w-[300px]"
+                className="flex min-h-[400px] w-[90%] items-center justify-center gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:min-w-[300px]"
                 onClick={createColumn}
               >
                 <Image src={crossAdd} alt="add button" width={75} className="button" />

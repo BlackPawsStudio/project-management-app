@@ -15,37 +15,43 @@ import SelectIssue from '../SelectIssue';
 import ModalSure from '../ModalSure';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import { Draggable } from 'react-beautiful-dnd';
 
 interface IssueProps {
   data: IssueType;
   column: ColumnType;
   refetch: () => void;
+  index: number;
 }
 
-const Issue = ({ data, column, refetch }: IssueProps) => {
+const Issue = ({ data, column, refetch, index }: IssueProps) => {
   // const { text, importance, estimation, theme } = JSON.parse(data.description);
-  const { estimation } = JSON.parse(data.description);
-
-  const description = JSON.parse(data.description);
+  
+  const [description, setDescription] = useState(JSON.parse(data.description));
   const isAdmin = true;
   const [focusInput, setFocusInput] = useState(false);
   const [focusSelect, setFocusSelect] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [text, setText] = useState(description.text);
   const [theme, setTheme] = useState(description.theme);
+  const [estimation, setEstimation] = useState(description.estimation);
   const [importance, setImportance] = useState(description.importance);
   const deleteTask = useDeleteTaskMutation();
   const updateIssue = useUpdateIssueMutation();
 
+  const [isDefaultOpen, setIsDefaultOpen] = useState(false);
+
   const deleteIssue = async () => {
     await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id });
     refetch();
+    setIsDefaultOpen(true);
   };
 
   const { t } = useTranslation();
 
   const update = async () => {
     await updateIssue.mutateAsync({
+      order: data.order,
       boardId: data.boardId,
       columnId: data.columnId,
       title: title,
@@ -57,6 +63,17 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
     });
     refetch();
   };
+
+  useEffect(() => {
+    if (data) {
+      setTitle(data.title)
+      setDescription(JSON.parse(data.description))
+      setText(description.text);
+      setTheme(description.theme);
+      setEstimation(description.estimation);
+      setImportance(description.importance);
+    }
+  }, [data])
 
   useEffect(() => {
     update();
@@ -149,40 +166,49 @@ const Issue = ({ data, column, refetch }: IssueProps) => {
   );
 
   const modalOpener = (
-    <div className="button min-h-[130px] w-full rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl">
-      <div className="mb-5 flex h-fit w-full items-center justify-between">
-        <h6 className=" text-2xl">{data.title}</h6>
-      </div>
-      <div className="mb-2 rounded-xl bg-headerText px-2 text-white">{theme}</div>
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2">
-          <div className="h-6 w-6 text-center">
-            <Image
-              src={
-                +importance === 1
-                  ? lowest
-                  : +importance === 2
-                  ? low
-                  : +importance === 3
-                  ? middle
-                  : +importance === 4
-                  ? high
-                  : highest
-              }
-              alt={`Task importance is ${importance}`}
-            />
+    <Draggable draggableId={`${index}`} index={data.order}>
+      {(provided) => (
+        <div
+          className="button min-h-[130px] w-full rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <div className="mb-5 flex h-fit w-full items-center justify-between">
+            <h6 className=" text-2xl">{data.title}</h6>
           </div>
-          <div className="h-6 w-6 rounded-full bg-section text-center">{estimation}</div>
-          <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.userId}`[0]}</div>
+          <div className="mb-2 rounded-xl bg-headerText px-2 text-white">{theme}</div>
+          <div className="flex items-center justify-between">
+            <div className="flex gap-2">
+              <div className="h-6 w-6 text-center">
+                <Image
+                  src={
+                    +importance === 1
+                      ? lowest
+                      : +importance === 2
+                      ? low
+                      : +importance === 3
+                      ? middle
+                      : +importance === 4
+                      ? high
+                      : highest
+                  }
+                  alt={`Task importance is ${importance}`}
+                />
+              </div>
+              <div className="h-6 w-6 rounded-full bg-section text-center">{estimation}</div>
+              <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.userId}`[0]}</div>
+            </div>
+            <div className="cursor-pointer" title={'Copy id ' + data._id} onClick={copyText}>
+              {'id: ' + data._id.substring(0, 6) + '...'}
+            </div>
+          </div>
         </div>
-        <div className="cursor-pointer" title={'Copy id ' + data._id} onClick={copyText}>
-          {'id: ' + data._id.substring(0, 6) + '...'}
-        </div>
-      </div>
-    </div>
+      )}
+    </Draggable>
   );
 
-  return <Modal open={modalOpener}>{modalWindow}</Modal>;
+  return <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>{modalWindow}</Modal>;
 };
 
 export default Issue;
