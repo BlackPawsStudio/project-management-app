@@ -15,10 +15,17 @@ const postRequest = async <T>(url: string, body: T) =>
 export const useLogInMutation = () => {
   return useMutation({
     mutationFn: async (logInData: AuthType) => {
-      return await postRequest<AuthType>('/auth/signin', {
-        login: logInData.login,
-        password: logInData.password
-      });
+      try {
+        return await postRequest<AuthType>('/auth/signin', {
+          login: logInData.login,
+          password: logInData.password
+        });
+      } catch {
+        // return await postRequest<AuthType>('/auth/signin', {
+        //   login: logInData.login,
+        //   password: logInData.password
+        // });
+      }
     }
   });
 };
@@ -26,11 +33,18 @@ export const useLogInMutation = () => {
 export const useSignUpMutation = () => {
   return useMutation({
     mutationFn: async (logInData: AuthType) => {
-      return await postRequest<AuthType>('/auth/signup', {
-        name: logInData.name,
-        login: logInData.login,
-        password: logInData.password
-      });
+      try {
+        return await postRequest<AuthType>('/auth/signup', {
+          name: logInData.name,
+          login: logInData.login,
+          password: logInData.password
+        });
+      } catch {
+        // return await postRequest<AuthType>('/auth/signin', {
+        //   login: logInData.login,
+        //   password: logInData.password
+        // });
+      }
     }
   });
 };
@@ -45,7 +59,6 @@ export const useCreateColumnMutation = () => {
     }
   });
 };
-
 
 export const useCreateBoardMutation = () => {
   return useMutation({
@@ -73,9 +86,7 @@ export const useCreateIssueMutation = () => {
             theme: theme
           }),
           userId: 0,
-          users: [
-            "string"
-          ]
+          users: ["string"]
         }
       )
     }

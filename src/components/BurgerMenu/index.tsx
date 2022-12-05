@@ -35,6 +35,11 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
 
   const { t } = useTranslation();
 
+  const [logInError, setLogInError] = useState(false);
+  const [signUpError, setSignUpError] = useState(false);
+  const authErrorMessage = signUpError ? t('signup_error') : t('login_error');
+  const authError = logInError || signUpError;
+
   useEffect(() => {
     setUserId(localStorage.getItem('nextBoardUserId') || '');
   }, []);
@@ -101,8 +106,8 @@ const BurgerMenu = ({ isLoggedIn, isOpened, signOut, deleteAccount }: BurgerMenu
                             </>
                           ) : (
                             <>
-                              <LogInModal isLogin isMobile />
-                              <LogInModal isMobile />
+                              <LogInModal isLogin isMobile onError={setLogInError} />
+                              <LogInModal isMobile onError={setSignUpError} />
                             </>
                           )}
                         </div>

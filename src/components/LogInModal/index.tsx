@@ -8,13 +8,15 @@ import Loader from '../Loader';
 import Modal from '../Modal';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import AuthErrorModal from '../AuthErrorModal';
 
 interface LogInProps {
   isLogin?: boolean;
   isMobile?: boolean;
+  onError: (value: boolean) => void;
 }
 
-const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
+const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
   const router = useRouter();
 
   const { t } = useTranslation();
@@ -25,24 +27,59 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isLoginError, setIsLoginError] = useState(false);
+  const [isSignUpError, setIsSignUpError] = useState(false);
+
   const logInMutation = useLogInMutation();
-  const { data, isLoading, isError } = logInMutation;
+  const { data, isLoading } = logInMutation;
 
   const signUpMutation = useSignUpMutation();
-  const { data: signUpData, isLoading: signUpIsLoading, isError: SignUpIsError } = signUpMutation;
+  const { data: signUpData, isLoading: signUpIsLoading } = signUpMutation;
 
-  const submit = async () => {
-    if (isLogin) {
-      const data = await logInMutation.mutateAsync({ login, password });
-      setIsDefaultOpen(true);
-      setTimeout(() => {
-        setIsDefaultOpen(false);
+  const authErrorMessage = isSignUpError ? t('signup_error') : isLoginError ? t('login_error') : '';
+
+  useEffect(() => {
+    if (!isLoginError) {
+      setIsDefaultOpen(false);
+      if (data) {
+        setIsDefaultOpen(true);
+        setIsLoginError(false);
 
         const userData = parseJwt(data.token);
         localStorage.setItem('nextBoardUserToken', data.token);
         localStorage.setItem('nextBoardUserId', userData.id);
-
         router.push('/user');
+      }
+    }
+  }, [logInMutation.data]);
+
+  useEffect(() => {
+    const func = async () => {
+      if (!isSignUpError) {
+        if (signUpData) {
+          const logInData = await logInMutation.mutateAsync({ login, password });
+
+          setIsDefaultOpen(true);
+          setIsSignUpError(false);
+          const userData = parseJwt(logInData.token);
+          localStorage.setItem('nextBoardUserToken', logInData.token);
+          localStorage.setItem('nextBoardUserId', userData.id);
+
+          router.push('/user');
+        }
+      }
+    };
+    func();
+  }, [signUpMutation.data]);
+
+  const submit = async () => {
+    if (isLogin) {
+      await logInMutation.mutateAsync({ login, password });
+      setIsDefaultOpen(true);
+      setTimeout(() => {
+        if (!logInMutation.data) {
+          setIsLoginError(true);
+        }
       });
     } else {
       await signUpMutation.mutateAsync({
@@ -50,26 +87,13 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
         login,
         password
       });
-      const logInData = await logInMutation.mutateAsync({ login, password });
-
-      const userData = parseJwt(logInData.token);
-      localStorage.setItem('nextBoardUserToken', logInData.token);
-      localStorage.setItem('nextBoardUserId', userData.id);
-
-      router.push('/user');
+      if (!signUpMutation.data) {
+        setIsSignUpError(true);
+      }
     }
   };
 
   useEffect(() => {
-    if (isError) {
-      router.push('/404');
-    }
-  }, [isError]);
-
-  useEffect(() => {
-    if (SignUpIsError) {
-      router.push('/404');
-    }
     if (!signUpIsLoading && signUpData) {
       setIsDefaultOpen(true);
       setTimeout(() => {
@@ -78,7 +102,7 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
         router.push('/user');
       });
     }
-  }, [signUpData, signUpIsLoading, SignUpIsError]);
+  }, [signUpData, signUpIsLoading]);
 
   const modalOpener = isMobile ? (
     <div className={`button w-full pb-[7px] ${isLogin && 'border-b-2 border-titleText'}`}>
@@ -130,6 +154,12 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
               <Button submit={true} type="submit" onClick={submit}>
                 {t('confirm')}
               </Button>
+              <AuthErrorModal
+                text={authErrorMessage}
+                onLogInError={() => setIsLoginError(false)}
+                onSignUpError={() => setIsSignUpError(false)}
+                isError={isLoginError || isSignUpError}
+              />
             </div>
           </div>
         </div>
@@ -138,7 +168,7 @@ const LogInModal = ({ isLogin, isMobile }: LogInProps) => {
   );
 
   return (
-    <Modal isMobile={isMobile} isDefaultOpen={isDefaultOpen} open={modalOpener}>
+    <Modal isMobile={isMobile} hasToClose={isDefaultOpen} open={modalOpener}>
       {modalWindow}
     </Modal>
   );

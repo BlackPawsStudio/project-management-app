@@ -5,10 +5,11 @@ interface ModalProps {
   children: ReactNode | ReactNode[];
   open: ReactNode | ReactNode[];
   isDefaultOpen?: boolean;
+  hasToClose?: boolean;
   isMobile?: boolean;
 }
 
-const Modal = ({ children, open, isDefaultOpen, isMobile }: ModalProps) => {
+const Modal = ({ children, open, isDefaultOpen, hasToClose, isMobile }: ModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [wasTriggered, setWasTriggered] = useState(false);
 
@@ -22,11 +23,15 @@ const Modal = ({ children, open, isDefaultOpen, isMobile }: ModalProps) => {
   };
 
   useEffect(() => {
-    if (isDefaultOpen && !wasTriggered) {
+    setIsOpen(!!isDefaultOpen)
+  }, [isDefaultOpen])
+
+  useEffect(() => {
+    if (hasToClose && !wasTriggered) {
       setIsOpen(false);
       setWasTriggered(true);
     }
-  }, [isDefaultOpen]);
+  }, [hasToClose]);
 
   useEffect(() => {
     if (isOpen) setWasTriggered(false);
