@@ -35,12 +35,32 @@ export const useUpdateColumnMutation = () => {
   });
 };
 
+export type UpdateIssue = {
+  boardId?: string | undefined;
+  columnId: string;
+  title: string;
+  text: string;
+  theme: string;
+  importance: number;
+  estimation: string;
+  taskId: string;
+  order: number;
+};
+
+export interface UpdateIssueType {
+  title: string;
+  order: number;
+  description: string;
+  userId: number;
+  columnId: string;
+  users: string[];
+}
 export const useUpdateIssueMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId, users }: UpdateIssue) => {
+    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId, order, users }: UpdateIssue) => {
       return await putRequest<UpdateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {
         title: title,
-        order: 0,
+        order: order,
         description: JSON.stringify({
           text: text,
           importance: importance,

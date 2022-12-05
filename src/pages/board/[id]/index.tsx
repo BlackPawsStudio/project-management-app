@@ -56,8 +56,8 @@ const BoardPage = () => {
           data={data}
           title={data.title}
           text={t('search_issues') as string}
-          className={'overflow-hidden lg:mx-auto lg:w-[95vw]'}
-          onSubmit={() => { }}
+          className={'px-0 overflow-hidden lg:mx-auto lg:w-[95vw]'}
+          onSubmit={() => {}}
         >
           {columnsData && (
             <BoardPageComponent

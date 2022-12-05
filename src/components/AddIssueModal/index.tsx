@@ -12,9 +12,10 @@ import crossAdd from '/public/assets/component-images/crossAdd.svg';
 interface AddIssueModalProps {
   propData: ColumnType;
   refetch: () => void;
+  order: number;
 }
 
-const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
+const AddIssueModal = ({ propData, refetch, order }: AddIssueModalProps) => {
   const modalOpener = <Image src={crossAdd} alt="add button" width={25} className="button mr-[15px]" />;
 
   const { t } = useTranslation();
@@ -28,6 +29,7 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
 
   const addIssue = async () => {
     await createIssue.mutateAsync({
+      order: order,
       boardId: propData.boardId,
       columnId: propData._id,
       title: title,
@@ -92,7 +94,7 @@ const AddIssueModal = ({ propData, refetch }: AddIssueModalProps) => {
   );
 
   return (
-    <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>
+    <Modal hasToClose={isDefaultOpen} open={modalOpener}>
       {modalWindow}
     </Modal>
   );

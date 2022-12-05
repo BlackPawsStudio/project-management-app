@@ -9,20 +9,28 @@ import Button from '../Button';
 import DropdownMenu from '../DropdownMenu';
 import LogInModal from '../LogInModal';
 import ModalSure from '../ModalSure';
+import AuthErrorModal from '../AuthErrorModal';
 import { useTranslation } from 'react-i18next';
 import { useStore } from '../../store/store';
 import ModalCopyId from '../ModalCopyId';
+import '../../utils/i18next';
 
 const Header = () => {
   const router = useRouter();
   const isAdmin = true;
   const setIsLogin = useStore((state) => state.setIsLogin)
   const isLogin = useStore((state) => state.isLogin)
+
+  const { t } = useTranslation();
+
   const mutation = useDeleteUserMutation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [isBurgerOpened, setIsBurgerOpened] = useState(false);
+
+  const [logInError, setLogInError] = useState(false);
+  const [signUpError, setSignUpError] = useState(false);
 
   useEffect(() => {
     setIsLoggedIn(isLogin)
@@ -31,7 +39,6 @@ const Header = () => {
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('nextBoardUserId'));
   }, []);
-
   const signOut = () => {
     setIsLogin(false)
     setIsBurgerOpened(false);
@@ -46,8 +53,6 @@ const Header = () => {
     cleanLocalStorage();
     router.push('/');
   };
-
-  const { t } = useTranslation();
 
   return (
     <header className="sticky top-0 z-10 flex h-[10vh] w-screen items-center justify-center bg-header px-[22px] lg:px-[45px]">
@@ -84,8 +89,8 @@ const Header = () => {
         ) : (
           <>
             <LangSwitch />
-            <LogInModal />
-            <LogInModal isLogin />
+            <LogInModal onError={setSignUpError} />
+            <LogInModal isLogin onError={setLogInError} />
           </>
         )}
       </div>
