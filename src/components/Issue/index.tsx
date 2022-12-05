@@ -39,15 +39,19 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
   const deleteTask = useDeleteTaskMutation();
   const updateIssue = useUpdateIssueMutation();
 
+  const [isDefaultOpen, setIsDefaultOpen] = useState(false);
+
   const deleteIssue = async () => {
     await deleteTask.mutateAsync({ boardId: data.boardId, columnId: data.columnId, taskId: data._id });
     refetch();
+    setIsDefaultOpen(true);
   };
 
   const { t } = useTranslation();
 
   const update = async () => {
     await updateIssue.mutateAsync({
+      order: data.order,
       boardId: data.boardId,
       columnId: data.columnId,
       title: title,
@@ -151,7 +155,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
   );
 
   const modalOpener = (
-    <Draggable draggableId={data._id} index={index}>
+    <Draggable draggableId={`${index}`} index={index}>
       {(provided) => (
         <div
           className="button min-h-[130px] w-full rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl"
@@ -193,7 +197,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
     </Draggable>
   );
 
-  return <Modal open={modalOpener}>{modalWindow}</Modal>;
+  return <Modal isDefaultOpen={isDefaultOpen} open={modalOpener}>{modalWindow}</Modal>;
 };
 
 export default Issue;

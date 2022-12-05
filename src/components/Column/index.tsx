@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGetColumnIssuesQuery } from '../../utils/hooks/reactGetQueries';
-import { ColumnType } from '../../utils/types';
+import { ColumnType, IssueType } from '../../utils/types';
 import Issue from '../Issue';
 import tick from '/public/assets/component-images/tick.svg';
 import cross from '/public/assets/component-images/cross.svg';
@@ -13,7 +13,8 @@ import AddIssueModal from '../AddIssueModal';
 import { useUpdateColumnMutation } from '../../utils/hooks/reactPutQueries';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { PatchIssue, usePatchIssueMutation } from '../../utils/hooks/reactPatchQueries';
 
 interface ColumnProps {
   propData: ColumnType;
@@ -22,12 +23,15 @@ interface ColumnProps {
 
 const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   const { data, isLoading, isError, refetch } = useGetColumnIssuesQuery(propData.boardId, propData._id);
+  const [issuesArr, setIssuesArr] = useState(data);
   const updateColumn = useUpdateColumnMutation();
   const [isChanging, setIsChanging] = useState(false);
   const [title, setTitle] = useState(propData.title);
   const deleteColumn = useDeleteColumnMutation();
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const titleParent = useRef(null);
+
+  const updateIssue = usePatchIssueMutation();
 
   useEffect(() => {
     titleParent.current && autoAnimate(titleParent.current);
@@ -52,6 +56,55 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   };
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setIssuesArr(data);
+  }, [data]);
+
+  const onDragEnd = async (result: DropResult) => {
+    const { destination, source } = result;
+    const from = source.index;
+    const to = destination?.index;
+    if (issuesArr && typeof to === 'number' && to !== from) {
+      const newData: PatchIssue[] = issuesArr.map((el) => {
+        return {
+          _id: el._id,
+          order: el.order,
+          columnId: el.columnId,
+        };
+      });
+      const orderArr = newData.map((el) => el.order);
+      orderArr.splice(from, 1);
+      orderArr.splice(to, 0, from);
+      console.log(orderArr);
+
+      const requestArr = orderArr.map((el, id) => {
+        const issue = newData.find((dataEl) => dataEl.order === el) as PatchIssue;
+        issue.order = id;
+        return issue;
+      });
+
+      if (issuesArr) {
+        const newIssueArr = requestArr.map((el, id) => {
+          const newIssue = issuesArr.find((issueEl) => {
+            return issueEl._id === el._id;
+          });
+          if (newIssue) {
+            console.log(newIssue);
+            newIssue.order = el.order;
+          }
+          return newIssue as IssueType;
+        });
+
+        console.log(requestArr, newIssueArr, 'a');
+
+        setIssuesArr(newIssueArr);
+      }
+
+      await updateIssue.mutateAsync(requestArr);
+      refetch();
+    }
+  };
 
   return (
     <div className="flex h-[500px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:h-full lg:min-w-[300px]">
@@ -78,10 +131,11 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
             >
               {title}
             </h5>
-
-            <button>
-              <AddIssueModal propData={propData} refetch={refetch} />
-            </button>
+            {data && (
+              <button>
+                <AddIssueModal propData={propData} refetch={refetch} order={(issuesArr && issuesArr.length) || 0} />
+              </button>
+            )}
 
             <ModalSure text={t('delete_column')} onSubmit={removeColumn}>
               <Image src={deleteIco} alt="Delete button" width={20} className="button" />
@@ -89,22 +143,19 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
           </div>
         )}
       </div>
-      <DragDropContext
-        onDragEnd={(result) => {
-          console.log(result);
-        }}
-      >
+      <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId={propData._id}>
           {(provided) => (
             <div
-              className="flex min-h-[92%] w-full flex-col gap-3 px-3 pt-1"
+              className="flex min-h-[92%] w-full flex-col gap-3 px-3 pt-1 duration-[0s]"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
               {!isLoading &&
                 !isError &&
-                data
-                  .filter((el) => el.columnId === propData._id)
+                issuesArr &&
+                issuesArr
+                  .sort((a, b) => a.order - b.order)
                   .map((el, id) => <Issue refetch={() => refetch()} index={id} column={propData} data={el} key={id} />)}
               {provided.placeholder}
             </div>
