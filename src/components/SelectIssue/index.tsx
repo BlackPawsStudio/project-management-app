@@ -7,14 +7,15 @@ import middle from '/public/assets/component-images/importance-icons/3.svg';
 import high from '/public/assets/component-images/importance-icons/4.svg';
 import highest from '/public/assets/component-images/importance-icons/5.svg';
 
-type IProps = {
-  setFocusSelect: (bool: boolean) => void;
+interface IProps {
   importance: number;
   setImportance: (num: number) => void;
   update: () => void;
 };
 
-export default function SelectIssue({ setFocusSelect, importance, setImportance, update }: IProps) {
+const imagesArr = [lowest, low, middle, high, highest];
+
+export default function SelectIssue({ importance, setImportance, update }: IProps) {
   const [select, setSelect] = useState(lowest);
 
   useEffect(() => {
@@ -41,7 +42,6 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
 
   const updateIssue = (img: any, num: number) => {
     setSelect(img);
-    setFocusSelect(false);
     setImportance(num);
     update();
   };
@@ -64,72 +64,19 @@ export default function SelectIssue({ setFocusSelect, importance, setImportance,
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 top-[-180px] mt-2 w-fit divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-1 py-1 ">
+            {imagesArr.map((el, id) => (
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    onClick={() => updateIssue(lowest, 1)}
-                    className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={() => updateIssue(el, id+1)}
+                    className={`${active ? 'bg-headerText text-white' : 'text-gray-900'
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
-                    <Image src={lowest} alt={`Task importance is ${lowest}`} />
+                    <Image src={el} alt={`Task importance is ${id}`} />
                   </button>
                 )}
               </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => updateIssue(low, 2)}
-                    className={`${
-                      active ? 'bg-headerText text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    <Image src={low} alt={`Task importance is ${low}`} />
-                  </button>
-                )}
-              </Menu.Item>
-            </div>
-            <div className="px-1 py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => updateIssue(middle, 3)}
-                    className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    <Image src={middle} alt={`Task importance is ${middle}`} />
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => updateIssue(high, 4)}
-                    className={`${
-                      active ? 'bg-headerText text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    <Image src={high} alt={`Task importance is ${high}`} />
-                  </button>
-                )}
-              </Menu.Item>
-            </div>
-            <div className="px-1 py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => updateIssue(highest, 5)}
-                    className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    <Image src={highest} alt={`Task importance is ${highest}`} />
-                  </button>
-                )}
-              </Menu.Item>
-            </div>
+            ))}
           </Menu.Items>
         </Transition>
       </Menu>

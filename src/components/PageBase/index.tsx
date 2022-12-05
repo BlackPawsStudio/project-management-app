@@ -1,22 +1,23 @@
 import { ReactNode } from 'react';
+import { BoardType } from '../../utils/types';
 
 import ContentField from '../ContentField';
 import PageTitle from '../PageTitle';
-import SearchBar from '../SearchBar';
 
 interface PageBaseProps {
-  title?: string;
+  data?:BoardType
+  title: string;
   children: ReactNode | ReactNode[];
   className?: string;
   text?: string;
   onSubmit?: (search: string) => void;
+  boardsRefetch?: () => void
 }
 
-const PageBase = ({ title, onSubmit, children, className, text }: PageBaseProps) => {
+const PageBase = ({ title, onSubmit, children, className, text, boardsRefetch,data }: PageBaseProps) => {
   return (
     <>
-      <PageTitle>{title}</PageTitle>
-      {text && onSubmit && <SearchBar text={text} onSubmit={onSubmit} />}
+      <PageTitle data={data} title={title} boardsRefetch={boardsRefetch} />
       <ContentField className={className}>{children}</ContentField>
     </>
   );

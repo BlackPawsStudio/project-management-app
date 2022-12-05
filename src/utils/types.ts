@@ -13,7 +13,7 @@ export interface IssueType {
   boardId: string;
   columnId: string;
   description: string;
-  userId: number;
+  users: string[];
 }
 
 export interface ColumnType {
@@ -67,4 +67,25 @@ export type CreateBoardType = {
   title: string,
   owner: string,
   users: string[]
+}
+
+export type UpdateIssue = {
+  boardId?: string | undefined;
+  columnId: string;
+  title: string;
+  text: string;
+  theme: string;
+  importance: number;
+  estimation: string;
+  taskId: string;
+  users:string[]
+};
+
+export interface UpdateIssueType {
+  title: string;
+  order: number;
+  description: string;
+  userId: number;
+  columnId: string;
+  users: string[];
 }

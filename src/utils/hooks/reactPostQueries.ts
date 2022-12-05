@@ -66,7 +66,7 @@ export const useCreateBoardMutation = () => {
       return await postRequest<CreateBoardType>(`/boards`, {
         title: 'string',
         owner: id,
-        users: ['string']
+        users: [id]
       });
     }
   });
@@ -82,11 +82,13 @@ export const useCreateIssueMutation = () => {
           description: JSON.stringify({
             text: text,
             importance: importance,
-            estimation: "string",
+            estimation: "0",
             theme: theme
           }),
           userId: 0,
-          users: ["string"]
+          users: [
+            localStorage.getItem("nextBoardUserId") as string
+          ]
         }
       )
     }

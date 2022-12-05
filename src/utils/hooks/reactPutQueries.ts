@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { CreateBoardType, UpdateColumnType } from '../types';
+import { CreateBoardType, UpdateColumnType, UpdateIssue, UpdateIssueType } from '../types';
 
 const putRequest = async <T>(url: string, body: T) =>
   await (
@@ -57,7 +57,7 @@ export interface UpdateIssueType {
 }
 export const useUpdateIssueMutation = () => {
   return useMutation({
-    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId, order }: UpdateIssue) => {
+    mutationFn: async ({ boardId, columnId, title, text, theme, importance, estimation, taskId, order, users }: UpdateIssue) => {
       return await putRequest<UpdateIssueType>(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {
         title: title,
         order: order,
@@ -69,7 +69,7 @@ export const useUpdateIssueMutation = () => {
         }),
         columnId: columnId,
         userId: 0,
-        users: ['string']
+        users: users
       });
     }
   });

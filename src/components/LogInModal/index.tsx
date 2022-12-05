@@ -8,6 +8,7 @@ import Loader from '../Loader';
 import Modal from '../Modal';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import { useStore } from '../../store/store';
 import AuthErrorModal from '../AuthErrorModal';
 
 interface LogInProps {
@@ -18,6 +19,7 @@ interface LogInProps {
 
 const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
   const router = useRouter();
+  const setIsLogin=useStore((state)=>state.setIsLogin)
 
   const { t } = useTranslation();
 
@@ -48,6 +50,8 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
         const userData = parseJwt(data.token);
         localStorage.setItem('nextBoardUserToken', data.token);
         localStorage.setItem('nextBoardUserId', userData.id);
+        setIsLogin(true)
+
         router.push('/user');
       }
     }
@@ -87,6 +91,14 @@ const LogInModal = ({ isLogin, isMobile, onError }: LogInProps) => {
         login,
         password
       });
+      const logInData = await logInMutation.mutateAsync({ login, password });
+
+      const userData = parseJwt(logInData.token);
+      localStorage.setItem('nextBoardUserToken', logInData.token);
+      localStorage.setItem('nextBoardUserId', userData.id);
+      setIsLogin(true)
+
+      router.push('/user');
       if (!signUpMutation.data) {
         setIsSignUpError(true);
       }

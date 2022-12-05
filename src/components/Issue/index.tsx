@@ -30,7 +30,6 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
   const [description, setDescription] = useState(JSON.parse(data.description));
   const isAdmin = true;
   const [focusInput, setFocusInput] = useState(false);
-  const [focusSelect, setFocusSelect] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [text, setText] = useState(description.text);
   const [theme, setTheme] = useState(description.theme);
@@ -59,7 +58,8 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
       theme: theme,
       importance: importance,
       estimation: estimation,
-      taskId: data._id
+      taskId: data._id,
+      users:data.users
     });
     refetch();
   };
@@ -126,36 +126,16 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
         />
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
-            {!focusSelect ? (
-              <button className="h-10 w-10 text-center" onClick={() => setFocusSelect(true)}>
-                <Image
-                  src={
-                    +importance === 1
-                      ? lowest
-                      : +importance === 2
-                      ? low
-                      : +importance === 3
-                      ? middle
-                      : +importance === 4
-                      ? high
-                      : highest
-                  }
-                  alt={`Task importance is ${importance}`}
-                />
-              </button>
-            ) : (
-              <div className="h-10 w-10 text-center">
-                <SelectIssue
-                  importance={importance}
-                  setFocusSelect={setFocusSelect}
-                  setImportance={setImportance}
-                  update={update}
-                />
-              </div>
-            )}
+            <div className="h-10 w-10 text-center">
+              <SelectIssue
+                importance={importance}
+                setImportance={setImportance}
+                update={update}
+              />
+            </div>
             <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{estimation}</div>
-            <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.userId}`[0]}</div>
-            <div className="h-10 w-10 text-3xl">{data.userId}</div>
+            <div className="h-10 w-10 rounded-full bg-section text-center text-3xl">{`${data.users[0]}`[0]}</div>
+            <div className="h-10 w-10 text-3xl">{data.users[0]?.substring(0, 8) + '...'}</div>
           </div>
           <div className="hidden cursor-pointer text-3xl lg:block" title={'Copy id ' + data._id} onClick={copyText}>
             {'id: ' + data._id.substring(0, 6) + '...'}
@@ -197,7 +177,7 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
                 />
               </div>
               <div className="h-6 w-6 rounded-full bg-section text-center">{estimation}</div>
-              <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.userId}`[0]}</div>
+              <div className="h-6 w-6 rounded-full bg-section text-center">{`${data.users[0]}`[0]}</div>
             </div>
             <div className="cursor-pointer" title={'Copy id ' + data._id} onClick={copyText}>
               {'id: ' + data._id.substring(0, 6) + '...'}
