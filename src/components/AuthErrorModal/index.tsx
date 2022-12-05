@@ -3,14 +3,25 @@ import { Dialog, Transition } from '@headlessui/react';
 import Button from '../Button';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
+import Modal from '../Modal';
 
 interface AuthErrorModalProps {
   text: string;
   isError: boolean;
+  onLogInError: () => void;
+  onSignUpError: () => void;
 }
 
-const AuthErrorModal = ({ text, isError }: AuthErrorModalProps) => {
+const AuthErrorModal = ({ text, isError, onLogInError, onSignUpError }: AuthErrorModalProps) => {
   const [isOpen, setIsOpen] = useState(isError);
+  useEffect(() => {setIsOpen(isError)}, [isError]);
+  useEffect(() => {
+    if (isOpen) {
+      onLogInError();
+      onSignUpError()
+      }
+    },
+    [isOpen]);
 
   const transitionClasses = {
     enter: 'ease-out duration-300 transition-opacity',
@@ -29,8 +40,8 @@ const AuthErrorModal = ({ text, isError }: AuthErrorModalProps) => {
           className="h-[38px] w-[807px] font-bold"
           cancel={false}
           onClick={() => {
-            setIsOpen(true);
-            setTimeout(() => setIsOpen(false));
+            setIsOpen(false);
+            // setTimeout(() => setIsOpen(false));
           }}
         >
           OK
@@ -39,10 +50,14 @@ const AuthErrorModal = ({ text, isError }: AuthErrorModalProps) => {
     </div>
   );
 
+
+  // return (
+  //   <Modal isDefaultOpen={!isOpen} open={<></>}>{modalWindow}</Modal>
+  // )
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-20" onClose={() => setIsOpen(false)}>
+        <Dialog as="div" className="relative z-20 h-screen w-screen" onClose={() => setIsOpen(false)}>
           <Transition.Child as={Fragment} {...transitionClasses}>
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>

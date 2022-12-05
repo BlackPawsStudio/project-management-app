@@ -28,12 +28,10 @@ const Header = () => {
   const [logInError, setLogInError] = useState(false);
   const [signUpError, setSignUpError] = useState(false);
   const authErrorMessage = signUpError ? t('signup_error') : t('login_error');
-  const authError = logInError || signUpError;
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('nextBoardUserId'));
   }, []);
-
   const signOut = () => {
     setIsLoggedIn(false);
     setIsBurgerOpened(false);
@@ -79,7 +77,7 @@ const Header = () => {
             <LangSwitch />
             <LogInModal onError={setSignUpError} />
             <LogInModal isLogin onError={setLogInError} />
-            <AuthErrorModal text={authErrorMessage} isError={authError} />
+            <AuthErrorModal text={authErrorMessage} onLogInError={() => setLogInError(false)} onSignUpError={() => setSignUpError(false)} isError={logInError || signUpError} />
           </>
         )}
       </div>
