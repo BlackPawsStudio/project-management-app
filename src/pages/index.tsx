@@ -109,7 +109,7 @@ const Home: NextPage = () => {
           <li className={`${pStyle} indent-3`}>
             <Link href="https://github.com/maiklshetinin" className="flex items-center">
               <Image src={githubIcon} alt="github logo" height={25} />
-              mailkshetinin - {t('fe_dev')}
+              maiklshetinin - {t('fe_dev')}
             </Link>
           </li>
           <li className={`${pStyle} indent-3`}>
