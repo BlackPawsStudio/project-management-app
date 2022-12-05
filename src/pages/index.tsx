@@ -5,7 +5,7 @@ import '../utils/i18next';
 import PageBase from '../components/PageBase';
 import githubIcon from 'public/assets/icons/github-icon-black.svg';
 import nextjsIcon from 'public/assets/component-images/tech-icons/nextjs.jpg';
-import nextjsHoverIcon from 'public/assets/component-images/tech-icons/nextjs_hover.jpg';
+import nextjsHoverIcon from 'public/assets/component-images/tech-icons/nextJs_hover.jpg';
 import typescriptIcon from 'public/assets/component-images/tech-icons/typescript.jpg';
 import typescriptHoverIcon from 'public/assets/component-images/tech-icons/typescript_hover.jpg';
 import reactQueryIcon from 'public/assets/component-images/tech-icons/reactquery.jpg';
