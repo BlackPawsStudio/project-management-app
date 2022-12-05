@@ -76,7 +76,6 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
       const orderArr = newData.map((el) => el.order);
       orderArr.splice(from, 1);
       orderArr.splice(to, 0, from);
-      console.log(orderArr);
 
       const requestArr = orderArr.map((el, id) => {
         const issue = newData.find((dataEl) => dataEl.order === el) as PatchIssue;
@@ -85,12 +84,11 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
       });
 
       if (issuesArr) {
-        const newIssueArr = requestArr.map((el, id) => {
+        const newIssueArr = requestArr.map((el) => {
           const newIssue = issuesArr.find((issueEl) => {
             return issueEl._id === el._id;
           });
           if (newIssue) {
-            console.log(newIssue);
             newIssue.order = el.order;
           }
           return newIssue as IssueType;

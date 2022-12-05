@@ -26,15 +26,15 @@ interface IssueProps {
 
 const Issue = ({ data, column, refetch, index }: IssueProps) => {
   // const { text, importance, estimation, theme } = JSON.parse(data.description);
-  const { estimation } = JSON.parse(data.description);
-
-  const description = JSON.parse(data.description);
+  
+  const [description, setDescription] = useState(JSON.parse(data.description));
   const isAdmin = true;
   const [focusInput, setFocusInput] = useState(false);
   const [focusSelect, setFocusSelect] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [text, setText] = useState(description.text);
   const [theme, setTheme] = useState(description.theme);
+  const [estimation, setEstimation] = useState(description.estimation);
   const [importance, setImportance] = useState(description.importance);
   const deleteTask = useDeleteTaskMutation();
   const updateIssue = useUpdateIssueMutation();
@@ -63,6 +63,17 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
     });
     refetch();
   };
+
+  useEffect(() => {
+    if (data) {
+      setTitle(data.title)
+      setDescription(JSON.parse(data.description))
+      setText(description.text);
+      setTheme(description.theme);
+      setEstimation(description.estimation);
+      setImportance(description.importance);
+    }
+  }, [data])
 
   useEffect(() => {
     update();
