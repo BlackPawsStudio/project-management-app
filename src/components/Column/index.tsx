@@ -70,7 +70,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
         return {
           _id: el._id,
           order: el.order,
-          columnId: el.columnId,
+          columnId: el.columnId
         };
       });
       const orderArr = newData.map((el) => el.order);
@@ -107,7 +107,7 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
   };
 
   return (
-    <div className="flex h-[500px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:h-full lg:min-w-[300px]">
+    <div className="flex min-h-[400px] flex-col gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:min-w-[300px]">
       <div ref={titleParent}>
         {isChanging ? (
           <div className="flex h-8 w-full items-center justify-between px-3 text-2xl font-bold">
@@ -158,11 +158,11 @@ const Column = ({ propData, columnsRefetch }: ColumnProps) => {
                   .sort((a, b) => a.order - b.order)
                   .map((el, id) => <Issue refetch={() => refetch()} index={id} column={propData} data={el} key={id} />)}
               {provided.placeholder}
+              {!isLoading && !isError && data.length === 0 ? <div className="text-center">No issue</div> : ''}
             </div>
           )}
         </Droppable>
       </DragDropContext>
-      {!isLoading && !isError && data.length === 0 ? <div className="mt-[48%] text-center">No issue</div> : ''}
     </div>
   );
 };

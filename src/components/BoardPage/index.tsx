@@ -8,7 +8,6 @@ import crossAdd from '/public/assets/component-images/crossAdd.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import '../../utils/i18next';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 interface BoardPageProps {
   data: ColumnType[];
@@ -33,19 +32,13 @@ const BoardPageComponent = ({ data, isColumnsLoading, columnsRefetch }: BoardPag
         </div>
       ) : data.length > 0 ? (
         <>
-          <div className="w-[calc(100% - 100px)] px-[50px] hidden h-full overflow-auto lg:block">
+          <div className="w-[calc(100% - 100px)] hidden h-full overflow-auto px-[50px] lg:block">
             <div className="flex h-fit w-fit gap-[40px] py-[22px]">
-              <DragDropContext
-                onDragEnd={(result) => {
-                  console.log(result);
-                }}
-              >
-                {data.map((el, id) => (
-                  <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
-                ))}
-              </DragDropContext>
+              {data.map((el, id) => (
+                <Column columnsRefetch={columnsRefetch} propData={el} key={id} />
+              ))}
               <button
-                className="flex w-[90%] items-center justify-center gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:h-full lg:min-w-[300px]"
+                className="flex min-h-[400px] w-[90%] items-center justify-center gap-1 rounded-3xl bg-boardCard py-3 shadow-xxlInner lg:min-w-[300px]"
                 onClick={createColumn}
               >
                 <Image src={crossAdd} alt="add button" width={75} className="button" />

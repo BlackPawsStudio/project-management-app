@@ -155,13 +155,13 @@ const Issue = ({ data, column, refetch, index }: IssueProps) => {
   );
 
   const modalOpener = (
-    <Draggable draggableId={`${index}`} index={index}>
+    <Draggable draggableId={`${index}`} index={data.order}>
       {(provided) => (
         <div
           className="button min-h-[130px] w-full rounded-3xl bg-issueBg p-4 pb-2 shadow-xxl"
+          ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}
         >
           <div className="mb-5 flex h-fit w-full items-center justify-between">
             <h6 className=" text-2xl">{data.title}</h6>
